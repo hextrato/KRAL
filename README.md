@@ -1,4 +1,7 @@
 KRAL
 ====
-A Knowledge Reasoning and Artificial Learning Framework
+A Knowledge Reasoning & Artificial Learning Framework
 ----
+
+# KRAL
+## A Knowledge Reasoning & Artificial Learning Framework
