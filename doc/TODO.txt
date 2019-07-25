@@ -1,0 +1,90 @@
+	 
+info.hextrato.console.HXConsole
+	
+	/* 
+	 * TODO
+	 *
+	 * : PQ está gerando TYPE a partir da RELATION da TRIPLE (RESOLVIDO ?)
+	 * : Embedder: how to ignore types either when selecting corrupted constituents or scoring?
+	 * 
+	 * : Hyper Definition
+	 * : Tuple and TupleSet
+	 * : NullPointer when import CSV with no previous split definition
+	 * : Properties should be used to store general information (diff config)
+	 * : Make exit(script level) AND quit(console level) different
+	 * : Model the RED WINE ML sample
+	 * : Layers, random by normal or by range
+	 * : All List include final count (see Vector as example) 
+	 * : Import/Export Learn model (needs intensive test)
+	 * : Import/Export Tabular data (CSV: intensive test)
+	 * : Allow creating triples with (5 or 6) components (HeadType,Head,Relation,TailTye,Tail[,polarity]) - create types and relations automatically automatically
+	 * : Review setCurrent for each <Meta>Set (example from HextraTabularSet) => setCurrent for each <Meta>Child
+	 * : load CSV into a tabular; define mappings; set split column
+	 * : validate datatypes for vars and attributes 
+	 * : set datatype for (entity types)
+	 * : review [foreach] search parameters for all meta elements:
+	 *   > Tabular
+	 *     - HextraTabular: has(attributes) 
+	 *     - HextraRecord: attribute values
+	 *   > Graph
+	 *     - TripleSelect
+	 *     - TripleForeach
+	 *     - AutoTriple create
+	 *     - AutoEntity create
+	 *     
+	 * : Mar/2019 (an overall review)
+	 * : [OK] Var operations: add, sub, mult, div, concat, pow (%var% to be used to get var values)
+	 * : [??] HEXTRACT 
+	 * :      [OK] Schema 
+	 * :           [OK] Splits 
+	 * :           [??] Tabulars
+	 * :                [OK] Import / Export from/to CSV files
+	 * :                [??] Attributes :: attribute data type validation is required
+	 * :                                :: attribute data type may require to be changed
+	 * :                [??] Records    :: how keep order of attribute creation ?
+	 * :                                :: record navigate (foreach)
+	 * :           [??] Graphs
+	 * :           [??] Hyperspaces
+	 * :           [??] Neuronal
+	 * :           [??] Embedders
+	 */ 
+
+	/* 
+	 * DONE
+	 *
+	 * : Feb/2019
+	 * : [OK] Var datatypes validation
+	 * : [OK] When...Do
+	 *
+	 * : Dec/2018
+	 * : [OK] Continuous Embedding Representation (ARC_UNIT-based)
+	 * : [OK] Hypergraph: roles and hypers
+	 * : [OK] Centralise everything (all data components) in a schema (schemata)
+	 * : [OK] Set Matrix values for neural layers 
+	 * : [OK] Layer Learn now performs shuffle 
+	 * 
+	 * : Nov/2018
+	 * : [OK] Import/Export Tabular data (use current DIR as partial path)
+	 * : [OK] Run: keep current relative path active; get back previous path after running script 
+	 * : [OK] Layer: BackPropagation 
+	 * : [OK] Layer: Weights and Biases in Linear
+	 * : [OK] Layer: FeedForward
+	 * : [OK] Universes, Spaces and Vectors
+	 * : [OK] How to create distinct Layer<Oper> ?
+	 * : [OK] Neural class @ workspace learn
+	 * : [OK] Graph.Entity ID = Type:Name (but internal name property can have only Name without Type)
+	 * : [OK] Console: create a pre allocated list of Parsing classes (on-demand) "LOOKS MUCH FASTER!!!
+	 * : [OK] Duplicate [foreach] conditions in [list] : [OK] type, tabular, split, schema, relation, graph, entity, attribute, triple, record
+	 * : [OK] Tabular.Record: add split
+	 * : [OK] Tabular.HextraAttribute: type
+	 * : [OK] Graph.HextraType: properties (disjoint,isolated)
+	 * : [OK] Graph.HextraTriple: head, rela, tail, pola, headtype, tailtype
+	 * : [OK] Graph.HextraEntity: type,split (foreach)
+	 * : [OK] Graph.HextraRelation: split, properties (functional, isolated, headnorm, tailnorm) (foreach)
+	 * : [OK] Save meta components as variable values 
+	 * : [OK] Change attribute/vars type to datatype
+	 * : [OK] Change describe => desc
+	 *
+	 */ 
+
+	
