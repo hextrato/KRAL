@@ -1,0 +1,13 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.hextrato</groupId>
+    <artifactId>hextrato-kral</artifactId>
+    <version>1.9.12</version>
+  </parent>
+  <artifactId>hextrato-kral-core</artifactId>
+  <name>KRAL Core</name>
+  <description>KRAL Core API</description>
+  <groupId>hextrato.com</groupId>
+  <version>1.9.12</version>
+</project>
