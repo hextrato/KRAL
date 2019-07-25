@@ -31,25 +31,25 @@ public class KCParserRoot implements KCParser {
 					,"cons.parameter"
 					,"cons.var"
 
-					,"meta.schema.schema"
-					,"meta.schema.split"
-					,"meta.schema.tabular.tabular"
-					,"meta.schema.tabular.attribute"
-					,"meta.schema.tabular.record"
+					,"meta.schema"
+					,"meta.split"
+					,"meta.tabular.tabular"
+					,"meta.tabular.attribute"
+					,"meta.tabular.record"
 					
-					,"meta.schema.neural.neural"
-					,"meta.schema.neural.layer"
-					,"meta.schema.hyper.space"
-					,"meta.schema.hyper.vector"
+					,"meta.neural.neural"
+					,"meta.neural.layer"
+					,"meta.hyper.space"
+					,"meta.hyper.vector"
 
-					,"meta.schema.graph.graph"
-					,"meta.schema.graph.type"
-					,"meta.schema.graph.entity"
-					,"meta.schema.graph.relation"
-					,"meta.schema.graph.triple"
+					,"meta.graph.graph"
+					,"meta.graph.type"
+					,"meta.graph.entity"
+					,"meta.graph.relation"
+					,"meta.graph.triple"
 
-					,"meta.schema.ker.ker"
-					,"meta.schema.ker.embed"
+					,"meta.ker.ker"
+					,"meta.ker.embed"
 
 			}; 
 	}
