@@ -1,15 +1,32 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.hextrato</groupId>
-	<artifactId>hextrato-kral</artifactId>
+	<artifactId>kral</artifactId>
 	<version>1.9.12</version>
 	<name>KRAL</name>
-	<description>Knowledge Reasoning and Artificial Learning</description>
-	<packaging>pom</packaging>
-	<modules>
-		<module>hextrato-kral-core</module>
-		<module>hextrato-kral-console</module>
-	</modules>
+	<description>A Knowledge Reasoning and Artificial Learning Framework</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	    <maven.compiler.source>1.8</maven.compiler.source>
+	    <maven.compiler.target>1.8</maven.compiler.target>
+ 	</properties>
+  	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-csv</artifactId>
+				<version>1.6</version>
+			</dependency>
+			<dependency>
+				<groupId>org.w3c</groupId>
+				<artifactId>dom</artifactId>
+				<version>2.3.0-jaxb-1.0.6</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<build>
 		<plugins>
 			<plugin>
