@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="87B917A6-3F18-FDB9-B1BC-C20EBCCF89F3" containerWithKeyObject="AA33F6B3-EC80-C9FD-D1B7-9C1A6FBBCF64" localFKIndex="2244DE88-F941-154D-F7FB-93FBDE91265C" name="KDS_OBJECT_ATTRIBUTE_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 16:53:47 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteDesignID>DB4C775B-7CFC-A868-6511-3EAA7D9CE7CF</remoteDesignID>
+<remoteModelID>A88A391B-7E7A-D441-E44C-305C4661D866</remoteModelID>
+<remoteObjectID>FC1E71FA-196D-9BC2-5352-55DA70EB07C3</remoteObjectID>
+<remoteObjectRelativeStorageName>\rel\A88A391B-305C4661D866\foreignkey\seg_0\FC1E71FA-196D-9BC2-5352-55DA70EB07C3.xml</remoteObjectRelativeStorageName>
+<referredTableLongName>KDM_OBJECT</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>78059BFE-D5D0-5881-8DB6-56072B26CED3</referredTableID>
+<keyObject>EBE34379-9A2A-22A6-15A3-2BEB9BA2D4EC</keyObject>
+<referredKeyID>EBE34379-9A2A-22A6-15A3-2BEB9BA2D4EC</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>OBJ_UID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

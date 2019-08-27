@@ -1,0 +1,69 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="78093933-159E-DD19-A348-B65CFB063BAD" name="KSC_SCHEMA_VIEW">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 16:43:49 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteDesignID>DB4C775B-7CFC-A868-6511-3EAA7D9CE7CF</remoteDesignID>
+<remoteModelID>1B472674-8F86-78BA-35CA-7FC145F5D12B</remoteModelID>
+<remoteObjectID>749A57A4-5810-8660-10DF-7BFA7976E171</remoteObjectID>
+<remoteObjectRelativeStorageName>\rel\1B472674-7FC145F5D12B\table\seg_0\749A57A4-5810-8660-10DF-7BFA7976E171.xml</remoteObjectRelativeStorageName>
+<ordsAlias>table_4</ordsAlias>
+<abbreviation>Schema vs View</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SEQ_SCHEMA" id="99D1D8A0-A544-13AD-EB7C-D2CCEBEC374D">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 16:43:49 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>C7603A59-A275-6498-2967-E1642D1F5476</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="22A09BE4-8595-4DE7-A97A-B47AE4850AB9" referredColumn="7A938117-1482-02BE-D6CD-C24CFB1EABB5"/>
+</associations>
+</Column>
+<Column name="SEQ_VIEW" id="903AB8DA-440A-A456-4D91-29A4A8BEF689">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 16:43:49 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>E2CBEDA7-3292-A29F-F962-3CA497804F5D</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DD394FF2-68D3-5779-3AB9-A8C9727F2ECD" name="KSC_SCHEMA_VIEW_PK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 16:43:49 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>E698042A-9C55-D75D-106A-DA73678FE867</remoteObjectID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="99D1D8A0-A544-13AD-EB7C-D2CCEBEC374D"/>
+<colUsage columnID="903AB8DA-440A-A456-4D91-29A4A8BEF689"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="38E293D0-C798-0C67-23EE-748CE9C3BAC5" name="KSC_SCHEMA_VIEW_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 16:43:49 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="99D1D8A0-A544-13AD-EB7C-D2CCEBEC374D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

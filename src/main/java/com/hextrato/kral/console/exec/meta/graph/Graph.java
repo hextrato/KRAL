@@ -142,9 +142,9 @@ public class Graph implements KCParser {
 			case "autocreate":
 				graph.setAutocreate(value.toUpperCase().equals("TRUE"));
 				break;
-			case "hypergraph":
-				graph.setHypergraph(value.toUpperCase().equals("TRUE"));
-				break;
+//			case "hypergraph":
+//				graph.setHypergraph(value.toUpperCase().equals("TRUE"));
+//				break;
 			default:
 				// graph.setProperty(property, value);
 				throw new KException("Invalid property ["+property+"]");

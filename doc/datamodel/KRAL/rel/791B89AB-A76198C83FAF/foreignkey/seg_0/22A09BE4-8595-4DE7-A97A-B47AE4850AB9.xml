@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="22A09BE4-8595-4DE7-A97A-B47AE4850AB9" containerWithKeyObject="78093933-159E-DD19-A348-B65CFB063BAD" localFKIndex="38E293D0-C798-0C67-23EE-748CE9C3BAC5" name="KSC_SCHEMA_VIEW_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 16:43:49 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteDesignID>DB4C775B-7CFC-A868-6511-3EAA7D9CE7CF</remoteDesignID>
+<remoteModelID>1B472674-8F86-78BA-35CA-7FC145F5D12B</remoteModelID>
+<remoteObjectID>5B79253F-DC70-91F3-268E-AA0D7ED46C87</remoteObjectID>
+<remoteObjectRelativeStorageName>\rel\1B472674-7FC145F5D12B\foreignkey\seg_0\5B79253F-DC70-91F3-268E-AA0D7ED46C87.xml</remoteObjectRelativeStorageName>
+<referredTableLongName>KSC_SCHEMA</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>435919CD-0217-6DC0-246E-09CACE5B2CC9</referredTableID>
+<keyObject>C321583D-A6B1-E12D-235E-7557AB6A3D0A</keyObject>
+<referredKeyID>C321583D-A6B1-E12D-235E-7557AB6A3D0A</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>SEQ_SCHEMA</refColNames>
+<transferable>false</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

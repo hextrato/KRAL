@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="0B1CC9BD-C092-3E3B-CAAB-FE78FCF6654C" containerWithKeyObject="30F60F40-1784-4A79-0E39-BA3E200E5684" localFKIndex="47E9B377-D8DF-CA3E-B551-E76F496A6F22" name="KCG_TYPE_ENTITY_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:51:18 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<referredTableLongName>KCG_TYPE</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>5C6FB471-CC07-33D8-A00D-89D9224CD091</referredTableID>
+<keyObject>9A7CCDA3-49D4-A1B5-0F67-BD5D940BFC51</keyObject>
+<referredKeyID>9A7CCDA3-49D4-A1B5-0F67-BD5D940BFC51</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>SEQ_SCHEMA,SEQ_GRAPH,SEQ_TYPE</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

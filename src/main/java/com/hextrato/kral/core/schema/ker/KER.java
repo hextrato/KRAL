@@ -30,7 +30,8 @@ public class KER extends AMetaNamedObject {
 	public void setGraph(KGraph graph) throws KException { 
 		this._graph = graph;
 		if (graph == null) 
-			this.properties().set("graph", "");
+			throw new KException("Invalid null graph");
+			// this.properties().set("graph", "");
 		else
 			this.properties().set("graph", graph.getName());
 	}
@@ -43,40 +44,40 @@ public class KER extends AMetaNamedObject {
 		this.properties().set("_schema_", schema.getName());
 		this.properties().declare("graph", "String");
 		this.properties().set("graph", "");
-		this.properties().declare("k", "Integer");
-		this.properties().set("k", Integer.toString(this.getDimensions()));
-		this.properties().declare("lr", "Double");
-		this.properties().set("lr", Double.toString(this.getLearningRate()));
-		this.properties().declare("lm", "Double");
-		this.properties().set("lm", Double.toString(this.getLearningMargin()));
-		this.properties().declare("df", "Double");
-		this.properties().set("df", Double.toString(this.getDisjointFactor()));
-		this.properties().declare("dm", "Double");
-		this.properties().set("dm", Double.toString(this.getDisjointMargin()));
-		this.properties().declare("rf", "Double");
-		this.properties().set("rf", Double.toString(this.getRandomFactor()));
-		this.properties().declare("nt", "String");
-		this.properties().set("nt", this.getNormalizationType());
-		this.properties().declare("nf", "Double");
-		this.properties().set("nf", Double.toString(this.getNormalizationFactor()));
-		this.properties().declare("nm", "Double");
-		this.properties().set("nm", Double.toString(this.getNormalizationMargin()));
-		this.properties().declare("pm", "Boolean");
-		this.properties().set("pm", Boolean.toString(this.isProjectionMatrixActive()));
-		this.properties().declare("ir", "Boolean");
-		this.properties().set("ir", Boolean.toString(this.isInverseRelationActive()));
-		this.properties().declare("it", "Boolean");
-		this.properties().set("it", Boolean.toString(this.isIgnoreTypesActive()));
-		this.properties().declare("lc", "Double");
-		this.properties().set("lc", Double.toString(this.getLatentConstraint()));
-		this.properties().declare("ec", "Integer");
-		this.properties().set("ec", Integer.toString(this.getEnforcedLearningCycles()));
-		this.properties().declare("cc", "Integer");
-		this.properties().set("cc", Integer.toString(this.getCurrentCycles()));
-		this.properties().declare("fr", "Double");
-		this.properties().set("fr", Double.toString(this.getFunctionalNegativeRate()));
-		this.properties().declare("fm", "Integer");
-		this.properties().set("fm", Integer.toString(this.getFunctionalNegativeMax()));
+		this.properties().declare("dimensions", "Integer");
+		this.properties().set("dimensions", Integer.toString(this.getDimensions()));
+		this.properties().declare("learning_rate", "Double");
+		this.properties().set("learning_rate", Double.toString(this.getLearningRate()));
+		this.properties().declare("learning_margin", "Double");
+		this.properties().set("learning_margin", Double.toString(this.getLearningMargin()));
+		this.properties().declare("disjoint_factor", "Double");
+		this.properties().set("disjoint_factor", Double.toString(this.getDisjointFactor()));
+		this.properties().declare("disjoint_margin", "Double");
+		this.properties().set("disjoint_margin", Double.toString(this.getDisjointMargin()));
+		this.properties().declare("random_factor", "Double");
+		this.properties().set("random_factor", Double.toString(this.getRandomFactor()));
+		this.properties().declare("regularization_type", "String");
+		this.properties().set("regularization_type", this.getRegularizationType());
+		this.properties().declare("regularization_factor", "Double");
+		this.properties().set("regularization_factor", Double.toString(this.getRegularizationFactor()));
+		this.properties().declare("regularization_margin", "Double");
+		this.properties().set("regularization_margin", Double.toString(this.getRegularizationMargin()));
+		this.properties().declare("projection_matrices", "Boolean");
+		this.properties().set("projection_matrices", Boolean.toString(this.isProjectionMatrixActive()));
+		this.properties().declare("inverse_relations", "Boolean");
+		this.properties().set("inverse_relations", Boolean.toString(this.isInverseRelationActive()));
+		this.properties().declare("ignore_types", "Boolean");
+		this.properties().set("ignore_types", Boolean.toString(this.isIgnoreTypesActive()));
+		this.properties().declare("latent_constraint", "Double");
+		this.properties().set("latent_constraint", Double.toString(this.getLatentConstraint()));
+		this.properties().declare("enforced_cycles", "Integer");
+		this.properties().set("enforced_cycles", Integer.toString(this.getEnforcedLearningCycles()));
+		this.properties().declare("current_cycles", "Integer");
+		this.properties().set("current_cycles", Integer.toString(this.getCurrentCycles()));
+		this.properties().declare("functional_negative_rate", "Double");
+		this.properties().set("functional_negative_rate", Double.toString(this.getFunctionalNegativeRate()));
+		this.properties().declare("functional_negative_max", "Integer");
+		this.properties().set("functional_negative_max", Integer.toString(this.getFunctionalNegativeMax()));
 	}
 
 	private KEmbedSet _embedSet = new KEmbedSet(this);
@@ -91,7 +92,7 @@ public class KER extends AMetaNamedObject {
 		if (this._dimensions != 0) throw new KException("KER k already set ["+this._dimensions+"]");
 		if (k < MIN_K || k > MAX_K) throw new KException("Invalid k ["+k+"]");
 		this._dimensions = k;
-		this.properties().set("k", Integer.toString(this._dimensions));
+		this.properties().set("dimensions", Integer.toString(this._dimensions));
 		this.initialize();
 	}
 
@@ -115,14 +116,14 @@ public class KER extends AMetaNamedObject {
 				if (embed.nnLayerInv != null) embed.nnLayerDir.setLearningRate(learningRate);
 			}
 		}
-		this.properties().set("lr", Double.toString(this.getLearningRate()));
+		this.properties().set("learning_rate", Double.toString(this.getLearningRate()));
 	}
 	public double getLearningRate() { return this._learningRate; }
 	
 	public void setLearningMargin(double learningMargin) throws KException {
 		this.enforceLearningCycles();
 		this._learningMargin = learningMargin;
-		this.properties().set("lm", Double.toString(this.getLearningMargin()));
+		this.properties().set("learning_margin", Double.toString(this.getLearningMargin()));
 	}
 	public double getLearningMargin() { return this._learningMargin; }
 
@@ -132,12 +133,12 @@ public class KER extends AMetaNamedObject {
 	public void setDisjointFactor(double factor) throws KException {
 		this.enforceLearningCycles();
 		this._disjointFactor = factor; 
-		this.properties().set("df", Double.toString(this.getDisjointFactor()));
+		this.properties().set("disjoint_factor", Double.toString(this.getDisjointFactor()));
 	}
 	public void setDisjointMargin(double margin) throws KException {
 		this.enforceLearningCycles();
 		this._disjointMargin = margin; 
-		this.properties().set("dm", Double.toString(this.getDisjointMargin()));
+		this.properties().set("disjoint_margin", Double.toString(this.getDisjointMargin()));
 	}
 	
 	public double getDisjointFactor() { return this._disjointFactor; }
@@ -147,34 +148,34 @@ public class KER extends AMetaNamedObject {
 	public double getRandomFactor() { return this._randomFactor; }
 	public void setRandomFactor(double factor) throws KException { 
 		this._randomFactor = factor;
-		this.properties().set("rf", Double.toString(this.getRandomFactor()));
+		this.properties().set("random_factor", Double.toString(this.getRandomFactor()));
 	}
 	
-	protected 	String	_normalizationType = "SPACE";
-	protected 	double	_normalizationFactor = 1.0;
-	protected 	double	_normalizationMargin = Math.sqrt(2)/2;
-	public String getNormalizationType() { return this._normalizationType; }
-	public double getNormalizationFactor() { return this._normalizationFactor; }
-	public double getNormalizationMargin() { return this._normalizationMargin; }
-	public void setNormalizationType(String type) throws KException {
+	protected 	String	_regularizationType = "SPACE";
+	protected 	double	_regularizationFactor = 1.0;
+	protected 	double	_regularizationMargin = Math.sqrt(2)/2;
+	public String getRegularizationType() { return this._regularizationType; }
+	public double getRegularizationFactor() { return this._regularizationFactor; }
+	public double getRegularizationMargin() { return this._regularizationMargin; }
+	public void setRegularizationType(String type) throws KException {
 		this.enforceLearningCycles();
 		switch (type) {
-		case "SPACE": this._normalizationType = type; break;
-		case "SURFACE": this._normalizationType = type; break;
-		case "RANGE": this._normalizationType = type; break;
-		default: throw new KException("Invalid normalization type ["+type+"], SPACE/SURFACE/RANGE expected");
+		case "SPACE": this._regularizationType = type; break;
+		case "SURFACE": this._regularizationType = type; break;
+		case "RANGE": this._regularizationType = type; break;
+		default: throw new KException("Invalid regularization type ["+type+"], SPACE/SURFACE/RANGE expected");
 		}
-		this.properties().set("nt", this.getNormalizationType());
+		this.properties().set("regularization_type", this.getRegularizationType());
 	}
-	public void setNormalizationFactor(double factor) throws KException {
+	public void setRegularizationFactor(double factor) throws KException {
 		this.enforceLearningCycles();
-		this._normalizationFactor = factor; 
-		this.properties().set("nf", Double.toString(this.getNormalizationFactor()));
+		this._regularizationFactor = factor; 
+		this.properties().set("regularization_factor", Double.toString(this.getRegularizationFactor()));
 	}
-	public void setNormalizationMargin(double factor) throws KException {
+	public void setRegularizationMargin(double factor) throws KException {
 		this.enforceLearningCycles();
-		this._normalizationMargin = factor; 
-		this.properties().set("nm", Double.toString(this.getNormalizationMargin()));
+		this._regularizationMargin = factor; 
+		this.properties().set("regularization_margin", Double.toString(this.getRegularizationMargin()));
 	}
 
 	private void initialize() throws KException {
@@ -185,12 +186,12 @@ public class KER extends AMetaNamedObject {
 		this.setRandomFactor(this._randomFactor); // to update property RF 
 		// normalization_factor
 		double nfactor = Math.max( 1 , Math.sqrt(this.getDimensions())/2.0 );
-		this.setNormalizationFactor(nfactor);
+		this.setRegularizationFactor(nfactor);
 		// disjoint_margin
 		// this.setDisjointMargin( nfactor / 4 );
-		this.setDisjointMargin( nfactor / 1.0 );
-		// this.setLearningMargin( nfactor / 2.0 );
-		this.setLearningMargin( 1.0 );
+		// this.setDisjointMargin( nfactor / 1.0 );
+		this.setLearningMargin( Math.sqrt(this._dimensions * 2) / 10 );
+		this.setDisjointMargin( Math.log10(this._dimensions) );
 	}
 
 	private boolean _learnProjectionMatrix = false;
@@ -204,7 +205,7 @@ public class KER extends AMetaNamedObject {
 			if (embed.getType().contentEquals(KEmbed.RELATION)) 
 				embed.setProjectionMatrix(flag);
 		}
-		this.properties().set("pm", Boolean.toString(this.isProjectionMatrixActive()));
+		this.properties().set("projection_matrices", Boolean.toString(this.isProjectionMatrixActive()));
 	}
 	public void setInverseRelation(boolean flag) throws KException {
 		this.enforceLearningCycles();
@@ -214,7 +215,7 @@ public class KER extends AMetaNamedObject {
 			if (embed.getType().contentEquals(KEmbed.RELATION)) 
 				embed.setInverseRelation(flag);
 		}
-		this.properties().set("ir", Boolean.toString(this.isInverseRelationActive()));
+		this.properties().set("inverse_relations", Boolean.toString(this.isInverseRelationActive()));
 	}
 	public boolean isProjectionMatrixActive() { return this._learnProjectionMatrix; }
 	public boolean isInverseRelationActive() { return this._learnInverseRelation; }
@@ -223,7 +224,7 @@ public class KER extends AMetaNamedObject {
 	public void setIgnoreTypes(boolean flag) throws KException {
 		this.enforceLearningCycles();
 		this._ignore_types = flag; 
-		this.properties().set("it", Boolean.toString(this.isIgnoreTypesActive()));
+		this.properties().set("ignore_types", Boolean.toString(this.isIgnoreTypesActive()));
 	}
 	public boolean isIgnoreTypesActive() { return this._ignore_types; }
 
@@ -232,7 +233,7 @@ public class KER extends AMetaNamedObject {
 	public void setLatentConstraint(double constraint) throws KException {
 		this.enforceLearningCycles();
 		this._latentConstraint = Math.abs(constraint); 
-		this.properties().set("lc", Double.toString(this.getLatentConstraint()));
+		this.properties().set("latent_constraint", Double.toString(this.getLatentConstraint()));
 	}
 	public double getLatentConstraint() { return this._latentConstraint; }
 
@@ -244,14 +245,14 @@ public class KER extends AMetaNamedObject {
 	public void setFunctionalNegativeRate(double rate) throws KException {
 		this.enforceLearningCycles();
 		this._functionalNegativeRate = Math.abs(rate); 
-		this.properties().set("fr", Double.toString(this.getFunctionalNegativeRate()));
+		this.properties().set("functional_negative_rate", Double.toString(this.getFunctionalNegativeRate()));
 	}
 	public double getFunctionalNegativeRate() { return this._functionalNegativeRate; }
 
 	public void setFunctionalNegativeMax(int max) throws KException {
 		this.enforceLearningCycles();
 		this._functionalNegativeMax = max; 
-		this.properties().set("fm", Integer.toString(this.getFunctionalNegativeMax()));
+		this.properties().set("functional_negative_max", Integer.toString(this.getFunctionalNegativeMax()));
 	}
 	public int getFunctionalNegativeMax() { return this._functionalNegativeMax; }
 
@@ -282,11 +283,11 @@ public class KER extends AMetaNamedObject {
 			bf.newLine();
 			bf.write( String.format("ker %s config random_factor %f", this.getName(), this.getRandomFactor()) );
 			bf.newLine();
-			bf.write( String.format("ker %s config normalization_type %s", this.getName(), this.getNormalizationType()) );
+			bf.write( String.format("ker %s config regularization_type %s", this.getName(), this.getRegularizationType()) );
 			bf.newLine();
-			bf.write( String.format("ker %s config normalization_factor %f", this.getName(), this.getNormalizationFactor()) );
+			bf.write( String.format("ker %s config regularization_factor %f", this.getName(), this.getRegularizationFactor()) );
 			bf.newLine();
-			bf.write( String.format("ker %s config normalization_margin %f", this.getName(), this.getNormalizationMargin()) );
+			bf.write( String.format("ker %s config regularization_margin %f", this.getName(), this.getRegularizationMargin()) );
 			bf.newLine();
 			bf.write( String.format("ker %s config projection_matrices %s", this.getName(), Boolean.toString(this.isProjectionMatrixActive())) );
 			bf.newLine();
@@ -322,14 +323,14 @@ public class KER extends AMetaNamedObject {
 	public int getEnforcedLearningCycles() { return this._enforcedLearningCycles; } 
 	public void setEnforcedLearningCycles(int cycles) throws KException { 
 		this._enforcedLearningCycles = cycles;
-		this.properties().set("ec", Integer.toString(this.getEnforcedLearningCycles()));
+		this.properties().set("enforced_cycles", Integer.toString(this.getEnforcedLearningCycles()));
 	} 
 	
 	private int _currentCycles = 0;
 	public int getCurrentCycles() { return this._currentCycles; } 
 	public void setCurrentCycles(int cycles) throws KException { 
 		this._currentCycles = cycles;
-		this.properties().set("cc", Integer.toString(this.getCurrentCycles()));
+		this.properties().set("current_cycles", Integer.toString(this.getCurrentCycles()));
 	} 
 
 	int _currentEnforcedLearningCycles = -1; 

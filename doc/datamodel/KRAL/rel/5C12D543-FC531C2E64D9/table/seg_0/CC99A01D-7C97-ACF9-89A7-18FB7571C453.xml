@@ -1,0 +1,136 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="CC99A01D-7C97-ACF9-89A7-18FB7571C453" name="KDM_USER">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-01 17:41:28 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<ordsAlias>table_1</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SEQ_USER" id="D8509EC0-0AFA-5485-B355-C28D35F830E1">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 14:04:34 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>EFCBB0D2-8E48-C782-3F8D-94C542D41416</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UID_USER" id="5121A470-120B-77AE-33DD-886737534107">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 14:04:34 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT057</logicalDatatype>
+<dataTypeSize>32</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A7515F23-75C5-90AD-E257-9A7EE0346B48" referredColumn="1018FD25-FC56-46B3-E322-8798BB728EB9"/>
+</associations>
+</Column>
+<Column name="NCK_USER" id="15DE00EF-31D4-992A-12D7-A90AF7B05D01">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 14:08:36 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NME_USER" id="B65EE5F4-04A7-C4F2-7252-9FEB2E6D75ED">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 14:08:36 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COD_LOGIN" id="4A28C4B3-E274-2A70-78F9-B9CE025214ED">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 14:08:36 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COD_PASSWORD" id="A7C49111-ED3F-5663-22CA-AC29C6C144B5">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 14:08:36 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FLG_ACTIVE" id="9FA8EDCC-E9A6-F759-8208-019DACC44A7A">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 14:09:08 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1 CHAR</dataTypeSize>
+<ownDataTypeParameters>1 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="17655BD4-35E8-CD43-F834-63E994644D14" name="KDM_USER_PK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 14:04:34 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D8509EC0-0AFA-5485-B355-C28D35F830E1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AAADF39B-A7B4-7E71-D7D5-2146E2C19873" name="KDM_USER_UID_UK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 14:06:13 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5121A470-120B-77AE-33DD-886737534107"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B69F9CC6-C3D4-1C3B-C4FB-5F1B3CAD0FDB" name="KDM_USER_LOGIN_UK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-09 15:40:50 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4A28C4B3-E274-2A70-78F9-B9CE025214ED"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4A583D06-6636-9548-D577-593F950D50BE" name="KDM_OBJECT_USER_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 14:10:16 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5121A470-120B-77AE-33DD-886737534107"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

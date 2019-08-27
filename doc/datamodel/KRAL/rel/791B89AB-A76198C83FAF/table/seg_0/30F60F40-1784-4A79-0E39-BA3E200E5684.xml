@@ -1,0 +1,188 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="30F60F40-1784-4A79-0E39-BA3E200E5684" name="KCG_ENTITY">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:43:48 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<ordsAlias>table_22</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SEQ_SCHEMA" id="2915B4A8-CD04-A2E0-E837-16930C3B91DC">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:45:46 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="53104350-FE56-F4BE-7334-86D04153ADD9" referredColumn="C34951FD-8C0B-864A-2693-BB3DAD418CE5"/>
+<colAssociation fkAssociation="9F23BF23-DAAE-35CC-F5A3-C84B57C860D7" referredColumn="AD68B2FE-ADB4-97C4-2A14-03245636DDF1"/>
+<colAssociation fkAssociation="0B1CC9BD-C092-3E3B-CAAB-FE78FCF6654C" referredColumn="4B2EF636-F438-314B-F853-1E3CE0DC960D"/>
+</associations>
+</Column>
+<Column name="SEQ_GRAPH" id="AE8E55F4-1C59-451E-E8BD-43F2F5E99371">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:45:46 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9F23BF23-DAAE-35CC-F5A3-C84B57C860D7" referredColumn="29757391-8782-7E81-EAAD-9E1C493884AF"/>
+<colAssociation fkAssociation="0B1CC9BD-C092-3E3B-CAAB-FE78FCF6654C" referredColumn="89A271FC-C875-53DA-912D-D79C39EA6230"/>
+</associations>
+</Column>
+<Column name="SEQ_ENTITY" id="282DA948-3E75-EBB2-B3F5-CD065D61767C">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:46:55 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UID_ENTITY" id="D45A9CBA-49C8-9C39-D43B-798F0D2C1C68">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:46:55 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT057</logicalDatatype>
+<dataTypeSize>32</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="98D9A8CB-42F1-20C4-AE69-BE35706C2A57" referredColumn="88264DCA-FB00-2426-264F-AA8E6E915025"/>
+</associations>
+</Column>
+<Column name="SEQ_TYPE" id="160880C3-DE9B-5F6E-A9F6-64DC61E3A152">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:51:18 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0B1CC9BD-C092-3E3B-CAAB-FE78FCF6654C" referredColumn="936C33C6-70B3-BBD9-3CD7-AE2D052C0FE0"/>
+</associations>
+</Column>
+<Column name="NME_ENTITY_OBJECT" id="C9BA5696-D876-B6F9-F543-EE18E3FBCB7F">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:52:01 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SEQ_SPLIT" id="2A1016A2-AE36-13C2-6CF4-B718B0E01C74">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:55:16 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="53104350-FE56-F4BE-7334-86D04153ADD9" referredColumn="D2086AD7-8C88-0BFA-D2BB-F69C2F6847DC"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1E5166B6-B7BD-2427-0200-193317D61DAF" name="KCG_ENTITY_PK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:46:13 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2915B4A8-CD04-A2E0-E837-16930C3B91DC"/>
+<colUsage columnID="AE8E55F4-1C59-451E-E8BD-43F2F5E99371"/>
+<colUsage columnID="282DA948-3E75-EBB2-B3F5-CD065D61767C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="67C05FAC-DF04-865A-2852-4EA474E38126" name="KCG_ENTITY_UID_UK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:46:55 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D45A9CBA-49C8-9C39-D43B-798F0D2C1C68"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7F5309F1-72AB-3240-6424-828A1A813A88" name="KCG_ENTITY_TYPED_OBJECT_UK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:53:19 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2915B4A8-CD04-A2E0-E837-16930C3B91DC"/>
+<colUsage columnID="AE8E55F4-1C59-451E-E8BD-43F2F5E99371"/>
+<colUsage columnID="160880C3-DE9B-5F6E-A9F6-64DC61E3A152"/>
+<colUsage columnID="C9BA5696-D876-B6F9-F543-EE18E3FBCB7F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EEEA8B89-4DFD-DE9C-44A1-29274B3AE636" name="KCG_GRAPH_ENTITY_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:45:46 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2915B4A8-CD04-A2E0-E837-16930C3B91DC"/>
+<colUsage columnID="AE8E55F4-1C59-451E-E8BD-43F2F5E99371"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F728C45F-E3AF-D9F2-2F3E-5D64AA38A681" name="KCG_OBJECT_ENTITY_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:47:44 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D45A9CBA-49C8-9C39-D43B-798F0D2C1C68"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="47E9B377-D8DF-CA3E-B551-E76F496A6F22" name="KCG_TYPE_ENTITY_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:51:18 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2915B4A8-CD04-A2E0-E837-16930C3B91DC"/>
+<colUsage columnID="AE8E55F4-1C59-451E-E8BD-43F2F5E99371"/>
+<colUsage columnID="160880C3-DE9B-5F6E-A9F6-64DC61E3A152"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1CD30BFB-238A-4AA8-AE8E-9F2D17C3B562" name="KCG_ENTITY_KSC_SPLIT_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:55:16 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2A1016A2-AE36-13C2-6CF4-B718B0E01C74"/>
+<colUsage columnID="2915B4A8-CD04-A2E0-E837-16930C3B91DC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

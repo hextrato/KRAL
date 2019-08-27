@@ -25,13 +25,13 @@ public class KGraph extends AMetaNamedObject {
 		this.properties().set("typed", "true");
 		this.properties().declare("autocreate", "Boolean");
 		this.properties().set("autocreate", "true");
-		this.properties().declare("hypergraph", "Boolean");
-		this.properties().set("hypergraph", "false");
+		//this.properties().declare("hypergraph", "Boolean");
+		//this.properties().set("hypergraph", "false");
 	}
 	
 	public boolean isTyped() throws KException { return this.properties().get("typed").equals("true"); }
 	public boolean isAutocreate() throws KException { return this.properties().get("autocreate").equals("true"); }
-	public boolean isHypergraph() throws KException { return this.properties().get("hypergraph").equals("true"); }
+	// public boolean isHypergraph() throws KException { return this.properties().get("hypergraph").equals("true"); }
 	
 	public void setTyped(boolean flag) throws KException { 
 		int qtGeneric = 0;
@@ -41,7 +41,7 @@ public class KGraph extends AMetaNamedObject {
 		if (!flag && qtGeneric==0) this.types().create("*");
 	}
 	public void setAutocreate(boolean flag) throws KException { this.properties().set("autocreate",flag?"true":"false"); }
-	public void setHypergraph(boolean flag) throws KException { this.properties().set("hypergraph",flag?"true":"false"); }
+	// public void setHypergraph(boolean flag) throws KException { this.properties().set("hypergraph",flag?"true":"false"); }
 
 	//
 	// TripleSet Graphs 
