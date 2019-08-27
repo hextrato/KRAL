@@ -1,0 +1,90 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="435919CD-0217-6DC0-246E-09CACE5B2CC9" name="KSC_SCHEMA">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 16:41:58 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteDesignID>DB4C775B-7CFC-A868-6511-3EAA7D9CE7CF</remoteDesignID>
+<remoteModelID>1B472674-8F86-78BA-35CA-7FC145F5D12B</remoteModelID>
+<remoteObjectID>25655F4F-4C44-EB70-CB82-F365DBB1A576</remoteObjectID>
+<remoteObjectRelativeStorageName>\rel\1B472674-7FC145F5D12B\table\seg_0\25655F4F-4C44-EB70-CB82-F365DBB1A576.xml</remoteObjectRelativeStorageName>
+<ordsAlias>table_1</ordsAlias>
+<abbreviation>Schema</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SEQ_SCHEMA" id="7A938117-1482-02BE-D6CD-C24CFB1EABB5">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 16:41:58 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>3E9D8FC2-1197-51C2-CA85-881DA2D3E231</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UID_SCHEMA" id="3859B0DA-5F08-5D34-643A-5DC7FA2E554F">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 16:41:58 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>6A57BEE6-013A-8316-37F5-C1048A5E9B7A</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT057</logicalDatatype>
+<dataTypeSize>32 CHAR</dataTypeSize>
+<ownDataTypeParameters>32 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NCK_SCHEMA" id="64C6490C-4C6E-81B5-CC4A-5070CEAB6F14">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 17:02:53 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>0A491D39-0C54-25CD-B116-721854690D14</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NME_SCHEMA" id="C9F2527D-B2ED-0C2A-79E4-B68ECECE9301">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 16:41:58 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>03435EE5-48F1-60C2-CCE9-BDC38979BD43</remoteObjectID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C321583D-A6B1-E12D-235E-7557AB6A3D0A" name="KSC_SCHEMA_PK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 16:41:58 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>571CB319-8C0C-CAA6-518E-E7794071F5AB</remoteObjectID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7A938117-1482-02BE-D6CD-C24CFB1EABB5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CD7B2770-7AD3-5708-3805-0389D294364B" name="KSC_SCHEMA_UID_UK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 16:41:58 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>445902EF-5D7B-D723-BD82-FF2A8054BDD8</remoteObjectID>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3859B0DA-5F08-5D34-643A-5DC7FA2E554F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

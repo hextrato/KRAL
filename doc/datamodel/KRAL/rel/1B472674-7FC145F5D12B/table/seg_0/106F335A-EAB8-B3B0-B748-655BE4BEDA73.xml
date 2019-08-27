@@ -1,0 +1,111 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="106F335A-EAB8-B3B0-B748-655BE4BEDA73" name="KDS_VIEW">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-01 17:30:45 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteDesignID>DB4C775B-7CFC-A868-6511-3EAA7D9CE7CF</remoteDesignID>
+<remoteModelID>A88A391B-7E7A-D441-E44C-305C4661D866</remoteModelID>
+<remoteObjectID>7D410897-3AAF-564A-E4B8-3AE863A19025</remoteObjectID>
+<remoteObjectRelativeStorageName>\rel\A88A391B-305C4661D866\table\seg_0\7D410897-3AAF-564A-E4B8-3AE863A19025.xml</remoteObjectRelativeStorageName>
+<ordsAlias>table_2</ordsAlias>
+<abbreviation>View</abbreviation>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SEQ_VIEW" id="A30E49AE-6538-1E4B-8CF4-ACE4831249DA">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-01 17:30:45 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>27D9626D-83B5-F25C-010D-D3C862DD2B4C</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UID_VIEW" id="F6B969AB-0A44-3417-FE6D-7A4990BFFA01">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-01 17:47:58 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>C85DF5D1-6E8D-1EFC-5261-741D1333AC35</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT057</logicalDatatype>
+<dataTypeSize>32</dataTypeSize>
+<ownDataTypeParameters>32,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NME_VIEW" id="AB94838C-6CFF-BE74-9498-5A85102F2086">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-01 17:30:45 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>249E503E-22D6-6456-8E13-3F8A596CF308</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A3A3C77D-0366-9768-FF89-1C25E56881C8</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NME_VIEW_OBJECT" id="DA9D2A86-8B36-BC1A-F12E-4A3597ECB5E9">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-01 17:30:45 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>EC756FF2-403A-8D35-5AC2-75BF39662FF2</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SEQ_CONNECTOR" id="A3411440-0ECC-156D-A43D-5FE4EFA878F1">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-01 17:30:45 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>C6B4CF46-A639-C164-0BC1-2BD65D73FC46</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B1317739-BEE4-0810-E16F-294829372FD9" name="KDS_VIEW_PK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-01 17:30:45 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>8FC2867B-846F-8E5A-D352-0E40FA1F91B2</remoteObjectID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A30E49AE-6538-1E4B-8CF4-ACE4831249DA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="DB11EDE6-ADC8-3147-8DAE-73CCB53C974E" name="KDS_VIEW_UID_UK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-01 17:47:58 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>58D13B8A-3298-537D-5515-A2AC0FF28830</remoteObjectID>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F6B969AB-0A44-3417-FE6D-7A4990BFFA01"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4A7F4336-1605-24DC-15F2-F5FB9281A3F9" name="KDS_OBJECT_VIEW__FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 14:11:55 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F6B969AB-0A44-3417-FE6D-7A4990BFFA01"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

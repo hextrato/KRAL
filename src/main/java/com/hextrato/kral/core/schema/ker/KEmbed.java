@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import com.hextrato.kral.core.KRAL;
 import com.hextrato.kral.core.data.abstracts.AMetaNamedObject;
+import com.hextrato.kral.core.data.struct.DMatrix;
 import com.hextrato.kral.core.data.struct.DVector;
 import com.hextrato.kral.core.schema.graph.KGraph;
 import com.hextrato.kral.core.schema.graph.KTriple;
@@ -420,25 +421,45 @@ public class KEmbed extends AMetaNamedObject {
 	}
 	
 	private void normalizeEntityVector(DVector vector) {
-		switch (this._ker.getNormalizationType()) {
+		switch (this._ker.getRegularizationType()) {
 		case "SPACE": 
-			vector.normalizeByMaxMagnitude(this._ker.getNormalizationFactor(),_ker.getLatentConstraint()); 
+			vector.normalizeByMaxMagnitude(this._ker.getRegularizationFactor(),_ker.getLatentConstraint()); 
 			break;
 		case "SURFACE": 
-			vector.normalizeByFixedMagnitude(this._ker.getNormalizationFactor(),_ker.getLatentConstraint()); 
+			vector.normalizeByFixedMagnitude(this._ker.getRegularizationFactor(),_ker.getLatentConstraint()); 
 			break;
 		case "RANGE": 
-			if (vector.magnitude() < this._ker.getNormalizationFactor() * this._ker.getNormalizationMargin())
-				vector.normalizeByFixedMagnitude(this._ker.getNormalizationFactor() * this._ker.getNormalizationMargin(),_ker.getLatentConstraint()); 
+			if (vector.magnitude() < this._ker.getRegularizationFactor() * this._ker.getRegularizationMargin())
+				vector.normalizeByFixedMagnitude(this._ker.getRegularizationFactor() * this._ker.getRegularizationMargin(),_ker.getLatentConstraint()); 
 			else
-				vector.normalizeByMaxMagnitude(this._ker.getNormalizationFactor(),_ker.getLatentConstraint()); 
+				vector.normalizeByMaxMagnitude(this._ker.getRegularizationFactor(),_ker.getLatentConstraint()); 
 			break;
 		}
 	}
 	private void normalizeRelationVector(DVector vector) {
-		double factor = 3;
-		vector.normalizeByMaxMagnitude(this._ker.getNormalizationFactor() * factor); 
+		double factor = this.getKER().getDimensions(); // 3
+		vector.normalizeByMaxMagnitude(this._ker.getRegularizationFactor() * factor); 
 	}
+
+	private void normalizeRelationMatrix(DMatrix matrix) {
+		// double factor = this.getKER().getDimensions(); // 3
+		//vector.normalizeByMaxMagnitude(this._ker.getRegularizationFactor() * factor);
+		double factor = this.getKER().getDimensions(); 
+		factor *= factor;
+		double maxValue = 0.0;
+		for (int row=0; row < matrix.rows(); row++)
+			for (int col=0; col < matrix.cols(); col++) {
+				double value = Math.abs( matrix.getValue(row,col) );
+				if (value > maxValue) maxValue = value;
+			}
+		if (maxValue > factor) {
+			factor /= maxValue;
+			for (int row=0; row < matrix.rows(); row++)
+				for (int col=0; col < matrix.cols(); col++)
+					matrix.setValue(row,col, matrix.getValue(row,col) * factor );
+		}
+	}
+
 	protected void normalize() {
 		if (this.getType().equals(ENTITY))  {
 			DVector vector = this.representation().getSLR(ENTITY_VECTOR_SLR).getRow(0);
@@ -447,9 +468,17 @@ public class KEmbed extends AMetaNamedObject {
 		if (this.getType().equals(RELATION))  {
 			DVector vector = this.representation().getSLR(RELATION_VECTOR_SLR).getRow(0);
 			this.normalizeRelationVector(vector);
+			if (this.isProjectionMatrixActive()) {
+				DMatrix matrix = this.representation().getSLR(RELATION_MATRIX_SLR);
+				this.normalizeRelationMatrix(matrix);
+			}
 			if (this.isInverseRelationActive()) {
 			    vector = this.representation().getSLR(RELATION_VECTOR_SLR_INVERSE).getRow(0);
 				this.normalizeRelationVector(vector);
+				if (this.isProjectionMatrixActive()) {
+					DMatrix matrix = this.representation().getSLR(RELATION_MATRIX_SLR_INVERSE);
+					this.normalizeRelationMatrix(matrix);
+				}
 			}
 		}
 	}

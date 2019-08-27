@@ -1,0 +1,246 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="716AAADE-1DB3-5ACC-0B22-3EDB471EC819" name="KCG_TRIPLE">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 18:42:25 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<ordsAlias>table_17</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SEQ_SCHEMA" id="49E0A5C7-4F56-208B-EA89-CDF34B2AAC46">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:00:36 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="624EBED2-E745-D1E1-A676-19A6DA18AD42" referredColumn="2915B4A8-CD04-A2E0-E837-16930C3B91DC"/>
+<colAssociation fkAssociation="B75E3EE4-4542-B40A-B38C-1D677B3C5A90" referredColumn="2915B4A8-CD04-A2E0-E837-16930C3B91DC"/>
+<colAssociation fkAssociation="250C2534-4A19-8566-51BD-0E34266298D6" referredColumn="AD68B2FE-ADB4-97C4-2A14-03245636DDF1"/>
+<colAssociation fkAssociation="2E6D40B8-5635-60F5-AF56-B046F9A47E85" referredColumn="C24B1A62-BD6B-1F17-F056-63C9EAA4FE01"/>
+<colAssociation fkAssociation="6C885540-098B-E0D8-3EF0-813E58DBD5D1" referredColumn="C34951FD-8C0B-864A-2693-BB3DAD418CE5"/>
+</associations>
+</Column>
+<Column name="SEQ_GRAPH" id="6B03A760-D3F7-2C8E-BA69-C7DC6A3A8595">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:00:36 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="624EBED2-E745-D1E1-A676-19A6DA18AD42" referredColumn="AE8E55F4-1C59-451E-E8BD-43F2F5E99371"/>
+<colAssociation fkAssociation="B75E3EE4-4542-B40A-B38C-1D677B3C5A90" referredColumn="AE8E55F4-1C59-451E-E8BD-43F2F5E99371"/>
+<colAssociation fkAssociation="250C2534-4A19-8566-51BD-0E34266298D6" referredColumn="29757391-8782-7E81-EAAD-9E1C493884AF"/>
+<colAssociation fkAssociation="2E6D40B8-5635-60F5-AF56-B046F9A47E85" referredColumn="877D3698-DD59-B541-0AEF-E80E13D01FF3"/>
+</associations>
+</Column>
+<Column name="SEQ_TRIPLE" id="C819AFAE-5805-69DE-3AEF-96AA6CAB32DF">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:01:39 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UID_TRIPLE" id="FFF3A94B-D3AA-DB76-98B6-0D5E330FD273">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:01:39 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT057</logicalDatatype>
+<dataTypeSize>32</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E8B38635-6363-C425-07E4-B2DADC8DF3A3" referredColumn="88264DCA-FB00-2426-264F-AA8E6E915025"/>
+</associations>
+</Column>
+<Column name="SEQ_SPLIT" id="91AAF073-0FC6-D42E-0DC0-8672DC69B03D">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:03:12 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="6C885540-098B-E0D8-3EF0-813E58DBD5D1" referredColumn="D2086AD7-8C88-0BFA-D2BB-F69C2F6847DC"/>
+</associations>
+</Column>
+<Column name="SEQ_RELATION" id="D3A72444-795F-9B83-A763-E509C870E793">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:05:14 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="2E6D40B8-5635-60F5-AF56-B046F9A47E85" referredColumn="5ECA5692-58C2-E4B0-2A42-5EC41ADFE08F"/>
+</associations>
+</Column>
+<Column name="SEQ_ENTITY_HEAD" id="76EF855B-63DB-A8F4-BE44-5ECD304F6C45">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:05:56 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="624EBED2-E745-D1E1-A676-19A6DA18AD42" referredColumn="282DA948-3E75-EBB2-B3F5-CD065D61767C"/>
+</associations>
+</Column>
+<Column name="SEQ_ENTITY_TAIL" id="FC9ABC5D-9BDD-B37F-3204-060EA081198F">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:06:38 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B75E3EE4-4542-B40A-B38C-1D677B3C5A90" referredColumn="282DA948-3E75-EBB2-B3F5-CD065D61767C"/>
+</associations>
+</Column>
+<Column name="FLG_POLARITY" id="255E6FEF-5A56-FB6B-E116-77178CE2C44C">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:02:39 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="E51F9A90-095C-2C40-571F-36F18D565554" name="KCG_TRIPLE_PK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:01:39 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="49E0A5C7-4F56-208B-EA89-CDF34B2AAC46"/>
+<colUsage columnID="6B03A760-D3F7-2C8E-BA69-C7DC6A3A8595"/>
+<colUsage columnID="C819AFAE-5805-69DE-3AEF-96AA6CAB32DF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8BCE1740-32BB-38B6-1E23-CFC2D63C894F" name="KCG_TRIPLE_UID_UK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:01:39 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FFF3A94B-D3AA-DB76-98B6-0D5E330FD273"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="374AE3C5-ACA9-F5DE-1FD4-2108FCCE20E9" name="KCG_TRIPLE_CONSTITUENTS_UK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:07:39 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="49E0A5C7-4F56-208B-EA89-CDF34B2AAC46"/>
+<colUsage columnID="6B03A760-D3F7-2C8E-BA69-C7DC6A3A8595"/>
+<colUsage columnID="D3A72444-795F-9B83-A763-E509C870E793"/>
+<colUsage columnID="76EF855B-63DB-A8F4-BE44-5ECD304F6C45"/>
+<colUsage columnID="FC9ABC5D-9BDD-B37F-3204-060EA081198F"/>
+<colUsage columnID="255E6FEF-5A56-FB6B-E116-77178CE2C44C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A8B52374-F07E-BE42-9064-16509CB2461D" name="KCG_GRAPH_TRIPLE_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:00:36 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="49E0A5C7-4F56-208B-EA89-CDF34B2AAC46"/>
+<colUsage columnID="6B03A760-D3F7-2C8E-BA69-C7DC6A3A8595"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="70060928-23CE-CD98-591C-B2BD0A6D9AD0" name="KCG_OBJECT_TRIPLE_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:01:49 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FFF3A94B-D3AA-DB76-98B6-0D5E330FD273"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A83179EB-9657-FC95-CE01-3F5AC58FE516" name="KCG_SPLIT_TRIPLE_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:03:12 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="91AAF073-0FC6-D42E-0DC0-8672DC69B03D"/>
+<colUsage columnID="49E0A5C7-4F56-208B-EA89-CDF34B2AAC46"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="DA776FE9-EAA0-C54E-B1C1-3FB160C84D7E" name="KCG_RELATION_TRIPLE_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:05:14 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="49E0A5C7-4F56-208B-EA89-CDF34B2AAC46"/>
+<colUsage columnID="6B03A760-D3F7-2C8E-BA69-C7DC6A3A8595"/>
+<colUsage columnID="D3A72444-795F-9B83-A763-E509C870E793"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0F2D6397-CCDD-0FF2-DDF4-53EA9C091BDA" name="KCG_ENTITY_HEAD_TRIPLE_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:05:56 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="49E0A5C7-4F56-208B-EA89-CDF34B2AAC46"/>
+<colUsage columnID="6B03A760-D3F7-2C8E-BA69-C7DC6A3A8595"/>
+<colUsage columnID="76EF855B-63DB-A8F4-BE44-5ECD304F6C45"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="01830E9D-9C39-8E87-A4B1-4FF7B6E8246D" name="KCG_ENTITY_TAIL_TRIPLE_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:06:38 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="49E0A5C7-4F56-208B-EA89-CDF34B2AAC46"/>
+<colUsage columnID="6B03A760-D3F7-2C8E-BA69-C7DC6A3A8595"/>
+<colUsage columnID="FC9ABC5D-9BDD-B37F-3204-060EA081198F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="6C885540-098B-E0D8-3EF0-813E58DBD5D1" containerWithKeyObject="716AAADE-1DB3-5ACC-0B22-3EDB471EC819" localFKIndex="A83179EB-9657-FC95-CE01-3F5AC58FE516" name="KCG_SPLIT_TRIPLE_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 19:03:12 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<referredTableLongName>KSC_SPLIT</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>2A26402C-3D88-59B2-7B88-84068F991819</referredTableID>
+<keyObject>7D3A57AA-BB63-258D-B294-679DD51B90D6</keyObject>
+<referredKeyID>7D3A57AA-BB63-258D-B294-679DD51B90D6</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>SEQ_SPLIT,SEQ_SCHEMA</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

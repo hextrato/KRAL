@@ -31,66 +31,68 @@ public class Ker implements KCParser {
 		KSchema schema = KCFinder.findSchema(clmd);
 		KER ker = KCFinder.findKER(schema, clmd);
 		String hyperparam = KCFinder.which(clmd, "hyperparam").toLowerCase();
-		String hypervalue = KCFinder.which(clmd, "hypervalue").toLowerCase();
+		String hypervalue = KCFinder.which(clmd, "hypervalue");
 		switch (hyperparam) {
 		
-		case "k":
+		// case "kg":
+		case "graph":
+			// System.out.println(hypervalue);
+			KGraph graph = schema.graphs().getGraph(hypervalue);
+			// System.out.println(graph.getName());
+			ker.setGraph(graph);
+			break;
+
+		// case "k":
 		case "dimensions":
 			ker.setDimensions(Integer.valueOf(hypervalue));
 			break;
 
-		case "kg":
-		case "graph":
-			KGraph graph = schema.graphs().getGraph(hypervalue);
-			ker.setGraph(graph);
-			break;
-
-		case "lr":
+		// case "lr":
 		case "learning_rate":
 			ker.setLearningRate(Double.valueOf(hypervalue));
 			break;
 
-		case "lm":
+		// case "lm":
 		case "learning_margin":
 			ker.setLearningMargin(Double.valueOf(hypervalue));
 			break;
 
-		case "df":
+		// case "df":
 		case "disjoint_factor":
 			ker.setDisjointFactor(Double.valueOf(hypervalue));
 			break;
 
-		case "dm":
+		// case "dm":
 		case "disjoint_margin":
 			ker.setDisjointMargin(Double.valueOf(hypervalue));
 			break;
 
-		case "rf":
+		// case "rf":
 		case "random_factor":
 			ker.setRandomFactor(Double.valueOf(hypervalue));
 			break;
 
-		case "nt":
-		case "normalization_type":
+		// case "nt":
+		case "regularization_type":
 			switch (hypervalue.toUpperCase()) {
-			case "SPACE": ker.setNormalizationType("SPACE"); break;
-			case "SURFACE": ker.setNormalizationType("SURFACE"); break;
-			case "RANGE": ker.setNormalizationType("RANGE"); break;
+			case "SPACE": ker.setRegularizationType("SPACE"); break;
+			case "SURFACE": ker.setRegularizationType("SURFACE"); break;
+			case "RANGE": ker.setRegularizationType("RANGE"); break;
 			default: throw new KException("Invalid normalization type ["+hypervalue+"], SPACE/SURFACE/RANGE expected");
 			}
 			break;
 
-		case "nf":
-		case "normalization_factor":
-			ker.setNormalizationFactor(Double.valueOf(hypervalue));
+		//case "nf":
+		case "regularization_factor":
+			ker.setRegularizationFactor(Double.valueOf(hypervalue));
 			break;
 
-		case "nm":
-		case "normalization_margin":
-			ker.setNormalizationMargin(Double.valueOf(hypervalue));
+		// case "nm":
+		case "regularization_margin":
+			ker.setRegularizationMargin(Double.valueOf(hypervalue));
 			break;
 
-		case "pm":
+		// case "pm":
 		case "projection_matrices":
 			switch (hypervalue.toUpperCase()) {
 			case "TRUE": ker.setProjectionMatrix(true); break;
@@ -99,7 +101,7 @@ public class Ker implements KCParser {
 			}
 			break;
 
-		case "ir":
+		// case "ir":
 		case "inverse_relations":
 			switch (hypervalue.toUpperCase()) {
 			case "TRUE": ker.setInverseRelation(true); break;
@@ -108,7 +110,7 @@ public class Ker implements KCParser {
 			}
 			break;
 
-		case "it":
+		// case "it":
 		case "ignore_types":
 			switch (hypervalue.toUpperCase()) {
 			case "TRUE": ker.setIgnoreTypes(true); break;
@@ -117,27 +119,27 @@ public class Ker implements KCParser {
 			}
 			break;
 
-		case "lc":
+		// case "lc":
 		case "latent_constraint":
 			ker.setLatentConstraint(Double.valueOf(hypervalue));
 			break;
 
-		case "ec":
+		// case "ec":
 		case "enforced_cycles":
 			ker.setEnforcedLearningCycles(Integer.valueOf(hypervalue));
 			break;
 
-		case "cc":
+		// case "cc":
 		case "current_cycles":
 			ker.setCurrentCycles(Integer.valueOf(hypervalue));
 			break;
 
-		case "fr":
+		// case "fr":
 		case "functional_negative_rate":
 			ker.setFunctionalNegativeRate(Double.valueOf(hypervalue));
 			break;
 
-		case "fm":
+		// case "fm":
 		case "functional_negative_max":
 			ker.setFunctionalNegativeMax(Integer.valueOf(hypervalue));
 			break;
@@ -172,23 +174,23 @@ public class Ker implements KCParser {
 		KConsole.println("ker.name = " + ker.getName());
 		KGraph graph = ker.getGraph();
 		KConsole.println("ker.graph = " + ((graph == null)?"_UNDEFINED_":graph.getName()));
-		KConsole.println("ker.k  (dimensions) = " + ((ker.getDimensions() == 0)?"_UNDEFINED_":Integer.toString(ker.getDimensions())));
-		KConsole.println("ker.lr (learn rate) = " + ker.getLearningRate());
-		KConsole.println("ker.lm (learn margin) = " + ker.getLearningMargin());
-		KConsole.println("ker.df (disjoint factor) = " + ker.getDisjointFactor());
-		KConsole.println("ker.dm (disjoint margin) = " + ker.getDisjointMargin());
-		KConsole.println("ker.rf (random factor) = " + ker.getRandomFactor());
-		KConsole.println("ker.nt (normalization type) = " + ker.getNormalizationType());
-		KConsole.println("ker.nf (normalization factor) = " + ker.getNormalizationFactor());
-		KConsole.println("ker.nm (normalization margin [RANGE only]) = " + ker.getNormalizationMargin());
-		KConsole.println("ker.pm (learn projection matrix) = " + Boolean.toString(ker.isProjectionMatrixActive()));
-		KConsole.println("ker.ir (learn inverse relations) = " + Boolean.toString(ker.isInverseRelationActive()));
-		KConsole.println("ker.it (ignore types) = " + Boolean.toString(ker.isIgnoreTypesActive()));
-		KConsole.println("ker.lc (latent constraint) = " + ker.getLatentConstraint());
-		KConsole.println("ker.ec (enforced cycles) = " + ker.getEnforcedLearningCycles());
-		KConsole.println("ker.cc (current cycles) = " + ker.getCurrentCycles());
-		KConsole.println("ker.fr (functional negative rate) = " + ker.getFunctionalNegativeRate());
-		KConsole.println("ker.fm (functional negative max) = " + ker.getFunctionalNegativeMax());
+		KConsole.println("ker.dimensions = " + ((ker.getDimensions() == 0)?"_UNDEFINED_":Integer.toString(ker.getDimensions())));
+		KConsole.println("ker.learning_rate = " + ker.getLearningRate());
+		KConsole.println("ker.learning_margin = " + ker.getLearningMargin());
+		KConsole.println("ker.disjoint_factor = " + ker.getDisjointFactor());
+		KConsole.println("ker.disjoint_margin = " + ker.getDisjointMargin());
+		KConsole.println("ker.random_factor = " + ker.getRandomFactor());
+		KConsole.println("ker.regularization_type = " + ker.getRegularizationType());
+		KConsole.println("ker.regularization_factor = " + ker.getRegularizationFactor());
+		KConsole.println("ker.regularization_margin [RANGE only] = " + ker.getRegularizationMargin());
+		KConsole.println("ker.projection_matrices = " + Boolean.toString(ker.isProjectionMatrixActive()));
+		KConsole.println("ker.inverse_relations = " + Boolean.toString(ker.isInverseRelationActive()));
+		KConsole.println("ker.ignore_types = " + Boolean.toString(ker.isIgnoreTypesActive()));
+		KConsole.println("ker.latent_constraint = " + ker.getLatentConstraint());
+		KConsole.println("ker.enforced_cycles = " + ker.getEnforcedLearningCycles());
+		KConsole.println("ker.current_cycles = " + ker.getCurrentCycles());
+		KConsole.println("ker.functional_negative_rate = " + ker.getFunctionalNegativeRate());
+		KConsole.println("ker.functional_negative_max = " + ker.getFunctionalNegativeMax());
 
 		KConsole.metadata("KER", ker.getName());
 		for (String metric : ker.scores().keySet()) {

@@ -1,0 +1,4 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oracle.dbtools.crest.model.design.relational.RelationalDesign>
+   <object objectType="main_view" objectID="6E7C07B7-D0FE-7A9D-47BE-48285C31F242" name="KRAL Admin" visible="false"/>
+</oracle.dbtools.crest.model.design.relational.RelationalDesign>

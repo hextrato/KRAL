@@ -219,8 +219,11 @@ public class KConsole extends KRAL {
 	public static void main (String args[]) throws Exception {
 		reset();
 		if (args.length > 0)
-			if (!(args[0].trim().equals("")))
-				runLine(args[0].trim());
+			// if (!(args[0].trim().equals("")))
+			for (String cmdLine : args) {
+				// runLine(args[0].trim());
+				runLine(cmdLine.trim());
+			}
 		while (iteract()) {};
 	}
 	

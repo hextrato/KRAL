@@ -1,0 +1,114 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2A26402C-3D88-59B2-7B88-84068F991819" name="KSC_SPLIT">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 17:06:12 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteDesignID>DB4C775B-7CFC-A868-6511-3EAA7D9CE7CF</remoteDesignID>
+<remoteModelID>1B472674-8F86-78BA-35CA-7FC145F5D12B</remoteModelID>
+<remoteObjectID>178D4DAF-5CB8-D16D-8917-D7F128BBEC00</remoteObjectID>
+<remoteObjectRelativeStorageName>\rel\1B472674-7FC145F5D12B\table\seg_0\178D4DAF-5CB8-D16D-8917-D7F128BBEC00.xml</remoteObjectRelativeStorageName>
+<ordsAlias>table_5</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SEQ_SCHEMA" id="C34951FD-8C0B-864A-2693-BB3DAD418CE5">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 17:06:12 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>BBB354BA-8C72-1698-8D6C-1C03D9B4C44B</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3F21F387-1805-8283-F079-7C686B46689F" referredColumn="7A938117-1482-02BE-D6CD-C24CFB1EABB5"/>
+</associations>
+</Column>
+<Column name="SEQ_SPLIT" id="D2086AD7-8C88-0BFA-D2BB-F69C2F6847DC">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 17:06:12 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>265009C3-72A7-4565-56D4-B6BA71AF7CF2</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UID_SPLIT" id="6B9B8D4F-FC18-ACA0-D0E8-6EFB84CC9C5B">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 17:06:12 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>2C24EA58-D804-A4D5-0375-4BFED285B464</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT057</logicalDatatype>
+<dataTypeSize>32</dataTypeSize>
+<ownDataTypeParameters>32,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NCK_SPLIT" id="24A4FE74-EC80-C36C-377D-414EBA7BF708">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 17:06:12 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>D5AC3D33-0CC8-FF8A-9E69-2CFD564BB45B</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NME_SPLIT" id="9B8A63FB-772A-EA31-9189-0F62B679A36C">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 17:06:12 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>E3A8FFA9-7E9A-9A0F-9035-684772C8F55E</remoteObjectID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7D3A57AA-BB63-258D-B294-679DD51B90D6" name="KSC_SPLIT_PK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 17:06:12 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>67A45554-A151-B5BF-B5C8-8C4287C03675</remoteObjectID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D2086AD7-8C88-0BFA-D2BB-F69C2F6847DC"/>
+<colUsage columnID="C34951FD-8C0B-864A-2693-BB3DAD418CE5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B697112E-3B57-6991-C104-AC9EEFE4606A" name="KSC_SPLIT_UID_UK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 17:06:12 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<remoteObjectID>9F3F28FE-358B-3796-A565-C03D738740C0</remoteObjectID>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="6B9B8D4F-FC18-ACA0-D0E8-6EFB84CC9C5B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="919C4E5D-6618-C368-BB2C-581B6C4E2E64" name="KSC_GRAPH_SPLIT_FK">
+<createdBy>hegler</createdBy>
+<createdTime>2019-08-07 17:06:12 UTC</createdTime>
+<ownerDesignName>KRAL</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C34951FD-8C0B-864A-2693-BB3DAD418CE5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

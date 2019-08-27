@@ -55,7 +55,10 @@ public class Var implements KCParser {
 	public static boolean doDeclare(KCMetadata clmd) throws KException {
 		String var = KCFinder.which(clmd, "var");
 		String type = KCFinder.which(clmd, "datatype");
+		String value = "";
+		try { value = KCFinder.which(clmd, "value"); } catch (KException e) {} finally {}
 		KConsole.vars().declare(var, type);
+		if (!value.isEmpty()) KConsole.vars().set(var, value);
 		KConsole.feedback("Var '"+var+"' declared");
 		KConsole.metadata("var", var);
 		return true; 
