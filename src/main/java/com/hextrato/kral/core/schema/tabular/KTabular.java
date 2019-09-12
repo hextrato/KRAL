@@ -93,8 +93,8 @@ public class KTabular extends AMetaNamedObject {
         	attribs[0] = "_split_";
         	attribs[1] = "_uid_";
         	int i = 2;
-        	for (String attributeName : attributes().theList().keySet() ) {
-        		attribs[i] = attributeName;
+        	for (String attributeID : attributes().theList().keySet() ) {
+        		attribs[i] = attributes().get(attributeID).getName();
         		i++;
         	}
         	// CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Student Name", "Fees"));
