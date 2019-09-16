@@ -14,7 +14,7 @@ public class Type implements KCParser {
 	public void setContext (KCMetadata clmd) { clmd.setContext("type"); }
 
 	public String[] getValidTokenSet () {
-		return new String[] {"create", "delete", "list", "select", "desc", "foreach", "property", "save"}; 
+		return new String[] {"create", "delete", "list", "select", "desc", "foreach", "property", "save", "continuous"}; 
 	}
 
 	public boolean partial(KCMetadata clmd) {
@@ -29,6 +29,28 @@ public class Type implements KCParser {
 			return (new TypeCreate()).exec(clmd);
 		else
 			return (new TypeSelect()).exec(clmd);
+	}
+
+	public static boolean doContinuousMin(KCMetadata clmd) throws KException {
+		KSchema schema = KCFinder.findSchema(clmd);
+		KGraph graph = KCFinder.findGraph(schema, clmd);
+		KType type = KCFinder.findType(graph, clmd);
+		String value = clmd.getVar("value");
+		type.setMin(Double.valueOf(value));
+		KConsole.feedback("Type '"+type.getName()+"' min");
+		KConsole.metadata("Type", type.getName());
+		return true;
+	}
+
+	public static boolean doContinuousMax(KCMetadata clmd) throws KException {
+		KSchema schema = KCFinder.findSchema(clmd);
+		KGraph graph = KCFinder.findGraph(schema, clmd);
+		KType type = KCFinder.findType(graph, clmd);
+		String value = clmd.getVar("value");
+		type.setMax(Double.valueOf(value));
+		KConsole.feedback("Type '"+type.getName()+"' max");
+		KConsole.metadata("Type", type.getName());
+		return true;
 	}
 
 	public static boolean doCreate(KCMetadata clmd) throws KException {
@@ -193,6 +215,9 @@ public class Type implements KCParser {
 				break;
 			case "isolated":
 				type.setIsolated(value.toUpperCase().equals("TRUE"));
+				break;
+			case "continuous":
+				type.setContinuous(value.toUpperCase().equals("TRUE"));
 				break;
 			default:
 				throw new KException("Invalid property ["+property+"]");

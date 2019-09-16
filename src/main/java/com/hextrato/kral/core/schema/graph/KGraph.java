@@ -1,16 +1,15 @@
 package com.hextrato.kral.core.schema.graph;
 
-import com.hextrato.kral.core.KRAL;
 import com.hextrato.kral.core.data.abstracts.AMetaNamedObject;
 import com.hextrato.kral.core.schema.KSchema;
 import com.hextrato.kral.core.util.exception.KException;
 
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 
-
 public class KGraph extends AMetaNamedObject {
+
+	public static final String CONTINUOUS_SPLIT_NAME = "_FIX_";
 	
 	private KSchema _schema = null;
 	public KSchema getSchema() { return this._schema; }
@@ -77,17 +76,6 @@ public class KGraph extends AMetaNamedObject {
 	//
 	// EXPORT
 	//
-	public void hextract (String fileName) throws KException { 
-        try {
-        	FileWriter fw = new FileWriter(KRAL.getFileFullPath(fileName));
-            BufferedWriter bf = new BufferedWriter(fw);
-            this.hextract(bf);
-            bf.close();
-    		fw.close();
-        } catch (IOException e) {
-        	throw new KException(e.getMessage());
-        }
-	}
 	public void hextract (BufferedWriter bf) throws KException {
         try {
 			bf.write( String.format("graph %s create", this.getName()) );

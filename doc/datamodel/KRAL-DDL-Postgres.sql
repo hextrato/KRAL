@@ -160,8 +160,6 @@ END; $$
 LANGUAGE PLPGSQL;
 
 -- example
-select create_kds_connector('kral','KRAL Knowledge Reasoning & Artificial Learning');
-select create_kds_connector('infosaude','InfoSaude/SMS');
 select create_kds_connector('hextrato');
 select * from kdm_object where nme_object_type = 'KDSCONNECTOR';
 select * from kds_connector;

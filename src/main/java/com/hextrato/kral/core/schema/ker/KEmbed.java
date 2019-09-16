@@ -3,11 +3,10 @@ package com.hextrato.kral.core.schema.ker;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-import com.hextrato.kral.core.KRAL;
 import com.hextrato.kral.core.data.abstracts.AMetaNamedObject;
 import com.hextrato.kral.core.data.struct.DMatrix;
 import com.hextrato.kral.core.data.struct.DVector;
-import com.hextrato.kral.core.schema.graph.KGraph;
+import com.hextrato.kral.core.schema.graph.KEntity;
 import com.hextrato.kral.core.schema.graph.KTriple;
 import com.hextrato.kral.core.schema.neural.layer.type.NLLinear;
 import com.hextrato.kral.core.util.exception.KException;
@@ -37,7 +36,7 @@ public class KEmbed extends AMetaNamedObject {
 
 	private DVector auxVec = null;
 	
-	public KEmbed (KER ker, String type) throws KException {
+	public KEmbed (KER ker, String type, String constituentTypedName) throws KException {
 		if (ker == null) throw new KException("Invalid null KER");
 		this.properties().declare("_schema_", "String");
 		this.properties().set("_schema_", ker.getSchema().getName());
@@ -54,6 +53,15 @@ public class KEmbed extends AMetaNamedObject {
 		case ENTITY:
 			this.representation().create(ENTITY_VECTOR_SLR, 1, this.getKER().getDimensions() );
 			this.representation().getSLR(ENTITY_VECTOR_SLR).randomize(-this.getKER().getRandomFactor(), +this.getKER().getRandomFactor());
+			if (this._ker.getGraph().isTyped()) {
+				String entityType = KEntity.extractTypeFrom(constituentTypedName);
+				if (this._ker.getGraph().types().getType( entityType ).isContinuous()) {
+					double entityValue = Double.valueOf(KEntity.extractNameFrom(constituentTypedName));
+					// this.representation().getSLR(ENTITY_VECTOR_SLR).getRow(0).copyValuesFrom( this._ker.getGraph().types().getType( entityType ).getContinuousVector(entityValue , this._ker.getDimensions() , this._ker.getRegularizationFactor() ) );
+					this.representation().getSLR(ENTITY_VECTOR_SLR).getRow(0).copyValuesFrom( this._ker.getGraph().types().getType( entityType ).getContinuousVector(entityValue , this._ker.getDimensions() ) );
+					System.out.println(entityValue + " => " + this.representation().getSLR(ENTITY_VECTOR_SLR).getRow(0).toString() + " in ["+this._ker.getGraph().types().getType( entityType ).getMin()+","+this._ker.getGraph().types().getType( entityType ).getMax()+"]");
+				}
+			}
 			break;
 		case RELATION:
 			auxVec = new DVector(this._ker.getDimensions());
@@ -460,10 +468,13 @@ public class KEmbed extends AMetaNamedObject {
 		}
 	}
 
-	protected void normalize() {
+	protected void normalize() throws KException {
 		if (this.getType().equals(ENTITY))  {
-			DVector vector = this.representation().getSLR(ENTITY_VECTOR_SLR).getRow(0);
-			this.normalizeEntityVector(vector);
+			String entityType = KEntity.extractTypeFrom(this.getName());
+			if (!this._ker.getGraph().types().getType( entityType ).isContinuous()) {
+				DVector vector = this.representation().getSLR(ENTITY_VECTOR_SLR).getRow(0);
+				this.normalizeEntityVector(vector);
+			}
 		}
 		if (this.getType().equals(RELATION))  {
 			DVector vector = this.representation().getSLR(RELATION_VECTOR_SLR).getRow(0);

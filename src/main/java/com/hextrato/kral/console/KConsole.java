@@ -35,6 +35,7 @@ public class KConsole extends KRAL {
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -         
+	@SuppressWarnings("deprecation")
 	public static KCParser getParserExec(String className) throws KException {
 		String parseFullName = ROOT_PARSER_PACKAGE + ".";
 		parseFullName = parseFullName + className;
@@ -119,6 +120,7 @@ public class KConsole extends KRAL {
 			println((new java.util.Date()).toString());
 			println("");
 			println("Welcome!");
+			/*
 			if (KRAL_CONSOLE_ON_VALIDATION) {
 				println("");
 				println("Samples:");
@@ -160,6 +162,26 @@ public class KConsole extends KRAL {
 				println("h+> @sample/ker/infohealth.bpa/ker_test_neural.h+");
 				println("h+>");
 			}
+			*/
+			/*
+			KContinuous c = new KContinuous();
+			c.setMin(0);
+			c.setMax(1);
+			println(c.getVector(0.5, 2).toString());
+			println(c.getVector(0.5, 2, Math.sqrt(2)).toString());
+			println(c.getVector(0.5, 3).toString());
+			println(c.getVector(0.5, 4).toString());
+			println(c.getVector(0.5, 5).toString());
+			println(c.getVector(0.9, 5).toString());
+			
+			println(Double.toString(c.getValue( new DVector(new double[] { 0,1 } ) ) ) );
+			println(Double.toString(c.getValue( new DVector(new double[] { 1,1 } ) ) ) );
+			println(Double.toString(c.getValue( new DVector(new double[] { 1,0 } ) ) ) );
+			println(Double.toString(c.getValue( new DVector(new double[] { 0.9,-0.1 } ) ) ) );
+			println(Double.toString(c.getValue( new DVector(new double[] { 0.8,-0.2 } ) ) ) );
+			println(Double.toString(c.getValue( new DVector(new double[] { 0.7,-0.3 } ) ) ) );
+			println(Double.toString(c.getValue( new DVector(new double[] { 0.52,0.68,0.9,0.7,0.14,0.94,0.1,0.32} ) , 5) ) );
+			*/
 		}
 	}
 
@@ -169,7 +191,8 @@ public class KConsole extends KRAL {
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -         
 	public static void prompt () throws KException {
-		String prompt = "h+";
+		// String prompt = "h+";
+		String prompt = "kral";
 		String schema = KConsole.schemata().getCurrentName();
 		if (!schema.equals("")) prompt = prompt+"{"+KConsole.schemata().getCurrentName()+"}";
 		System.out.print("\n"+prompt+"> ");
