@@ -1,6 +1,6 @@
 KRAL
 ====
-A Knowledge Reasoning & Artificial Learning Framework
+A Knowledge Representation & Artificial Learning Framework
 ----
 
 ?
