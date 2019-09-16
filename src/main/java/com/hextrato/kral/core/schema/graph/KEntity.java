@@ -40,6 +40,14 @@ public class KEntity extends AMetaNamedObject {
 			// this._name = extractNameFrom(typedName);
 			// this._type = extractTypeFrom(typedName);
 			this.setProperty("_type_", extractTypeFrom(this.getName()));
+			if (this._graph.types().getType( this.getType() ).isContinuous()) {
+				if (!graph.getSchema().splits().theNames().containsKey(KGraph.CONTINUOUS_SPLIT_NAME)) {
+					graph.getSchema().splits().create(KGraph.CONTINUOUS_SPLIT_NAME);
+					graph.getSchema().splits().setCurrent(this._split.getName());
+				}
+				this._split = graph.getSchema().splits().getSplit(KGraph.CONTINUOUS_SPLIT_NAME);
+				this.properties().set("_split_", this._split.getName());
+			}
 			this.setProperty("_nick_", extractNameFrom(this.getName()));
 			this.setProperty("_name_", this.getProperty("_type_")+":"+this.getProperty("_nick_"));
 		} else {

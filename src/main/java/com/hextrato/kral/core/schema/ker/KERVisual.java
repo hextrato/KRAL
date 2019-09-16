@@ -95,10 +95,10 @@ public class KERVisual extends JFrame{
 	private void paintDirectRelation(Graphics2D g2, KTriple triple) throws KException {
 		if (triple.getPola() == true) { // && (triple.getRela().getName().equals(relationName) || "".equals(relationName))) {
 			String headName = triple.getHead().getName();
-			String headType = triple.getHead().getType();
+			// String headType = triple.getHead().getType();
 			String relaName = triple.getRela().getName();
 			String tailName = triple.getTail().getName();
-			String tailType = triple.getTail().getType();
+			// String tailType = triple.getTail().getType();
 			// HextraEmbed head = this._ker.embeds().getEmbed(headType+":"+headName);
 			KEmbed head = this._ker.embeds().getEmbed(headName);
 			KEmbed	rela = this._ker.embeds().getEmbed(relaName);
@@ -162,10 +162,10 @@ public class KERVisual extends JFrame{
 	private void paintInverseRelation(Graphics2D g2, KTriple triple) throws KException {
 		if (triple.getPola() == true) { // && (triple.getRela().getName().equals(relationName) || "".equals(relationName))) {
 			String headName = triple.getHead().getName();
-			String headType = triple.getHead().getType();
+			// String headType = triple.getHead().getType();
 			String relaName = triple.getRela().getName();
 			String tailName = triple.getTail().getName();
-			String tailType = triple.getTail().getType();
+			// String tailType = triple.getTail().getType();
 			// HextraEmbed tail = this._ker.embeds().getEmbed(headType+":"+headName);
 			KEmbed tail = this._ker.embeds().getEmbed(headName);
 			KEmbed	rela = this._ker.embeds().getEmbed(relaName);

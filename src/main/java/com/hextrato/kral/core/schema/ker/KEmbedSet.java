@@ -19,7 +19,7 @@ public class KEmbedSet extends AMetaNamedObjectSet {
 
 	public void create (String name, String type) throws KException {
 		// if (datatype.trim().equals("")) datatype = "String";
-		this.create(name, new KEmbed(getKER(), type));	
+		this.create(name, new KEmbed(getKER(), type, name));	
 	}
 
 	public KEmbed getEmbed() {

@@ -1,0 +1,154 @@
+reset
+split LRN create
+split LRN select
+split list
+
+graph g create
+graph g property typed TRUE
+graph g property autocreate true
+graph list
+
+type year create
+type year property continuous TRUE
+type year continuous min 1900
+type year continuous min 2020
+
+triple (year:1901,add_1,year:1902)
+triple (year:1902,add_1,year:1903)
+triple (year:1903,add_1,year:1904)
+triple (year:1904,add_1,year:1905)
+triple (year:1905,add_1,year:1906)
+triple (year:1906,add_1,year:1907)
+triple (year:1907,add_1,year:1908)
+triple (year:1908,add_1,year:1909)
+triple (year:1909,add_1,year:1910)
+triple (year:1910,add_1,year:1911)
+triple (year:1911,add_1,year:1912)
+triple (year:1912,add_1,year:1913)
+triple (year:1913,add_1,year:1914)
+triple (year:1914,add_1,year:1915)
+triple (year:1915,add_1,year:1916)
+triple (year:1916,add_1,year:1917)
+triple (year:1917,add_1,year:1918)
+triple (year:1918,add_1,year:1919)
+triple (year:1919,add_1,year:1920)
+triple (year:1920,add_1,year:1921)
+triple (year:1921,add_1,year:1922)
+triple (year:1922,add_1,year:1923)
+triple (year:1923,add_1,year:1924)
+triple (year:1924,add_1,year:1925)
+triple (year:1925,add_1,year:1926)
+triple (year:1926,add_1,year:1927)
+triple (year:1927,add_1,year:1928)
+triple (year:1928,add_1,year:1929)
+triple (year:1929,add_1,year:1930)
+triple (year:1930,add_1,year:1931)
+triple (year:1931,add_1,year:1932)
+triple (year:1932,add_1,year:1933)
+triple (year:1933,add_1,year:1934)
+triple (year:1934,add_1,year:1935)
+triple (year:1935,add_1,year:1936)
+triple (year:1936,add_1,year:1937)
+triple (year:1937,add_1,year:1938)
+triple (year:1938,add_1,year:1939)
+triple (year:1939,add_1,year:1940)
+triple (year:1940,add_1,year:1941)
+triple (year:1941,add_1,year:1942)
+triple (year:1942,add_1,year:1943)
+triple (year:1943,add_1,year:1944)
+triple (year:1944,add_1,year:1945)
+triple (year:1945,add_1,year:1946)
+triple (year:1946,add_1,year:1947)
+triple (year:1947,add_1,year:1948)
+triple (year:1948,add_1,year:1949)
+triple (year:1949,add_1,year:1950)
+triple (year:1950,add_1,year:1951)
+triple (year:1951,add_1,year:1952)
+triple (year:1952,add_1,year:1953)
+triple (year:1953,add_1,year:1954)
+triple (year:1954,add_1,year:1955)
+triple (year:1955,add_1,year:1956)
+triple (year:1956,add_1,year:1957)
+triple (year:1957,add_1,year:1958)
+triple (year:1958,add_1,year:1959)
+triple (year:1959,add_1,year:1960)
+triple (year:1960,add_1,year:1961)
+triple (year:1961,add_1,year:1962)
+triple (year:1962,add_1,year:1963)
+triple (year:1963,add_1,year:1964)
+triple (year:1964,add_1,year:1965)
+triple (year:1965,add_1,year:1966)
+triple (year:1966,add_1,year:1967)
+triple (year:1967,add_1,year:1968)
+triple (year:1968,add_1,year:1969)
+triple (year:1969,add_1,year:1970)
+triple (year:1970,add_1,year:1971)
+triple (year:1971,add_1,year:1972)
+triple (year:1972,add_1,year:1973)
+triple (year:1973,add_1,year:1974)
+triple (year:1974,add_1,year:1975)
+triple (year:1975,add_1,year:1976)
+triple (year:1976,add_1,year:1977)
+triple (year:1977,add_1,year:1978)
+triple (year:1978,add_1,year:1979)
+triple (year:1979,add_1,year:1980)
+triple (year:1980,add_1,year:1981)
+triple (year:1981,add_1,year:1982)
+triple (year:1982,add_1,year:1983)
+triple (year:1983,add_1,year:1984)
+triple (year:1984,add_1,year:1985)
+triple (year:1985,add_1,year:1986)
+triple (year:1986,add_1,year:1987)
+triple (year:1987,add_1,year:1988)
+triple (year:1988,add_1,year:1989)
+triple (year:1989,add_1,year:1990)
+triple (year:1990,add_1,year:1991)
+triple (year:1991,add_1,year:1992)
+triple (year:1992,add_1,year:1993)
+triple (year:1993,add_1,year:1994)
+triple (year:1994,add_1,year:1995)
+triple (year:1995,add_1,year:1996)
+triple (year:1996,add_1,year:1997)
+triple (year:1997,add_1,year:1998)
+triple (year:1998,add_1,year:1999)
+triple (year:1999,add_1,year:2000)
+triple (year:2000,add_1,year:2001)
+triple (year:2001,add_1,year:2002)
+triple (year:2002,add_1,year:2003)
+triple (year:2003,add_1,year:2004)
+triple (year:2004,add_1,year:2005)
+triple (year:2005,add_1,year:2006)
+triple (year:2006,add_1,year:2007)
+triple (year:2007,add_1,year:2008)
+triple (year:2008,add_1,year:2009)
+triple (year:2009,add_1,year:2010)
+triple (year:2010,add_1,year:2011)
+triple (year:2011,add_1,year:2012)
+triple (year:2012,add_1,year:2013)
+triple (year:2013,add_1,year:2014)
+triple (year:2014,add_1,year:2015)
+triple (year:2015,add_1,year:2016)
+triple (year:2016,add_1,year:2017)
+triple (year:2017,add_1,year:2018)
+triple (year:2018,add_1,year:2019)
+triple (year:2019,add_1,year:2020)
+
+ker HX create
+ker HX config dimensions 2
+ker HX config graph g
+ker HX config regularization_type SURFACE
+// SPACE // SURFACE  // RANGE
+ker list
+ker HX desc
+
+ker HX config learning_rate 0.01
+ker HX config learning_margin 0.8
+ker HX config inverse_relations True
+
+var repeat declare Integer
+var repeat set 5000
+
+repeat %repeat% do { ker learn LRN repeat 1 ;; ker draw ;; sleep 50 }
+
+# @tmp/years2.h+
+
