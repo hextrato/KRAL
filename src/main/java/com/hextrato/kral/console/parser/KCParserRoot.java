@@ -51,6 +51,9 @@ public class KCParserRoot implements KCParser {
 					,"meta.ker.ker"
 					,"meta.ker.embed"
 
+					,"meta.nlp.corpus"
+					,"meta.nlp.document"
+
 			}; 
 	}
 

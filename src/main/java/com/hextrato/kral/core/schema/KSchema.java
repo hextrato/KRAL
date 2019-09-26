@@ -8,6 +8,7 @@ import com.hextrato.kral.core.schema.graph.KGraphSet;
 import com.hextrato.kral.core.schema.hyper.KSpaceSet;
 import com.hextrato.kral.core.schema.ker.KERSet;
 import com.hextrato.kral.core.schema.neural.KNeuralSet;
+import com.hextrato.kral.core.schema.nlp.KCorpusSet;
 import com.hextrato.kral.core.schema.tabular.KTabularSet;
 import com.hextrato.kral.core.util.exception.KException;
 
@@ -35,6 +36,9 @@ public class KSchema extends AMetaNamedObject {
 
 	private KERSet _kerSet = new KERSet(this);
 	public KERSet kers() { return _kerSet; }
+
+	private KCorpusSet _corpusSet = new KCorpusSet(this);
+	public KCorpusSet corpora() { return _corpusSet; }
 
 	private String _currentSplit = "";
 	public void setCurrentSplit(String split) throws KException {
