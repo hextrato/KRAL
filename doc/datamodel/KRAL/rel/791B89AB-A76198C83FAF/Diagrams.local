@@ -1,4 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<oracle.dbtools.crest.model.design.relational.RelationalDesign>
-   <object objectType="main_view" objectID="7578FCEE-D71D-8985-F2A2-5696EE0323D8" name="KRAL Graph" visible="false"/>
-</oracle.dbtools.crest.model.design.relational.RelationalDesign>
