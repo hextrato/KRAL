@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<design id="DB4C775B-7CFC-A868-6511-3EAA7D9CE7CF">
-	<models>
-		<model id="1B472674-8F86-78BA-35CA-7FC145F5D12B" open="true" open_d_pm="true"/>
-		<model id="5C12D543-9EA2-8943-8B03-FC531C2E64D9" open="true" open_d_pm="true"/>
-		<model id="791B89AB-27FC-9BF0-51EE-A76198C83FAF" open="true" open_d_pm="true"/>
-		<model id="A88A391B-7E7A-D441-E44C-305C4661D866" open="true" open_d_pm="true"/>
-	</models>
-</design>

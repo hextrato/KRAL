@@ -1,0 +1,32 @@
+space DEM_PRE_EMBED create 2 ;; space DEM_PRE_EMBED probscore [1,0] target [1] labels DEM_PRE_EMBED distance [0.707]
+labels DEM_PRE_CLASS 
+
+#
+
+var S declare double
+
+var V declare vector
+
+space DEM_PRE_EMBED select 
+
+vector Patient:PNR5d4696da8aca9c9593d54747eafa6496 save _values_ var V
+vector Patient:PNRf4ebec1aebeb4f26b92e2fbaa8e3f559 save _values_ var V
+
+var V show 
+
+space DEM_PRE_EMBED probscore %V% target [1] labels DEM_PRE_CLASS distance 0.1 ;; last
+space DEM_PRE_EMBED probscore %V% target [1] labels DEM_PRE_CLASS distance 0.3 ;; last
+space DEM_PRE_EMBED probscore %V% target [1] labels DEM_PRE_CLASS distance 0.5 ;; last
+space DEM_PRE_EMBED probscore %V% target [1] labels DEM_PRE_CLASS distance 0.7 ;; last
+space DEM_PRE_EMBED probscore %V% target [1] labels DEM_PRE_CLASS distance 0.9 ;; last
+space DEM_PRE_EMBED probscore %V% target [1] labels DEM_PRE_CLASS distance 1.5 ;; last
+
+space DEM_PRE_EMBED probscore %V% target [1] labels DEM_PRE_CLASS distance 0.354 ;; last ;; var S set %_last.value% ;; var V show ;; var S show
+space DEM_PRE_EMBED probscore %V% target [1] labels DEM_PRE_CLASS distance 0.707 ;; last ;; var S set %_last.value% ;; var V show ;; var S show
+space DEM_PRE_EMBED probscore %V% target [1] labels DEM_PRE_CLASS distance 1.061 ;; last ;; var S set %_last.value% ;; var V show ;; var S show
+space DEM_PRE_EMBED probscore %V% target [1] labels DEM_PRE_CLASS distance 1.414 ;; last ;; var S set %_last.value% ;; var V show ;; var S show
+space DEM_PRE_EMBED probscore %V% target [1] labels DEM_PRE_CLASS distance 1.768 ;; last ;; var S set %_last.value% ;; var V show ;; var S show
+space DEM_PRE_EMBED probscore %V% target [1] labels DEM_PRE_CLASS distance 2.121 ;; last ;; var S set %_last.value% ;; var V show ;; var S show
+
+space DEM_PRE_EMBED probscore %V% target [1] labels DEM_PRE_CLASS distance [0.0001,0.354553391,0.708106781,1.061660172,1.415213562,1.768766953,2.122320344,2.475873734,2.829427125,9999.9999]
+
