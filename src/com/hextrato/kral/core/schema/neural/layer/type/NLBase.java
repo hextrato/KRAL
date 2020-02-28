@@ -292,7 +292,7 @@ public abstract class NLBase {
 				rights ++;
 			}
 		}
-		System.out.println("["+String.format("%5.0f/%d", rights,oVector.size())+"] "+oVector.toString() + " X " + endPoint.theOutputValues().toString());
+		// System.out.println("["+String.format("%5.0f/%d", rights,oVector.size())+"] "+oVector.toString() + " X " + endPoint.theOutputValues().toString());
 		return rights;
 	}
 

@@ -60,5 +60,17 @@ public class DOperators {
 		ADataType<?> dtype = DVariable.getDatatype(var.getDatatype());
 		var.setValue( dtype.pow( var.getValue(), value ) );
 	}
+	public static void log (DVariable var) throws KException {
+		ADataType<?> dtype = DVariable.getDatatype(var.getDatatype());
+		var.setValue( dtype.log( var.getValue() ) );
+	}
+	public static void min (DVariable var, String minValue) throws KException {
+		ADataType<?> dtype = DVariable.getDatatype(var.getDatatype());
+		var.setValue( dtype.min( var.getValue(), minValue ) );
+	}
+	public static void max (DVariable var, String maxValue) throws KException {
+		ADataType<?> dtype = DVariable.getDatatype(var.getDatatype());
+		var.setValue( dtype.max( var.getValue(), maxValue ) );
+	}
 
 }

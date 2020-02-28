@@ -13,7 +13,7 @@ public class DVariableSet {
 	// Metadata
 	//
 
-	private String _metadata = "variable";
+	protected String _metadata = "variable";
 
 	public void setMetadata (String metadata) { _metadata = metadata; }
 	
@@ -21,7 +21,7 @@ public class DVariableSet {
 	// Variable Set
 	//
 	
-	private Map<String,DVariable> _variableSet = new HashMap<String,DVariable>();
+	protected Map<String,DVariable> _variableSet = new HashMap<String,DVariable>();
 	
 	public Set<String> keySet() {
 		return _variableSet.keySet();

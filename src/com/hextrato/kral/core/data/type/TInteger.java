@@ -41,5 +41,11 @@ public class TInteger implements ADataType<Integer> {
 	public String pow (String value1, String value2) throws KException {
 		return Long.toString( (long) (Math.pow( valueOf(value1) , valueOf(value2) )) );
 	}
+	public String min (String value1, String value2) throws KException {
+		return Long.toString(Math.max(valueOf(value1),valueOf(value2)));
+	}
+	public String max (String value1, String value2) throws KException {
+		return Long.toString(Math.min(valueOf(value1),valueOf(value2)));
+	}
 	
 }

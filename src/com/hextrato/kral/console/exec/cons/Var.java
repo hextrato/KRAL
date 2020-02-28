@@ -4,7 +4,11 @@ import com.hextrato.kral.console.KConsole;
 import com.hextrato.kral.console.parser.KCFinder;
 import com.hextrato.kral.console.parser.KCMetadata;
 import com.hextrato.kral.console.parser.KCParser;
+import com.hextrato.kral.core.data.abstracts.ADataType;
 import com.hextrato.kral.core.data.struct.DOperators;
+import com.hextrato.kral.core.data.struct.DVariable;
+import com.hextrato.kral.core.data.struct.DVector;
+import com.hextrato.kral.core.data.type.TVector;
 import com.hextrato.kral.core.util.exception.KException;
 
 public class Var implements KCParser {
@@ -12,7 +16,7 @@ public class Var implements KCParser {
 	public void setContext (KCMetadata clmd) { clmd.setContext("var"); }
 	
 	public String[] getValidTokenSet () {
-		return new String[] {"show", "set", "list", "declare", "equals", "add", "sub", "mult", "div", "pow", "concat"}; 
+		return new String[] {"show", "set", "list", "declare", "equals", "add", "sub", "mult", "div", "pow", "concat", "log", "min", "max", "pos"}; 
 	}
 
 	public static boolean doList(KCMetadata clmd) throws KException {
@@ -133,6 +137,63 @@ public class Var implements KCParser {
 		KConsole.metadata("Var", var, value);
 		return true;
 	}
+
+	public static boolean doLog(KCMetadata clmd) throws KException {
+		String var = KCFinder.which(clmd, "var");
+		// String value = KCFinder.which(clmd, "value");
+		// HXConsole.vars().add(var, value);
+		DOperators.log(KConsole.vars().getVariable(var));
+		KConsole.feedback("Var '"+var+"' set");
+		//KConsole.metadata("var", var, value);
+		return true; 
+	}
+
+	public static boolean doMin(KCMetadata clmd) throws KException {
+		String var = KCFinder.which(clmd, "var");
+		String value = KCFinder.which(clmd, "value");
+		// HXConsole.vars().add(var, value);
+		DOperators.min(KConsole.vars().getVariable(var), value);
+		KConsole.feedback("Var '"+var+"' set");
+		//KConsole.metadata("var", var, value);
+		return true; 
+	}
+	
+	public static boolean doMax(KCMetadata clmd) throws KException {
+		String var = KCFinder.which(clmd, "var");
+		String value = KCFinder.which(clmd, "value");
+		// HXConsole.vars().add(var, value);
+		DOperators.max(KConsole.vars().getVariable(var), value);
+		KConsole.feedback("Var '"+var+"' set");
+		//KConsole.metadata("var", var, value);
+		return true; 
+	}
+	
+	public static boolean doPosGet(KCMetadata clmd) throws KException {
+		String var = KCFinder.which(clmd, "var");
+		String pos = KCFinder.which(clmd, "pos");
+		if (!KConsole.vars().getDatatype(var).equals("Vector")) throw new KException("Var ["+var+"] is not a Vector");
+		ADataType<?> dtype = DVariable.getDatatype(KConsole.vars().getDatatype(var));
+		DVector x = ((TVector)dtype).valueOf(KConsole.vars().getVariable(var).getValue());
+		KConsole.lastDouble( x.getValue(Integer.valueOf(pos)) );
+		KConsole.feedback("Var '"+var+"' pos ["+pos+"] = "+x.getValue(Integer.valueOf(pos)));
+		return true; 
+	}
+	
+	public static boolean doPosSet(KCMetadata clmd) throws KException {
+		String var = KCFinder.which(clmd, "var");
+		String pos = KCFinder.which(clmd, "pos");
+		String val = KCFinder.which(clmd, "value");
+		if (!KConsole.vars().getDatatype(var).equals("Vector")) throw new KException("Var ["+var+"] is not a Vector");
+		ADataType<?> dtype = DVariable.getDatatype(KConsole.vars().getDatatype(var));
+		DVector x = ((TVector)dtype).valueOf(KConsole.vars().getVariable(var).getValue());
+		x.setValue(Integer.valueOf(pos), Double.valueOf(val));
+		KConsole.vars().getVariable(var).setValue(x.toString());
+		KConsole.lastDouble( x.getValue(Integer.valueOf(pos)) );
+		KConsole.lastVector( x );
+		KConsole.feedback("Var '"+var+"' pos ["+pos+"] = "+x.getValue(Integer.valueOf(pos)));
+		return true; 
+	}
+	
 
 
 

@@ -44,5 +44,14 @@ public interface ADataType<Meta> {
 	public default String pow (String value1, String value2) throws KException {
 		throw new KException("Not implemented for given datatype");
 	}
+	public default String log (String value1) throws KException {
+		throw new KException("Not implemented for given datatype");
+	}
+	public default String min (String value1, String value2) throws KException {
+		throw new KException("Not implemented for given datatype");
+	}
+	public default String max (String value1, String value2) throws KException {
+		throw new KException("Not implemented for given datatype");
+	}
 
 }

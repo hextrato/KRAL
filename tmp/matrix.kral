@@ -1,0 +1,107 @@
+# @tmp/matrix.kral
+
+reset
+
+split PRE create
+
+graph g create
+graph g property typed TRUE
+graph g property autocreate true
+
+triple (A,num,1)
+triple (B,num,2)
+triple (C,num,3)
+triple (D,num,4)
+triple (E,num,5)
+triple (F,num,6)
+triple (G,num,7)
+triple (H,num,8)
+triple (A,rel,x)
+triple (B,rel,x)
+triple (C,rel,x)
+triple (D,rel,x)
+triple (E,rel,y)
+triple (F,rel,y)
+triple (G,rel,y)
+triple (H,rel,y)
+triple (z,rel2,A)
+triple (z,rel2,B)
+triple (z,rel2,E)
+triple (z,rel2,F)
+triple (w,rel2,C)
+triple (w,rel2,D)
+triple (w,rel2,G)
+triple (w,rel2,H)
+
+split POS create
+triple (_A2,num,1)
+triple (_B2,num,2)
+triple (_C2,num,3)
+triple (_D2,num,4)
+triple (_E2,num,5)
+triple (_F2,num,6)
+triple (_G2,num,7)
+triple (_H2,num,8)
+
+triple (_A3,num,1)
+triple (_B3,num,2)
+triple (_C3,num,3)
+triple (_D3,num,4)
+triple (_E3,num,5)
+triple (_F3,num,6)
+triple (_G3,num,7)
+triple (_H3,num,8)
+
+triple (_A4,num,1)
+triple (_B4,num,2)
+triple (_C4,num,3)
+triple (_D4,num,4)
+triple (_E4,num,5)
+triple (_F4,num,6)
+triple (_G4,num,7)
+triple (_H4,num,8)
+
+#triple (A2,rel,x)
+#triple (B2,rel,x)
+#triple (C2,rel,x)
+#triple (D2,rel,x)
+#triple (E2,rel,y)
+#triple (F2,rel,y)
+#triple (G2,rel,y)
+#triple (H2,rel,y)
+#triple (z,rel2,A2)
+#triple (z,rel2,B2)
+#triple (z,rel2,E2)
+#triple (z,rel2,F2)
+#triple (w,rel2,C2)
+#triple (w,rel2,D2)
+#triple (w,rel2,G2)
+#triple (w,rel2,H2)
+
+ker HX create
+ker HX config dimensions 3
+ker HX config graph g
+ker HX config regularization_type SURFACE
+ker list
+ker HX desc
+
+ker HX config learning_rate 0.025
+ker HX config learning_margin 0.35
+ker HX config inverse_relations true
+ker HX config projection_matrices false
+
+// ker HX config lc 0.95
+// ker HX config dm 1.5
+// ker HX config lm 1
+// ker HX config ec 500
+
+var repeat declare Integer
+var repeat set 500
+
+repeat %repeat% do { ker learn PRE repeat 1 ;; ker draw ;; sleep 25 }
+sleep 500
+ker HX config projection_matrices true
+repeat %repeat% do { ker learn PRE repeat 1 ;; ker draw ;; sleep 25 }
+sleep 500
+repeat %repeat% do { ker learn POS repeat 1 ;; ker draw ;; sleep 25 }
+

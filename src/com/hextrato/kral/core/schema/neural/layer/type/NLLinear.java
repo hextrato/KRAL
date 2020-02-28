@@ -233,7 +233,7 @@ public class NLLinear extends NLBase {
 			double diff = target.getValue(ox) - this._oValues.getValue(ox);
 			distance += (diff * diff);
 		}
-		System.out.println("["+String.format("%1.6f", Math.sqrt(distance))+"] "+target.toString() + " X " + this._oValues.toString());
+		// System.out.println("["+String.format("%1.6f", Math.sqrt(distance))+"] "+target.toString() + " X " + this._oValues.toString());
 		return Math.sqrt(distance);
 	}
 

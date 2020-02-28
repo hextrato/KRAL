@@ -1,6 +1,7 @@
 package com.hextrato.kral.core.data.abstracts;
 
 import com.hextrato.kral.core.KRAL;
+import com.hextrato.kral.core.data.struct.DCommentSet;
 import com.hextrato.kral.core.data.struct.DVariableSet;
 import com.hextrato.kral.core.util.exception.KException;
 
@@ -11,11 +12,13 @@ import java.util.Properties;
 
 public abstract class AMetaUIDObject {
 
+	protected DCommentSet			 	_comments;
 	protected DVariableSet			 	_properties;
 	protected Properties 				_ranges;
 	protected AMetaUIDObjectSet	_set = null;
 	
 	public AMetaUIDObject () throws KException {
+		this._comments = new DCommentSet();
 		this._properties = new DVariableSet();
 		this._ranges = new Properties();
 		this._properties.declare("_uid_", "Uid");
@@ -33,6 +36,11 @@ public abstract class AMetaUIDObject {
 	public DVariableSet properties() throws KException {
 		if (this._properties == null) throw new KException("Object has no property set");
 		return this._properties;
+	}
+
+	public DVariableSet comments() throws KException {
+		if (this._comments == null) throw new KException("Object has no comment set");
+		return this._comments;
 	}
 
 	public void declareProperty (String property, String datatype) throws KException {
@@ -66,14 +74,24 @@ public abstract class AMetaUIDObject {
 		this._properties.setValue(property, value);
 		if (_set != null) this._set.updateSizes(property, value);
 	}
+
 	public String getProperty (String property) throws KException {
 		// if (this._properties == null) throw new HXException("Object has no property set");
 		if (!this.hasProperty(property)) throw new KException("Invalid property '"+property+"'");
 		return this._properties.getValue(property);
 	}
 
+	public String getComment (String comment) throws KException {
+		if (!this.hasComment(comment)) throw new KException("Invalid comment '"+comment+"'");
+		return this._comments.getValue(comment);
+	}
+
 	public boolean hasProperty (String property) {
 		return this._properties.exits(property);
+	}
+
+	public boolean hasComment (String comment) {
+		return this._comments.exits(comment);
 	}
 
 	public void hextract (BufferedWriter bf) throws KException {

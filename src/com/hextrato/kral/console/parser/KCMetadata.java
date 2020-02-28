@@ -1,6 +1,7 @@
 package com.hextrato.kral.console.parser;
 
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 import com.hextrato.kral.console.KConsole;
 import com.hextrato.kral.core.util.exception.KException;
@@ -35,7 +36,9 @@ public class KCMetadata {
 			stmt = stmt.replace("%"+var+"%", KConsole.vars().get(var));
 		}
 		for (String last : KConsole.last().keySet()) {
+			//KConsole.message("["+last+"] ?");
 			stmt = stmt.replace("%"+last+"%", KConsole.last().get(last));
+			//KConsole.message(stmt);
 		}
 
 		// tokens

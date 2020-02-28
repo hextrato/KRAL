@@ -19,7 +19,7 @@ public class Layer implements KCParser {
 
 	public void setContext (KCMetadata clmd) { clmd.setContext("layer"); }
 
-	public String[] getValidTokenSet () { return new String[] {"create", "list", "select", "desc", "foreach", "save", "set", "weights", "biases", "feed", "back", "learn", "validate", "test", "accuracy"}; }
+	public String[] getValidTokenSet () { return new String[] {"create", "list", "select", "desc", "foreach", "save", "set", "weights", "biases", "feed", "back", "learn", "validate", "test", "accuracy", "comment"}; }
 
 	public boolean partial(KCMetadata clmd) { return !(clmd.getVar("layer").equals("")); }
 
@@ -328,7 +328,8 @@ public class Layer implements KCParser {
 				layer = nextLayer;
 			}
 			feedback = feedback + " => " + layer.theOutputValues().toString();
-			//HXConsole.feedback("layer."+layer.getName()+".output = "+layer.theOutputValues().toString()); 
+			//HXConsole.feedback("layer."+layer.getName()+".output = "+layer.theOutputValues().toString());
+			KConsole.lastVector(layer.theOutputValues());
 			KConsole.feedback(feedback);
 		} else {
 			throw new KException("Invalid values format in: "+inputValues);
@@ -408,7 +409,7 @@ public class Layer implements KCParser {
 		layer.test(iSpace.vectors(),oSpace.vectors());
 		KConsole.feedback("Layer error = ");
 		KConsole.feedback("" + layer.getLastError());
-		
+		KConsole.lastDouble(layer.getLastError());
 		return true;
 	}
 
@@ -428,8 +429,19 @@ public class Layer implements KCParser {
 		layer.accuracy(iSpace.vectors(),oSpace.vectors());
 		KConsole.feedback("Layer accuracy = ");
 		KConsole.feedback(""+layer.getLastAccuracy());
-		
+		KConsole.lastDouble(layer.getLastAccuracy());
 		return true;
 	}
+
+	public static boolean doComment(KCMetadata clmd) throws KException {
+		KSchema schema = KCFinder.findSchema(clmd);
+		KNeural neural = KCFinder.findNeural(schema, clmd);
+		KLayer layer = KCFinder.findLayer(neural, clmd);
+		String comment = KCFinder.which(clmd, "comment");
+		String value = KCFinder.which(clmd, "value");
+		layer.comments().set(comment, value);
+		return true;
+	}
+	
 }
 
