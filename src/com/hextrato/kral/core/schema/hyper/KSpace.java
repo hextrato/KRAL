@@ -49,7 +49,16 @@ public class KSpace extends AMetaNamedObject {
 	// Probabilistic Scores
 	//
 	static double similarityFactor4TPlabel = Math.sqrt(2)/4; 
-	public DVector probscore (DVector vector, DVector target, KSpace labels, DVector distances) throws KException {
+	
+	public DVector probScoreArcDist (DVector vector, DVector target, KSpace labels, DVector distances) throws KException {
+		return probScore (vector, target, labels, distances, true);
+	}
+
+	public DVector probScoreL2Norm (DVector vector, DVector target, KSpace labels, DVector distances) throws KException {
+		return probScore (vector, target, labels, distances, false);
+	}
+
+	public DVector probScore (DVector vector, DVector target, KSpace labels, DVector distances, boolean isArcDistance) throws KException {
 	
 		if (distances == null || distances.size() == 0)
 			return (new DVector (1).setValue(0,-1) );
@@ -65,15 +74,19 @@ public class KSpace extends AMetaNamedObject {
 			DVector labelVector = labels.vectors().getVector(vectorID).getValues();
 			
 			// double thisDistance = spaceVector.distance(vector);
-			double thisArcDistance = spaceVector.arc(vector);
+			double thisVecDistance;
+			if (isArcDistance)
+				thisVecDistance = spaceVector.arc(vector);
+			else
+				thisVecDistance = spaceVector.distance(vector);
 			
-			//if (thisArcDistance > Math.acos(0)) 
-			//	System.out.println(vector.toString()+ " : "+thisArcDistance);
+			//if (thisVecDistance > Math.acos(0)) 
+			//	System.out.println(vector.toString()+ " : "+thisVecDistance);
 			
 			for (int i = 0; i < distances.size(); i++) {
 				double maxdistance = distances.getValue(i);
-				if (thisArcDistance <= maxdistance) {
-					double invdistance = maxdistance - thisArcDistance;
+				if (thisVecDistance <= maxdistance) {
+					double invdistance = maxdistance - thisVecDistance;
 					double labeldistance = labelVector.distance(target);
 					double labelTPfactor = (1 - labeldistance);
 					if (labeldistance < similarityFactor4TPlabel) {
@@ -213,6 +226,7 @@ public class KSpace extends AMetaNamedObject {
 		DVector aucLastP = new DVector(this.getDims()).fillWith(0);
 		DVector aucSumP = new DVector(this.getDims()).fillWith(0);
 		DVector aucSumR = new DVector(this.getDims()).fillWith(0);
+		DVector aucCount = new DVector(this.getDims()).fillWith(0);
 		DVector auc = new DVector(this.getDims()).fillWith(0);
 
 		DVector tF5 = new DVector(this.getDims());
@@ -230,6 +244,9 @@ public class KSpace extends AMetaNamedObject {
 			}
 		}
 
+		/////System.out.println("splitFactors      = "+splitFactors.toString());
+		/////System.out.println("initialThresholds = "+currentThresholds.toString());
+
 		//KConsole.println("splitFactors="+splitFactors);
 		//KConsole.println("currentThresholds="+currentThresholds);
 		//KConsole.println("medPos="+medPos);
@@ -243,8 +260,8 @@ public class KSpace extends AMetaNamedObject {
 			double label = testLabel.vectors().getVector(vectorName).getValues().getValue(labelPosition);
 			for (int pos = 0; pos < this.getDims(); pos ++) if (maxPos.getValue(pos) >= 0 && tF5threshold.getValue(pos) >= 0) {
 				double score = scores.getValue(pos);
-				if (score >= 0) {
-					if (targetValue > tF5threshold.getValue(pos)) {
+				// ? if (score >= 0) {
+					if (targetValue > 0) { // tF5threshold.getValue(pos)) {
 						if (label >= tF5threshold.getValue(pos) && score >= tF5threshold.getValue(pos) ) TP.setValue(pos, TP.getValue(pos)+1 );
 						if (label >= tF5threshold.getValue(pos) && score < tF5threshold.getValue(pos) ) FN.setValue(pos, FN.getValue(pos)+1 );
 						if (label < tF5threshold.getValue(pos) && score >= tF5threshold.getValue(pos) ) FP.setValue(pos, FP.getValue(pos)+1 );
@@ -253,7 +270,7 @@ public class KSpace extends AMetaNamedObject {
 						if (label <= tF5threshold.getValue(pos) && score > tF5threshold.getValue(pos) ) FN.setValue(pos, FN.getValue(pos)+1 );
 						if (label > tF5threshold.getValue(pos) && score <= tF5threshold.getValue(pos) ) FP.setValue(pos, FP.getValue(pos)+1 );
 					}
-				}
+				// ? } else FN.setValue(pos, FN.getValue(pos)+1 );
 			}
 		}
 		for (int pos = 0; pos < this.getDims(); pos ++) if (maxPos.getValue(pos) >= 0 && tF5threshold.getValue(pos) >= 0) {
@@ -274,8 +291,8 @@ public class KSpace extends AMetaNamedObject {
 			double label = testLabel.vectors().getVector(vectorName).getValues().getValue(labelPosition);
 			for (int pos = 0; pos < this.getDims(); pos ++) if (maxPos.getValue(pos) >= 0 && tF1threshold.getValue(pos) >= 0) {
 				double score = scores.getValue(pos);
-				if (score >= 0) {
-					if (targetValue > tF1threshold.getValue(pos)) {
+				// ? if (score >= 0) {
+					if (targetValue > 0) { // tF1threshold.getValue(pos)) {
 						if (label >= tF1threshold.getValue(pos) && score >= tF1threshold.getValue(pos) ) TP.setValue(pos, TP.getValue(pos)+1 );
 						if (label >= tF1threshold.getValue(pos) && score < tF1threshold.getValue(pos) ) FN.setValue(pos, FN.getValue(pos)+1 );
 						if (label < tF1threshold.getValue(pos) && score >= tF1threshold.getValue(pos) ) FP.setValue(pos, FP.getValue(pos)+1 );
@@ -284,7 +301,7 @@ public class KSpace extends AMetaNamedObject {
 						if (label <= tF1threshold.getValue(pos) && score > tF1threshold.getValue(pos) ) FN.setValue(pos, FN.getValue(pos)+1 );
 						if (label > tF1threshold.getValue(pos) && score <= tF1threshold.getValue(pos) ) FP.setValue(pos, FP.getValue(pos)+1 );
 					}
-				}
+				// ? } else FN.setValue(pos, FN.getValue(pos)+1 );
 			}
 		}
 		for (int pos = 0; pos < this.getDims(); pos ++) if (maxPos.getValue(pos) >= 0 && tF5threshold.getValue(pos) >= 0) {
@@ -305,8 +322,8 @@ public class KSpace extends AMetaNamedObject {
 			double label = testLabel.vectors().getVector(vectorName).getValues().getValue(labelPosition);
 			for (int pos = 0; pos < this.getDims(); pos ++) if (maxPos.getValue(pos) >= 0 && tF2threshold.getValue(pos) >= 0) {
 				double score = scores.getValue(pos);
-				if (score >= 0) {
-					if (targetValue > tF2threshold.getValue(pos)) {
+				// ? if (score >= 0) {
+					if (targetValue > 0) { // tF2threshold.getValue(pos)) {
 						if (label >= tF2threshold.getValue(pos) && score >= tF2threshold.getValue(pos) ) TP.setValue(pos, TP.getValue(pos)+1 );
 						if (label >= tF2threshold.getValue(pos) && score < tF2threshold.getValue(pos) ) FN.setValue(pos, FN.getValue(pos)+1 );
 						if (label < tF2threshold.getValue(pos) && score >= tF2threshold.getValue(pos) ) FP.setValue(pos, FP.getValue(pos)+1 );
@@ -315,7 +332,7 @@ public class KSpace extends AMetaNamedObject {
 						if (label <= tF2threshold.getValue(pos) && score > tF2threshold.getValue(pos) ) FN.setValue(pos, FN.getValue(pos)+1 );
 						if (label > tF2threshold.getValue(pos) && score <= tF2threshold.getValue(pos) ) FP.setValue(pos, FP.getValue(pos)+1 );
 					}
-				}
+				// ? } else FN.setValue(pos, FN.getValue(pos)+1 );
 			}
 		}
 		for (int pos = 0; pos < this.getDims(); pos ++) if (maxPos.getValue(pos) >= 0 && tF5threshold.getValue(pos) >= 0) {
@@ -330,6 +347,8 @@ public class KSpace extends AMetaNamedObject {
 		// auroc
 		int countSplit = 0;
 		boolean any = true;
+		aucLastP.fillWith(0);
+		aucLastR.fillWith(1);
 		while (any && countSplit < 100*THRESHOLD_SPLIT_FACTOR) 
 		{
 			countSplit++; any=false;
@@ -348,8 +367,8 @@ public class KSpace extends AMetaNamedObject {
 				for (int pos = 0; pos < this.getDims(); pos ++) if (splitFactors.getValue(pos) > 0 && maxPos.getValue(pos) >= 0 && currentThresholds.getValue(pos) <= maxPos.getValue(pos) - splitFactors.getValue(pos)) {
 					any = true;
 					double score = scores.getValue(pos);
-					if (score >= 0) {
-						if (targetValue > currentThresholds.getValue(pos)) {
+					// ? if (score >= 0) {
+						if (targetValue > 0) { // currentThresholds.getValue(pos)) {
 							if (label >= currentThresholds.getValue(pos) && score >= currentThresholds.getValue(pos) ) TP.setValue(pos, TP.getValue(pos)+1 );
 							if (label >= currentThresholds.getValue(pos) && score < currentThresholds.getValue(pos) ) FN.setValue(pos, FN.getValue(pos)+1 );
 							if (label < currentThresholds.getValue(pos) && score >= currentThresholds.getValue(pos) ) FP.setValue(pos, FP.getValue(pos)+1 );
@@ -358,34 +377,43 @@ public class KSpace extends AMetaNamedObject {
 							if (label <= currentThresholds.getValue(pos) && score > currentThresholds.getValue(pos) ) FN.setValue(pos, FN.getValue(pos)+1 );
 							if (label > currentThresholds.getValue(pos) && score <= currentThresholds.getValue(pos) ) FP.setValue(pos, FP.getValue(pos)+1 );
 						}
-					}
+					// ? }  else FN.setValue(pos, FN.getValue(pos)+1 );
 				}
 			}
 			//KConsole.message("aucLastP: "+ aucLastP.toString());
 			//KConsole.message("aucLastR: "+ aucLastR.toString());
 			for (int pos = 0; pos < this.getDims(); pos ++) if (maxPos.getValue(pos) >= 0 && currentThresholds.getValue(pos) <= maxPos.getValue(pos) - splitFactors.getValue(pos)) {
-				// Precision and Recall
-				if (TP.getValue(pos) + FP.getValue(pos) > 0) P.setValue(pos, TP.getValue(pos) / (TP.getValue(pos) + FP.getValue(pos))); else P.setValue(pos, 0); 
-				if (TP.getValue(pos) + FN.getValue(pos) > 0) R.setValue(pos, TP.getValue(pos) / (TP.getValue(pos) + FN.getValue(pos))); else R.setValue(pos, 1);
-				
-				//if (P.getValue(pos) + R.getValue(pos) > 0) F5.setValue(pos, (1.0+0.5*0.5) * (P.getValue(pos) * R.getValue(pos) ) / (0.5*0.5+P.getValue(pos))*R.getValue(pos) ); else F5.setValue(pos, 0);
-				//if (P.getValue(pos) + R.getValue(pos) > 0) F1.setValue(pos, (1.0+1.0*1.0) * (P.getValue(pos) * R.getValue(pos) ) / (1.0*1.0+P.getValue(pos))*R.getValue(pos) ); else F1.setValue(pos, 0);
-				//if (P.getValue(pos) + R.getValue(pos) > 0) F2.setValue(pos, (1.0+2.0*2.0) * (P.getValue(pos) * R.getValue(pos) ) / (2.0*2.0+P.getValue(pos))*R.getValue(pos) ); else F2.setValue(pos, 0);
-				
-				// AUC parameters
-				// if (P.getValue(pos) > aucLastP.getValue(pos)) {
-				//if (pos == 2) {
-				//	KConsole.message("*** P[2]: "+ P.getValue(pos));
-				//	KConsole.message("*** R[2]: "+ R.getValue(pos));
-				//}
-				if (P.getValue(pos) != aucLastP.getValue(pos)) {
-					aucSumP.setValue ( pos, aucSumP.getValue(pos) + Math.abs( P.getValue(pos) - aucLastP.getValue(pos) ) );
-					aucSumR.setValue ( pos, aucSumR.getValue(pos) + Math.abs( (R.getValue(pos) + aucLastR.getValue(pos)) * (P.getValue(pos) - aucLastP.getValue(pos)) / 2 ) );
-					if (aucSumP.getValue(pos) == 0) auc.setValue(pos, 0); 
-					else auc.setValue(pos, aucSumR.getValue(pos) / aucSumP.getValue(pos));
-					// auc.setValue ( pos, auc.getValue(pos) + Math.abs( (R.getValue(pos) + aucLastR.getValue(pos)) * (P.getValue(pos) - aucLastP.getValue(pos)) / 2 ) );				
-					aucLastP.setValue(pos, P.getValue(pos));
-					aucLastR.setValue(pos, R.getValue(pos));
+				if (TP.getValue(pos) > 0 && FP.getValue(pos) > 0 && FN.getValue(pos) > 0) {
+					aucCount.setValue(pos, aucCount.getValue(pos)+1);
+					// Precision and Recall
+					// if (FP.getValue(pos) > 0) P.setValue(pos, TP.getValue(pos) / (TP.getValue(pos) + FP.getValue(pos))); else P.setValue(pos, 1); 
+					// if (FN.getValue(pos) > 0) R.setValue(pos, TP.getValue(pos) / (TP.getValue(pos) + FN.getValue(pos))); else R.setValue(pos, 1);
+					P.setValue(pos, TP.getValue(pos) / (TP.getValue(pos) + FP.getValue(pos))); 
+					R.setValue(pos, TP.getValue(pos) / (TP.getValue(pos) + FN.getValue(pos))); 
+					
+					//if (P.getValue(pos) + R.getValue(pos) > 0) F5.setValue(pos, (1.0+0.5*0.5) * (P.getValue(pos) * R.getValue(pos) ) / (0.5*0.5+P.getValue(pos))*R.getValue(pos) ); else F5.setValue(pos, 0);
+					//if (P.getValue(pos) + R.getValue(pos) > 0) F1.setValue(pos, (1.0+1.0*1.0) * (P.getValue(pos) * R.getValue(pos) ) / (1.0*1.0+P.getValue(pos))*R.getValue(pos) ); else F1.setValue(pos, 0);
+					//if (P.getValue(pos) + R.getValue(pos) > 0) F2.setValue(pos, (1.0+2.0*2.0) * (P.getValue(pos) * R.getValue(pos) ) / (2.0*2.0+P.getValue(pos))*R.getValue(pos) ); else F2.setValue(pos, 0);
+					
+					// AUC parameters
+					// if (P.getValue(pos) > aucLastP.getValue(pos)) {
+					//if (pos == 2) {
+					//	KConsole.message("*** P[2]: "+ P.getValue(pos));
+					//	KConsole.message("*** R[2]: "+ R.getValue(pos));
+					//}
+					if (P.getValue(pos) != aucLastP.getValue(pos) || R.getValue(pos) > aucLastR.getValue(pos)) {
+						aucSumP.setValue ( pos, aucSumP.getValue(pos) + Math.abs( P.getValue(pos) - aucLastP.getValue(pos) ) );
+						aucSumR.setValue ( pos, aucSumR.getValue(pos) + Math.abs( (R.getValue(pos) + aucLastR.getValue(pos)) * (P.getValue(pos) - aucLastP.getValue(pos)) / 2 ) );
+						//if (aucSumP.getValue(pos) == 0) auc.setValue(pos, 0); 
+						//else auc.setValue(pos, aucSumR.getValue(pos) / aucSumP.getValue(pos));
+						// auc.setValue ( pos, auc.getValue(pos) + Math.abs( (R.getValue(pos) + aucLastR.getValue(pos)) * (P.getValue(pos) - aucLastP.getValue(pos)) / 2 ) );				
+						aucLastP.setValue(pos, P.getValue(pos));
+						aucLastR.setValue(pos, R.getValue(pos));
+					}
+					
+					//if (pos == 14) {
+					//	System.out.println("Th\t"+currentThresholds.getValue(pos)+"\tTP\t"+TP.getValue(pos)+"\tFP\t"+FP.getValue(pos)+"\tFN\t"+FN.getValue(pos)+"\tP\t"+P.getValue(pos)+"\tR\t"+R.getValue(pos)+"\n");
+					//}
 				}
 			}
 			//KConsole.message("currentP: "+ P.toString());
@@ -400,6 +428,18 @@ public class KSpace extends AMetaNamedObject {
 				currentThresholds.setValue(pos, currentThresholds.getValue(pos) + splitFactors.getValue(pos) );
 			}
 		}
+		P.fillWith(1);
+		R.fillWith(0);
+		for (int pos = 0; pos < this.getDims(); pos ++) {
+			aucSumP.setValue ( pos, aucSumP.getValue(pos) + Math.abs( P.getValue(pos) - aucLastP.getValue(pos) ) );
+			aucSumR.setValue ( pos, aucSumR.getValue(pos) + Math.abs( (R.getValue(pos) + aucLastR.getValue(pos)) * (P.getValue(pos) - aucLastP.getValue(pos)) / 2 ) );
+			if (aucSumP.getValue(pos) == 0 || aucCount.getValue(pos) < 3) auc.setValue(pos, 0); 
+			else auc.setValue(pos, aucSumR.getValue(pos) / aucSumP.getValue(pos));
+		}
+		
+		/////System.out.println("finalThresholds = "+currentThresholds.toString());
+		
+		
 		KConsole.message("countSplit="+countSplit);
 
 		//KConsole.message("================================");
@@ -546,8 +586,8 @@ public class KSpace extends AMetaNamedObject {
 				for (int pos = 0; pos < this.getDims(); pos ++) if (splitFactors.getValue(pos) > 0 && currentThresholds.getValue(pos) <= maxPos.getValue(pos) - splitFactors.getValue(pos)) {
 					any = true;
 					double score = scores.getValue(pos);
-					if (score >= 0) {
-						if (targetValue > currentThresholds.getValue(pos)) {
+					// ? if (score >= 0) {
+						if (targetValue > 0) { // currentThresholds.getValue(pos)) {
 							if (label >= currentThresholds.getValue(pos) && score >= currentThresholds.getValue(pos) ) TP.setValue(pos, TP.getValue(pos)+1 );
 							if (label >= currentThresholds.getValue(pos) && score < currentThresholds.getValue(pos) ) FN.setValue(pos, FN.getValue(pos)+1 );
 							if (label < currentThresholds.getValue(pos) && score >= currentThresholds.getValue(pos) ) FP.setValue(pos, FP.getValue(pos)+1 );
@@ -556,7 +596,7 @@ public class KSpace extends AMetaNamedObject {
 							if (label <= currentThresholds.getValue(pos) && score > currentThresholds.getValue(pos) ) FN.setValue(pos, FN.getValue(pos)+1 );
 							if (label > currentThresholds.getValue(pos) && score <= currentThresholds.getValue(pos) ) FP.setValue(pos, FP.getValue(pos)+1 );
 						}
-					} else FN.setValue(pos, FN.getValue(pos)+1 );
+					// ? } else FN.setValue(pos, FN.getValue(pos)+1 );
 				}
 			}
 			// Precision and Recall
@@ -579,8 +619,8 @@ public class KSpace extends AMetaNamedObject {
 				for (int pos = 0; pos < this.getDims(); pos ++) if (currentThresholds.getValue(pos) <= maxPos.getValue(pos) - splitFactors.getValue(pos)) {
 					any = true;
 					double score = scores.getValue(pos);
-					if (score >= 0) {
-						if (targetValue > currentThresholds.getValue(pos)) {
+					// ? if (score >= 0) {
+						if (targetValue > 0) { // currentThresholds.getValue(pos)) {
 							if (label >= currentThresholds.getValue(pos) && score >= currentThresholds.getValue(pos) ) TP.setValue(pos, TP.getValue(pos)+1 );
 							if (label >= currentThresholds.getValue(pos) && score < currentThresholds.getValue(pos) ) FN.setValue(pos, FN.getValue(pos)+1 );
 							if (label < currentThresholds.getValue(pos) && score >= currentThresholds.getValue(pos) ) FP.setValue(pos, FP.getValue(pos)+1 );
@@ -589,7 +629,7 @@ public class KSpace extends AMetaNamedObject {
 							if (label <= currentThresholds.getValue(pos) && score > currentThresholds.getValue(pos) ) FN.setValue(pos, FN.getValue(pos)+1 );
 							if (label > currentThresholds.getValue(pos) && score <= currentThresholds.getValue(pos) ) FP.setValue(pos, FP.getValue(pos)+1 );
 						}
-					} else FN.setValue(pos, FN.getValue(pos)+1 );
+					// ? } else FN.setValue(pos, FN.getValue(pos)+1 );
 				}
 			}
 			//KConsole.message("aucLastP: "+ aucLastP.toString());

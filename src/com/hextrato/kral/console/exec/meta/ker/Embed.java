@@ -13,7 +13,7 @@ public class Embed implements KCParser {
 
 	public void setContext (KCMetadata clmd) { clmd.setContext("embed"); }
 
-	public String[] getValidTokenSet () { return new String[] {"config", "create", "list", "select", "desc", "save"}; }
+	public String[] getValidTokenSet () { return new String[] {"config", "create", "foreach", "list", "select", "desc", "save"}; }
 
 	// public boolean partial(CLMetadata clmd) { return !(clmd.getVar("embedding").equals("")); }
 
@@ -95,6 +95,26 @@ public class Embed implements KCParser {
 			break;
 		}
 		KConsole.metadata("Embed", embed.getName());
+		return true;
+	}
+
+	public static boolean doForeach(KCMetadata clmd) throws KException {
+		boolean found = false;
+		KSchema schema = KCFinder.findSchema(clmd);
+		KER ker = KCFinder.findKER(schema, clmd);
+		String searchEmbedName = clmd.getVar("embed");
+		String blok = clmd.getBlok();
+		if (blok.equals("")) throw new KException("Undefined foreach blok");
+		for (String embedName : ker.embeds().theList().keySet()) {
+			KEmbed e = ker.embeds().getEmbed(embedName);
+			if (("["+e.getName()+"]").contains(searchEmbedName)) {
+				ker.embeds().setCurrent(embedName);
+				KConsole.runLine(blok);
+				found = true;
+			}
+		}
+		if (!found)
+			KConsole.feedback("No embeds found");
 		return true;
 	}
 

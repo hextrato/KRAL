@@ -155,7 +155,7 @@ public class Space implements KCParser {
 	
 	static TVector typeVector = new TVector();
 
-	public static boolean doProbscore(KCMetadata clmd) throws KException {
+	public static boolean doProbscoreArcdist(KCMetadata clmd) throws KException {
 		KSchema schema = KCFinder.findSchema(clmd);
 		KSpace space = KCFinder.findSpace(schema, clmd);
 		String pVector = KCFinder.which(clmd, "vector");
@@ -166,7 +166,25 @@ public class Space implements KCParser {
 		KSpace labels = schema.hyperspace().getSpace(labelsName);
 		String dist = KCFinder.which(clmd, "dist");
 		DVector distances = typeVector.valueOf(dist); 
-		DVector scores = space.probscore(vector,target,labels,distances);
+		DVector scores = space.probScoreArcDist(vector,target,labels,distances);
+		KConsole.feedback("Space '"+space.getName()+"' probscored");
+		KConsole.metadata("Space", space.getName());
+		KConsole.lastVector(scores);
+		return true;
+	}
+
+	public static boolean doProbscoreL2norm(KCMetadata clmd) throws KException {
+		KSchema schema = KCFinder.findSchema(clmd);
+		KSpace space = KCFinder.findSpace(schema, clmd);
+		String pVector = KCFinder.which(clmd, "vector");
+		DVector vector = typeVector.valueOf(pVector);
+		String pTarget = KCFinder.which(clmd, "class");
+		DVector target = typeVector.valueOf(pTarget);
+		String labelsName = KCFinder.which(clmd, "labelspace");
+		KSpace labels = schema.hyperspace().getSpace(labelsName);
+		String dist = KCFinder.which(clmd, "dist");
+		DVector distances = typeVector.valueOf(dist); 
+		DVector scores = space.probScoreL2Norm(vector,target,labels,distances);
 		KConsole.feedback("Space '"+space.getName()+"' probscored");
 		KConsole.metadata("Space", space.getName());
 		KConsole.lastVector(scores);

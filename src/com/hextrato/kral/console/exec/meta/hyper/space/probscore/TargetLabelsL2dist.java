@@ -5,12 +5,12 @@ import com.hextrato.kral.console.parser.KCMetadata;
 import com.hextrato.kral.console.parser.KCParser;
 import com.hextrato.kral.core.util.exception.KException;
 
-public class TargetLabelsDistance implements KCParser {
+public class TargetLabelsL2dist implements KCParser {
 
 	public void setContext (KCMetadata clmd) { clmd.setContext("dist"); } 
 
 	public boolean exec(KCMetadata clmd) throws KException {
-		return Space.doProbscore(clmd);
+		return Space.doProbscoreArcdist(clmd);
 	}
 }
 

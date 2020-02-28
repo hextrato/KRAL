@@ -5,6 +5,7 @@ import com.hextrato.kral.console.parser.KCFinder;
 import com.hextrato.kral.console.parser.KCMetadata;
 import com.hextrato.kral.console.parser.KCParser;
 import com.hextrato.kral.core.schema.KSchema;
+import com.hextrato.kral.core.schema.neural.KLayer;
 import com.hextrato.kral.core.schema.neural.KNeural;
 import com.hextrato.kral.core.util.exception.KException;
 
@@ -12,7 +13,7 @@ public class Neural implements KCParser {
 
 	public void setContext (KCMetadata clmd) { clmd.setContext("neural"); }
 
-	public String[] getValidTokenSet () { return new String[] {"create", "delete", "list", "select", "desc", "foreach", "save", "hextract"}; }
+	public String[] getValidTokenSet () { return new String[] {"create", "delete", "list", "select", "desc", "foreach", "save", "hextract", "comment"}; }
 
 	public boolean partial(KCMetadata clmd) { return !(clmd.getVar("neural").equals("")); }
 
@@ -132,6 +133,15 @@ public class Neural implements KCParser {
 		return true;
 	}
 
+	public static boolean doComment(KCMetadata clmd) throws KException {
+		KSchema schema = KCFinder.findSchema(clmd);
+		KNeural neural = KCFinder.findNeural(schema, clmd);
+		String comment = KCFinder.which(clmd, "comment");
+		String value = KCFinder.which(clmd, "value");
+		neural.comments().set(comment, value);
+		return true;
+	}
+	
 
 }
 

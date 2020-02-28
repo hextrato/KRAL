@@ -254,6 +254,76 @@ public class DVector {
 	}
 
 	//
+	// correlation
+	//
+
+	public double PearsonsCorrelation(DVector ys) {
+	    //TODO: check here that arrays are not null, of the same length etc
+		DVector xs = this; 
+	    //double mx = 0.0;
+	    //double my = 0.0;
+		
+	    double sx = 0.0;
+	    double sy = 0.0;
+	    double sxx = 0.0;
+	    double syy = 0.0;
+	    double sxy = 0.0;
+
+	    double n = xs.size();
+
+	    /*
+	    for(int i = 0; i < n; i++) {
+	      double x = xs.getValue(i);
+	      double y = xs.getValue(i);
+	      mx += x;
+	      my += y;
+	    }
+	    mx /= n;
+	    my /= n;
+
+	    // cov
+	    double cov = 0.0;
+	    for(int i = 0; i < n; i++) {
+		      double x = xs.getValue(i);
+		      double y = xs.getValue(i);
+		      cov += (x-mx)*(y-my);
+	    }
+	    
+	    // stdev
+	    double sdx = 0.0;
+	    double sdy = 0.0;
+	    for(int i = 0; i < n; i++) {
+		      double x = xs.getValue(i);
+		      double y = xs.getValue(i);
+		      sdx += (x-mx)*(x-mx);
+		      sdy += (y-my)*(y-my);
+	    }
+	    sdx = Math.sqrt( sdx * 1.0/(n-1.0) );
+	    sdy = Math.sqrt( sdy * 1.0/(n-1.0) );
+	    
+	    return cov / (sdx * sdy );
+*/
+	    for(int i = 0; i < n; i++) {
+	      double x = xs.getValue(i);
+	      double y = ys.getValue(i);
+	      sx += x;
+	      sy += y;
+	      sxx += x * x;
+	      syy += y * y;
+	      sxy += x * y;
+	    }
+
+	    // covariation
+	    double cov = sxy / n - sx * sy / n / n;
+	    // standard error of x
+	    double sigmax = Math.sqrt(sxx / n -  sx * sx / n / n);
+	    // standard error of y
+	    double sigmay = Math.sqrt(syy / n -  sy * sy / n / n);
+	    // correlation is just a normalized covariation
+	    return cov / sigmax / sigmay;
+	  }
+
+	//
 	// toString
 	//
 

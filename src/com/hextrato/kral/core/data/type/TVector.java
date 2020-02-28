@@ -19,6 +19,7 @@ public class TVector implements ADataType<DVector> {
 		}
 	}
 
+	/*
 	public boolean GT (String value1, String value2) throws KException {
 		return (valueOf(value1).magnitude() > valueOf(value2).magnitude());
 	}
@@ -31,5 +32,6 @@ public class TVector implements ADataType<DVector> {
 	public boolean LTE (String value1, String value2) throws KException {
 		return (valueOf(value1).magnitude() <= valueOf(value2).magnitude());
 	}
+	*/
 	
 }

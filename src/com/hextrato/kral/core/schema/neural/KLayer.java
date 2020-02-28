@@ -154,7 +154,11 @@ public abstract class KLayer extends AMetaNamedObject {
         	if (prevLayer == null) {
         		bf.write( String.format("layer %s create %s", this.getName(), this.getOper()) );
     			bf.newLine();
-        		bf.write( String.format("layer %s config input_size %d", this.getName(), this.getInputSize()) );
+    			for (String comment : this.comments().keySet()) {
+    				bf.write( String.format("# %s : %s", comment , this.getComment(comment))  );
+    				bf.newLine();
+    			}
+        		bf.write( String.format("layer %s set input_size %d", this.getName(), this.getInputSize()) );
     			bf.newLine();
         	} else {
         		bf.write( String.format("layer %s create %s after %s", this.getName(), this.getOper(), prevLayer.getName()) );
@@ -162,23 +166,23 @@ public abstract class KLayer extends AMetaNamedObject {
         	}
 			// properties
         	if (!this.getOper().equals("softmax")) {
-        		bf.write( String.format("layer %s config output_size %d", this.getName(), this.getOutputSize()) );
+        		bf.write( String.format("layer %s set output_size %d", this.getName(), this.getOutputSize()) );
         		bf.newLine();
         	}
 			try {  
-	    		bf.write( String.format("layer %s config learn_rate %f", this.getName(), this.getLearningRate()) );
+	    		bf.write( String.format("layer %s set learn_rate %f", this.getName(), this.getLearningRate()) );
 				bf.newLine();
 			} catch (KException e) {} finally {};
 			try {  
-	    		bf.write( String.format("layer %s config misslearn_factor %f", this.getName(), this.getMisslearningFactor()) );
+	    		bf.write( String.format("layer %s set misslearn_factor %f", this.getName(), this.getMisslearningFactor()) );
 				bf.newLine();
 			} catch (KException e) {} finally {};
 			try {  
-	    		bf.write( String.format("layer %s config activation_function %s", this.getName(), this.getActivationFunction()) );
+	    		bf.write( String.format("layer %s set activation_function %s", this.getName(), this.getActivationFunction()) );
 				bf.newLine();
 			} catch (KException e) {} finally {};
 			try {
-	    		bf.write( String.format("layer %s config biases %s", this.getName(), this.theBiases().toString()) );
+	    		bf.write( String.format("layer %s set biases %s", this.getName(), this.theBiases().toString()) );
 				bf.newLine();
 			} catch (KException e) {} finally {};
 			try {
@@ -187,7 +191,7 @@ public abstract class KLayer extends AMetaNamedObject {
 				if (weights != null) {
 					for (int row=0; row<weights.rows(); row++) {
 						rowValues.copyValuesFrom(weights.getRow(row));
-			    		bf.write( String.format("layer %s config weights %d:%s", this.getName(), row, rowValues.toString()) );
+			    		bf.write( String.format("layer %s set weights %d:%s", this.getName(), row, rowValues.toString()) );
 						bf.newLine();
 					}
 				}

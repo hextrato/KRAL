@@ -1,0 +1,95 @@
+# @tmp/xor.kral
+# @tmp/neural_xor.model.kral
+
+// layer xor_i feed [0,0] ;; layer xor_i feed [0,1] ;; layer xor_i feed [1,0] ;; layer xor_i feed [1,1]
+
+reset
+
+split DATA create
+tabular xor create
+attribute input create Vector
+attribute output create Vector
+record create
+record attribute input set [0,0]
+record attribute output set [0]
+record create
+record attribute input set [0,1]
+record attribute output set [1]
+record create
+record attribute input set [1,0]
+record attribute output set [1]
+record create
+record attribute input set [1,1]
+record attribute output set [0]
+
+tabular desc
+record list
+
+space xi create 2
+vector 00 create [0,0]
+vector 01 create [0,1]
+vector 10 create [1,0]
+vector 11 create [1,1]
+//vector AA create [1,1]
+//vector BB create [1,1]
+
+space xo create 1
+vector 00 create [0]
+vector 01 create [1]
+vector 10 create [1]
+vector 11 create [0]
+//vector AA create [1]
+//vector BB create [0]
+
+space list
+space xi vector list
+space xo vector list
+
+neural xor create
+neural list
+layer xor_i create logistic
+layer xor_i set input.size 2
+layer xor_i set output.size 3
+layer xor_i set learning.rate 0.001
+layer xor_i set activation.function sigmoid
+layer xor_i biases normal
+layer xor_i weights normal
+
+#layer xor_m create logistic after xor_i
+#layer xor_m set output.size 2
+#layer xor_m set learning.rate 0.001
+#layer xor_m set activation.function sigmoid
+#layer xor_m biases normal
+#layer xor_m weights normal
+
+layer xor_o create logistic after xor_i
+layer xor_o set output.size 1
+layer xor_o set learning.rate 0.001
+layer xor_o set activation.function sigmoid
+layer xor_o biases normal
+layer xor_o weights normal
+layer list
+layer xor_i desc
+layer xor_o desc
+
+var err declare Double
+// repeat 10 do { layer xor_i learn xi xo repeat 10000 ;; layer xor_i feed [0,0] ;; layer xor_i feed [0,1] ;; layer xor_i feed [1,0] ;; layer xor_i feed [1,1] ;; layer xor_i test xi xo }
+repeat 10 do { layer xor_i learn xi xo repeat 500000 ;; layer xor_i test xi xo }
+// repeat 10 do { layer xor_i learn xi xo repeat 100 ;; layer xor_i test xi xo }
+var err set %_last.feedback% ;; var err show
+layer xor_i feed [0,0] 
+//layer xor_i desc
+layer xor_i feed [0,1]
+//layer xor_i desc  
+layer xor_i feed [1,0]
+//layer xor_i desc 
+layer xor_i feed [1,1]
+//layer xor_i desc
+
+neural comment cycle 12345
+neural comment cycle 67890
+neural comment accuracy GOOD
+layer xor_i comment LRN.error UNDEFINED
+layer xor_o comment LRN.error 0.02284110785801126
+
+neural xor hextract tmp/neural_xor.model.kral

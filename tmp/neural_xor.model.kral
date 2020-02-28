@@ -1,0 +1,22 @@
+neural xor create
+# accuracy : GOOD
+# cycle : 67890
+layer xor_i create logistic
+# LRN.error : UNDEFINED
+layer xor_i set input_size 2
+layer xor_i set output_size 3
+layer xor_i set learn_rate 0.001000
+layer xor_i set misslearn_factor 0.000000
+layer xor_i set activation_function sigmoid
+layer xor_i set biases [-7.02230266184375,-0.5186883529595998,-2.843562725413416]
+layer xor_i set weights 0:[4.64419378319638,0.21799937489097646,6.412724102322884]
+layer xor_i set weights 1:[4.522600118625595,-1.3332503966173688,6.514854652515131]
+layer xor_o create logistic after xor_i
+layer xor_o set output_size 1
+layer xor_o set learn_rate 0.001000
+layer xor_o set misslearn_factor 0.000000
+layer xor_o set activation_function sigmoid
+layer xor_o set biases [-4.6786669873772535]
+layer xor_o set weights 0:[-10.179154078636222]
+layer xor_o set weights 1:[0.5444788209702435]
+layer xor_o set weights 2:[9.672037716302695]

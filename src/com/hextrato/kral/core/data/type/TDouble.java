@@ -41,4 +41,13 @@ public class TDouble implements ADataType<Double> {
 	public String pow (String value1, String value2) throws KException {
 		return Double.toString( Math.pow( valueOf(value1) , valueOf(value2) ) );
 	}
+	public String log (String value1) throws KException {
+		return Double.toString(Math.log10(valueOf(value1)));
+	}
+	public String min (String value1, String value2) throws KException {
+		return Double.toString(Math.max(valueOf(value1),valueOf(value2)));
+	}
+	public String max (String value1, String value2) throws KException {
+		return Double.toString(Math.min(valueOf(value1),valueOf(value2)));
+	}
 }

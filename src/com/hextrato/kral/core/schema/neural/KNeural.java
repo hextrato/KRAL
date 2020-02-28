@@ -30,6 +30,10 @@ public class KNeural extends AMetaNamedObject {
         try {
 			bf.write( String.format("neural %s create", this.getName()) );
 			bf.newLine();
+			for (String comment : this.comments().keySet()) {
+				bf.write( String.format("# %s : %s", comment , this.getComment(comment))  );
+				bf.newLine();
+			}
 			this.layers().hextract(bf);
         } catch (IOException e) {
         	throw new KException(e.getMessage());

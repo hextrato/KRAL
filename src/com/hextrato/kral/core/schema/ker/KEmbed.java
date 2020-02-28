@@ -385,6 +385,9 @@ public class KEmbed extends AMetaNamedObject {
 				}
 				if (__invDistHeadNEG > 0 || __dirDistTailNEG > 0) 
 					this.normalize();
+			} else {
+				if (__dirDistTailNEG > 0) nnLayerDir.calcErrorByTarget(tailVec);
+				if (__invDistHeadNEG > 0) nnLayerInv.calcErrorByTarget(headVec);
 			}
 
 			// --
@@ -401,10 +404,10 @@ public class KEmbed extends AMetaNamedObject {
 				*/
 				if (__dirDistTailNEG > 0) { 
 					tailVec.moveCloserTo(nnLayerDir.theOutputValues(), this.getKER().getLearningRate());
+					tail.normalize();
 				}
 				// if (__invDistHeadNEG > 0 || __dirDistTailNEG > 0) 
-				if (__dirDistTailNEG > 0) 
-					tail.normalize();
+				//if (__dirDistTailNEG > 0) 
 			}
 
 			// ---
@@ -413,17 +416,19 @@ public class KEmbed extends AMetaNamedObject {
 			if (triple.getSplit().getName().equals(triple.getHead().getSplit().getName())) {
 				if (__dirDistTailNEG > 0) {
 					for (int i=0; i < tailVec.length(); i++) {
-						auxVec.setValue(i, headVec.getValue(i) + (tailVec.getValue(i) - nnLayerDir.theOutputValues().getValue(i)) );
+						//auxVec.setValue(i, headVec.getValue(i) + (tailVec.getValue(i) - nnLayerDir.theOutputValues().getValue(i)) );
+						auxVec.setValue(i, headVec.getValue(i) + nnLayerDir.theGradientIn().getValue(i));
 					}					
 					headVec.moveCloserTo(auxVec, this.getKER().getLearningRate());
+					head.normalize();
 				}
 				/*
 				if (__invDistHeadNEG > 0) { 
 					headVec.moveCloserTo(nnLayerInv.theOutputValues(), this.getKER().getLearningRate());
 				} 
 				*/
-				if (__invDistHeadNEG > 0 || __dirDistTailNEG > 0) head.normalize();
-					head.normalize();
+				//if (__invDistHeadNEG > 0 || __dirDistTailNEG > 0) head.normalize();
+				//	head.normalize();
 			}
 		}
 	}
