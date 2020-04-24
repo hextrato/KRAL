@@ -19,7 +19,7 @@ public class KConsole extends KRAL {
 	// Constant values
 	// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =        
 
-	public static final String HEXTRATO_KRAL_CONSOLE_VERSION = "1.9.12";
+	public static final String HEXTRATO_KRAL_CONSOLE_VERSION = "2.1.30";
 	public static final boolean KRAL_CONSOLE_ON_VALIDATION = false;
 	public static final String ROOT_PARSER_PACKAGE = "com.hextrato.kral.console.exec";
 	

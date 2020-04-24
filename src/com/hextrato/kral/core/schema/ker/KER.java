@@ -228,7 +228,7 @@ public class KER extends AMetaNamedObject {
 	}
 	public boolean isIgnoreTypesActive() { return this._ignore_types; }
 
-	private double _latentConstraint = 0.95;
+	private double _latentConstraint = 0.99;
 	
 	public void setLatentConstraint(double constraint) throws KException {
 		this.enforceLearningCycles();
