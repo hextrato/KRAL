@@ -115,8 +115,7 @@ public class KConsole extends KRAL {
 			println((new java.util.Date()).toString());
 			println("");
 			println("Welcome!");
-			println("");
-			
+		
 			// runLine("@tmp/REVIEW.kral");
 			//println("h+> @tmp/auprc.kral");
 			//println("h+> @tmp/matrix.kral");
