@@ -1,0 +1,46 @@
+
+- add matches
+- add count
+- add find
+- review desc (UID vs name)
+- review desc
+- review sa
+SCHEMA
+
+[OK] Schema		"create", "delete", "desc", "foreach", "hextract", "list", "save", "select"
+[OK] Split		"create",           "desc", "foreach", "hextract", "list", "count", "find", "save", "select"
+
+TABULAR
+
+[OK] Tabular	"create", "delete", "desc", "foreach", "hextract", "list", "count", "find", "save", "select"
+[OK] Attribute 
+[OK] Record
+
+GRAPH
+
+[OK] Graph		"create", "delete", "desc", "foreach", "hextract", "list", "count", "find", "save", "select"
+[NA] Continuous
+[OK] Type
+[OK] Entity
+[OK] Relation
+[OK] Triple
+
+HYPER
+
+[OK] Space		"create", "delete", "desc", "foreach", "hextract", "list", "count", "find", "save", "select"
+[OK] Vector
+
+KER
+
+[OK] KER		"create", "delete", "desc", "foreach", "hextract", "list", "count", "find", "save", "select"
+[  ] KER		review _.graph, properties and scores and how to manipulate them
+[  ] KERVisual
+[  ] Cluster
+[  ] Embed
+
+NEURAL
+
+[OK] Neural		"create", "delete", "desc", "foreach", "hextract", "list", "count", "find", "save", "select"
+[OK] Layer
+
+

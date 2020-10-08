@@ -32,12 +32,12 @@ public abstract class AMetaNamedObjectSet extends AMetaUIDObjectSet {
 		}
 		super.create(uid,metaObject);
 		metaObject.inSet(this);
-		metaObject.setProperty("_uid_", uid);
-		if (metaObject.getProperty("_name_").equals("")) {
-			metaObject.setProperty("_name_", name);
+		metaObject.setUID(uid);
+		if (metaObject.getName().equals("")) {
+			metaObject.setName(name);
 			// _metaSet.put( name, metaObject );
 		} else {
-			name = metaObject.getProperty("_name_");
+			name = metaObject.getName();
 		}
 		_nameSet.put( name, uid );
 		setCurrent(name);
@@ -61,8 +61,8 @@ public abstract class AMetaNamedObjectSet extends AMetaUIDObjectSet {
 		} else {
 			if (_uidsSet.containsKey(uid_OR_name)) {
 				AMetaNamedObject _object = (AMetaNamedObject)_uidsSet.get(uid_OR_name);
-				String uid = _object.getProperty("_uid_");
-				String name = _object.getProperty("_name_");
+				String uid = _object.getUID();
+				String name = _object.getName();
 				_uidsSet.remove(uid);
 				_nameSet.remove(name);
 			} else {
@@ -92,7 +92,7 @@ public abstract class AMetaNamedObjectSet extends AMetaUIDObjectSet {
 			_currentMeta = uid_OR_name;
 		} else {
 			if (_uidsSet.containsKey(uid_OR_name)) {
-				_currentMeta = _uidsSet.get(uid_OR_name).getProperty("_name_");
+				_currentMeta = _uidsSet.get(uid_OR_name).getName();
 			} else { 
 				_currentMeta = "";
 				itDoesNotExist(uid_OR_name);

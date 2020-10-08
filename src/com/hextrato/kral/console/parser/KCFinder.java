@@ -14,8 +14,6 @@ import com.hextrato.kral.core.schema.ker.KEmbed;
 import com.hextrato.kral.core.schema.ker.KER;
 import com.hextrato.kral.core.schema.neural.KLayer;
 import com.hextrato.kral.core.schema.neural.KNeural;
-import com.hextrato.kral.core.schema.nlp.KCorpus;
-import com.hextrato.kral.core.schema.nlp.KDocument;
 import com.hextrato.kral.core.schema.tabular.KAttribute;
 import com.hextrato.kral.core.schema.tabular.KRecord;
 import com.hextrato.kral.core.schema.tabular.KTabular;
@@ -225,28 +223,6 @@ public interface KCFinder {
 	}
 
 
-	public static KCorpus findCorpus (KSchema schema, KCMetadata clmd) throws KException {
-		String name = clmd.find("corpus"); if (name.equals("")) name = schema.corpora().getCurrent();
-		if (name.equals("")) throw new KException("which corpus ?"); 
-		KCorpus corpus = null;
-		if ( (corpus = schema.corpora().getCorpus(name) ) == null) {
-			schema.corpora().itDoesNotExist(name);
-			// throw new CLException("which graph ?"); 
-		}
-		return corpus;
-	}
-
-	public static KDocument findDocument (KCorpus corpus, KCMetadata clmd) throws KException {
-		String name = clmd.find("document"); if (name.equals("")) name = corpus.documents().getCurrent();
-		if (name.equals("")) throw new KException("which document ?"); 
-		KDocument document = null;
-		if ( (document = corpus.documents().getDocument(name) ) == null) {
-			corpus.documents().itDoesNotExist(name);
-		}
-		return document;
-	}
-
-	
 	//
 	// Ontology
 	//

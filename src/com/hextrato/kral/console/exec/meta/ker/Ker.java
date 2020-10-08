@@ -14,7 +14,7 @@ public class Ker implements KCParser {
 
 	public void setContext (KCMetadata clmd) { clmd.setContext("ker"); }
 
-	public String[] getValidTokenSet () { return new String[] {"create", "delete", "list", "select", "desc", "foreach", "save", "hextract", "config", "learn", "draw", "evaluate", "score"}; }
+	public String[] getValidTokenSet () { return new String[] {"create", "delete", "list", "select", "desc", "foreach", "count", "find", "save", "hextract", "config", "learn", "draw", "evaluate", "score", "cluster"}; }
 
 	public boolean partial(KCMetadata clmd) { return !(clmd.getVar("ker").equals("")); }
 
@@ -169,37 +169,90 @@ public class Ker implements KCParser {
 	}
 
 	public static boolean doDesc(KCMetadata clmd) throws KException {
+		KConsole.lastString(""); // ** NEW ** //
 		KSchema schema = KCFinder.findSchema(clmd);
 		KER ker = KCFinder.findKER(schema, clmd);
-		KConsole.println("ker.name = " + ker.getName());
+		KConsole.println("_.schema = " + ker.getSchema().getName()); // ** NEW ** //
+		KConsole.println("_.uid = " + ker.getUID()); // ** NEW ** //
+		KConsole.println("_.name = " + ker.getName()); // ** NEW ** //
 		KGraph graph = ker.getGraph();
-		KConsole.println("ker.graph = " + ((graph == null)?"_UNDEFINED_":graph.getName()));
-		KConsole.println("ker.dimensions = " + ((ker.getDimensions() == 0)?"_UNDEFINED_":Integer.toString(ker.getDimensions())));
-		KConsole.println("ker.learning_rate = " + ker.getLearningRate());
-		KConsole.println("ker.learning_margin = " + ker.getLearningMargin());
-		KConsole.println("ker.disjoint_factor = " + ker.getDisjointFactor());
-		KConsole.println("ker.disjoint_margin = " + ker.getDisjointMargin());
-		KConsole.println("ker.random_factor = " + ker.getRandomFactor());
-		KConsole.println("ker.regularization_type = " + ker.getRegularizationType());
-		KConsole.println("ker.regularization_factor = " + ker.getRegularizationFactor());
-		KConsole.println("ker.regularization_margin [RANGE only] = " + ker.getRegularizationMargin());
-		KConsole.println("ker.projection_matrices = " + Boolean.toString(ker.isProjectionMatrixActive()));
-		KConsole.println("ker.inverse_relations = " + Boolean.toString(ker.isInverseRelationActive()));
-		KConsole.println("ker.ignore_types = " + Boolean.toString(ker.isIgnoreTypesActive()));
-		KConsole.println("ker.latent_constraint = " + ker.getLatentConstraint());
-		KConsole.println("ker.enforced_cycles = " + ker.getEnforcedLearningCycles());
-		KConsole.println("ker.current_cycles = " + ker.getCurrentCycles());
-		KConsole.println("ker.functional_negative_rate = " + ker.getFunctionalNegativeRate());
-		KConsole.println("ker.functional_negative_max = " + ker.getFunctionalNegativeMax());
-
-		KConsole.metadata("KER", ker.getName());
+		KConsole.println("_.graph = " + ((graph == null)?"_NULL_":graph.getName()));
+		KConsole.println("property.dimensions = " + ((ker.getDimensions() == 0)?"_NULL_":Integer.toString(ker.getDimensions())));
+		KConsole.println("property.learning_rate = " + ker.getLearningRate());
+		KConsole.println("property.learning_margin = " + ker.getLearningMargin());
+		KConsole.println("property.disjoint_factor = " + ker.getDisjointFactor());
+		KConsole.println("property.disjoint_margin = " + ker.getDisjointMargin());
+		KConsole.println("property.random_factor = " + ker.getRandomFactor());
+		KConsole.println("property.regularization_type = " + ker.getRegularizationType());
+		KConsole.println("property.regularization_factor = " + ker.getRegularizationFactor());
+		KConsole.println("property.regularization_margin [RANGE only] = " + ker.getRegularizationMargin());
+		KConsole.println("property.projection_matrices = " + Boolean.toString(ker.isProjectionMatrixActive()));
+		KConsole.println("property.inverse_relations = " + Boolean.toString(ker.isInverseRelationActive()));
+		KConsole.println("property.ignore_types = " + Boolean.toString(ker.isIgnoreTypesActive()));
+		KConsole.println("property.latent_constraint = " + ker.getLatentConstraint());
+		KConsole.println("property.enforced_cycles = " + ker.getEnforcedLearningCycles());
+		KConsole.println("property.current_cycles = " + ker.getCurrentCycles());
+		KConsole.println("property.functional_negative_rate = " + ker.getFunctionalNegativeRate());
+		KConsole.println("property.functional_negative_max = " + ker.getFunctionalNegativeMax());
 		for (String metric : ker.scores().keySet()) {
-			KConsole.println("score: "+metric+" = " + ker.getScore(metric));
+			KConsole.println("score."+metric+" = " + ker.getScore(metric));
 		}
+		KConsole.metadata("KER", ker.getName());
+		KConsole.lastString(ker.getName()); // ** NEW ** //
 		
 		return true;
 	}
 
+	private static boolean matches(KER ker, KCMetadata clmd) throws KException {
+		String searchSchema = clmd.getParameter(KER.__INTERNAL_PROPERTY_SCHEMA__);
+		String searchUID = clmd.getParameter(KER.__INTERNAL_PROPERTY_UID__);
+		String searchName = clmd.getParameter(KER.__INTERNAL_PROPERTY_NAME__);
+		String searchGraph = clmd.getParameter(KER.__INTERNAL_PROPERTY_GRAPH__);
+		boolean match = false;
+		KGraph graph = ker.getGraph();
+		if ( true
+				&& ("["+ker.getSchema()+"]").contains(searchSchema)
+				&& ("["+ker.getUID()+"]").contains(searchUID)
+				&& ("["+ker.getName()+"]").contains(searchName)
+				&& ("["+((graph == null)?"_NULL_":graph.getName())+"]").contains(searchGraph)
+				) {
+			match = true;
+		}
+		return match;
+	}
+
+	public static boolean doCount(KCMetadata clmd) throws KException {
+		KConsole.lastInteger(0); // ** NEW ** //
+		int count = 0;
+		KSchema schema = KCFinder.findSchema(clmd);
+		for (String kerName : schema.kers().theList().keySet()) {
+			KER ker = schema.kers().getKER(kerName);
+			if (Ker.matches(ker,clmd)) {
+				count++;
+			}
+		}
+		KConsole.feedback("Count = " + count); // ** NEW ** //
+		KConsole.lastInteger(count); // ** NEW ** //
+		return true;
+	}
+
+	public static boolean doFind(KCMetadata clmd) throws KException {
+		KConsole.lastFound(""); // ** NEW ** //
+		KSchema schema = KCFinder.findSchema(clmd);
+		for (String kerUID : schema.kers().theList().keySet()) {
+			KER ker = schema.kers().getKER(kerUID);
+			if (Ker.matches(ker,clmd)) {
+				schema.kers().setCurrent(kerUID);
+				KConsole.feedback("Found: " + kerUID);
+				KConsole.lastFound(kerUID); // ** NEW ** //
+				return true;
+			}
+		}
+		KConsole.feedback("Not found");
+		KConsole.lastFound(""); // ** NEW ** //
+		return true;
+	}
+	
 	public static boolean doDraw(KCMetadata clmd) throws KException {
 		KSchema schema = KCFinder.findSchema(clmd);
 		KER ker = KCFinder.findKER(schema, clmd);
@@ -211,13 +264,12 @@ public class Ker implements KCParser {
 	public static boolean doForeach(KCMetadata clmd) throws KException {
 		boolean found = false;
 		KSchema schema = KCFinder.findSchema(clmd);
-		String searchKERName = clmd.getVar("ker");
 		String blok = clmd.getBlok();
 		if (blok.equals("")) throw new KException("Undefined foreach blok");
-		for (String kerName : schema.kers().theList().keySet()) {
-			KER ker = schema.kers().getKER(kerName);
-			if (("["+ker.getName()+"]").contains(searchKERName)) {
-				schema.kers().setCurrent(kerName);
+		for (String kerUID : schema.kers().theList().keySet()) {
+			KER ker = schema.kers().getKER(kerUID);
+			if (Ker.matches(ker,clmd)) {
+				schema.kers().setCurrent(kerUID);
 				KConsole.runLine(blok);
 				found = true;
 			}
@@ -258,30 +310,34 @@ public class Ker implements KCParser {
 	public static boolean doList(KCMetadata clmd) throws KException {
 		boolean found = false;
 		KSchema schema = KCFinder.findSchema(clmd);
-		String searchKERName = clmd.getVar("ker");
-		for (String kerName : schema.kers().theList().keySet()) {
-			KER ker = schema.kers().getKER(kerName);
-			if (("["+ker.getName()+"]").contains(searchKERName)) {
+		for (String kerUID : schema.kers().theList().keySet()) {
+			KER ker = schema.kers().getKER(kerUID);
+			if (Ker.matches(ker,clmd)) {
 				if (!found) {
 					String output = "";
-					output = output + String.format("%-"+schema.kers().getPropertySize("_schema_")+"s", "_schema_");
+					output = output + String.format("%-"+schema.kers().getPropertySize(KER.__INTERNAL_PROPERTY_SCHEMA__)+"s", KER.__INTERNAL_PROPERTY_SCHEMA__);
 					output = output + "\t";
-					output = output + String.format("%-"+schema.kers().getPropertySize("_uid_")+"s", "_uid_");
+					output = output + String.format("%-"+schema.kers().getPropertySize(KER.__INTERNAL_PROPERTY_UID__)+"s", KER.__INTERNAL_PROPERTY_UID__);
 					output = output + "\t";
-					output = output + String.format("%-"+schema.kers().getPropertySize("_name_")+"s", "_name_");
-					for (String property : ker.properties().keySet()) if (!property.endsWith("_")) {
+					output = output + String.format("%-"+schema.kers().getPropertySize(KER.__INTERNAL_PROPERTY_NAME__)+"s", KER.__INTERNAL_PROPERTY_NAME__);
+					output = output + "\t";
+					output = output + String.format("%-"+schema.kers().getPropertySize(KER.__INTERNAL_PROPERTY_GRAPH__)+"s", KER.__INTERNAL_PROPERTY_GRAPH__);
+					for (String property : ker.properties().keySet()) if (!property.startsWith("_")) {
 						output = output + "\t";
 						output = output + String.format("%-"+schema.kers().getPropertySize(property)+"s", property);
 					}
 					KConsole.output(output);
 				}
 				String output = "";
-				output = output + String.format("%-"+schema.kers().getPropertySize("_schema_")+"s", ker.getSchema().getName());
+				output = output + String.format("%-"+schema.kers().getPropertySize(KER.__INTERNAL_PROPERTY_SCHEMA__)+"s", ker.getSchema().getName());
 				output = output + "\t";
-				output = output + String.format("%-"+schema.kers().getPropertySize("_uid_")+"s", ker.getUID());
+				output = output + String.format("%-"+schema.kers().getPropertySize(KER.__INTERNAL_PROPERTY_UID__)+"s", ker.getUID());
 				output = output + "\t";
-				output = output + String.format("%-"+schema.kers().getPropertySize("_name_")+"s", ker.getName());
-				for (String property : ker.properties().keySet()) if (!property.endsWith("_")) {
+				output = output + String.format("%-"+schema.kers().getPropertySize(KER.__INTERNAL_PROPERTY_NAME__)+"s", ker.getName());
+				output = output + "\t";
+				KGraph graph = ker.getGraph();
+				output = output + String.format("%-"+schema.kers().getPropertySize(KER.__INTERNAL_PROPERTY_GRAPH__)+"s", ((graph == null)?"_NULL_":graph.getName()));
+				for (String property : ker.properties().keySet()) if (!property.startsWith("_")) {
 					output = output + "\t";
 					output = output + String.format("%-"+schema.kers().getPropertySize(property)+"s", ker.getProperty(property));
 				}
@@ -295,6 +351,7 @@ public class Ker implements KCParser {
 	}
 
 	public static boolean doSaveVar(KCMetadata clmd) throws KException {
+		KConsole.lastString(""); // ** NEW ** //
 		KSchema schema = KCFinder.findSchema(clmd);
 		KER ker = KCFinder.findKER(schema, clmd);
 		String property = clmd.getVar("property");
@@ -303,15 +360,18 @@ public class Ker implements KCParser {
 		KConsole.vars().set(var,value);
 		KConsole.feedback("Variable '"+var+"' set");
 		KConsole.metadata("Variable", var, value);
+		KConsole.lastString(value); // ** NEW ** //
 		return true;
 	}
 
 	public static boolean doSelect(KCMetadata clmd) throws KException {
+		KConsole.lastString(""); // ** NEW ** //
 		KSchema schema = KCFinder.findSchema(clmd);
 		String kerName = KCFinder.which(clmd, "ker");
 		schema.kers().setCurrent(kerName);
 		KConsole.feedback("KER '"+kerName+"' selected");
 		KConsole.metadata("KER", kerName);
+		KConsole.lastString(kerName); // ** NEW ** //
 		return true;
 	}
 
@@ -347,6 +407,26 @@ public class Ker implements KCParser {
 		KConsole.vars().set(var,value);
 		KConsole.feedback("Variable '"+var+"' set");
 		KConsole.metadata("Variable", var, value);
+		return true;
+	}
+
+	public static boolean doCluster(KCMetadata clmd) throws KException {
+		KSchema schema = KCFinder.findSchema(clmd);
+		KER ker = KCFinder.findKER(schema, clmd);
+		
+		// String split = clmd.getVar("esplit");
+		String str_k = clmd.getVar("k");
+		String type = clmd.getVar("type");
+		int k = Integer.valueOf(str_k);
+		// int min = 0; 
+		// if (!str_min.equals("")) min = Integer.valueOf(str_min);
+		ker.cluster("*",k,type); // ,min);
+		/*
+		String value = ker.getScore(score);
+		KConsole.vars().set(var,value);
+		KConsole.feedback("Variable '"+var+"' set");
+		KConsole.metadata("Variable", var, value);
+		*/
 		return true;
 	}
 

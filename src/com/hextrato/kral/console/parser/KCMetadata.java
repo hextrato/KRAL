@@ -129,6 +129,10 @@ public class KCMetadata {
 	private String _context = "";
 
 
+	public String theVars () {
+		return _vars.keySet().toString() + " :: " + _parameters.keySet().toString();
+	}
+
 	public String getContext () {
 		return this._context;
 	}

@@ -5,7 +5,7 @@ import com.hextrato.kral.console.parser.KCParser;
 
 public class GraphSave implements KCParser {
 
-	public void setContext (KCMetadata clmd) { clmd.setContext("component"); }
+	public void setContext (KCMetadata clmd) { clmd.setContext("property"); }
 
 	public String[] getValidTokenSet () { return new String[] {"var"}; }
 

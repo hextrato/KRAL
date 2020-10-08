@@ -13,17 +13,17 @@ public class KAttribute extends AMetaNamedObject {
 	
 	public KAttribute (KTabular tabular,String datatype) throws KException {
 		if (tabular == null) throw new KException("Invalid null tabular");
-		this.properties().declare("_schema_", "String");
-		this.properties().set("_schema_", tabular.getSchema().getName());
+		this.properties().declare(__INTERNAL_PROPERTY_SCHEMA__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SCHEMA__, tabular.getSchema().getName());
 		this._tabular = tabular;
-		this.properties().declare("_tabular_", "String");
-		this.properties().set("_tabular_", tabular.getName());
+		this.properties().declare(__INTERNAL_PROPERTY_TABULAR__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_TABULAR__, tabular.getName());
 		//this._datatype = datatype;
-		this.properties().declare("_datatype_", "String");
-		this.properties().set("_datatype_", datatype);
+		this.properties().declare(__INTERNAL_PROPERTY_DATATYPE__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_DATATYPE__, datatype);
 	}
 	
-	public String getDatatype() throws KException { return this.properties().get("_datatype_"); }
+	public String getDatatype() throws KException { return this.properties().get(__INTERNAL_PROPERTY_DATATYPE__); }
 
 	//
 	// EXPORT

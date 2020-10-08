@@ -38,16 +38,19 @@ public class KEmbed extends AMetaNamedObject {
 	
 	public KEmbed (KER ker, String type, String constituentTypedName) throws KException {
 		if (ker == null) throw new KException("Invalid null KER");
-		this.properties().declare("_schema_", "String");
-		this.properties().set("_schema_", ker.getSchema().getName());
+		this.properties().declare(__INTERNAL_PROPERTY_SCHEMA__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SCHEMA__, ker.getSchema().getName());
 		this._ker = ker;
-		this.properties().declare("_ker_", "String");
-		this.properties().set("_ker_", ker.getName());
+		this.properties().declare(__INTERNAL_PROPERTY_KER__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_KER__, ker.getName());
 		if (type == null) throw new KException("Invalid null embed type");
 		this._type = type.toUpperCase().trim();
-		this.properties().declare("_type_", "String");
-		this.properties().set("_type_", this.getType());
-		
+		this.properties().declare(__INTERNAL_PROPERTY_TYPE__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_TYPE__, this.getType());
+
+		this.properties().declare(__INTERNAL_PROPERTY_CLUSTER__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_CLUSTER__, "");
+
 		// if (!this._type.equals(ENTITY) && !this._type.equals("RELATION")) throw new HXException("Invalid ker type ["+type+"]");
 		switch (this._type) {
 		case ENTITY:
@@ -233,6 +236,7 @@ public class KEmbed extends AMetaNamedObject {
 						hasToNormalize = true;
 					}
 				}
+				// KEEP TO THE END OF EACH CYCLE ? NO ?// 
 				if ( hasToNormalize ) this.normalize();
 			}
 
@@ -256,7 +260,8 @@ public class KEmbed extends AMetaNamedObject {
 					tailVec.moveAwayFrom(nnLayerDir.theOutputValues(), this._ker.getLearningRate(), targetMargin);
 					//System.out.println(String.format("tail %s)",tailVec));
 					// if (!corrupted) {
-						tail.normalize();
+						// KEEP TO THE END OF EACH CYCLE ? NO ?// 
+					    tail.normalize();
 						//System.out.println(String.format("tail %s)",tailVec));
 					//}
 				}
@@ -282,7 +287,8 @@ public class KEmbed extends AMetaNamedObject {
 						headVec.moveAwayFrom(nnLayerInv.theOutputValues(), this._ker.getLearningRate(), targetMargin);
 						// System.out.println(String.format("head %s)",headVec));
 						// if (!corrupted) {
-							head.normalize();
+ 							// KEEP TO THE END OF EACH CYCLE ? NO ?// 
+						    head.normalize();
 							// System.out.println(String.format("head %s)",headVec));
 						// }
 					}
@@ -370,6 +376,7 @@ public class KEmbed extends AMetaNamedObject {
 					// (negTail and triple have same split)
 					if ( triple.getSplit().getName().equals(this._ker.getGraph().entities().getEntity(negTail.getName()).getSplit().getName()) ) {
 						negTailVec.moveAwayFrom(nnLayerDir.theOutputValues(), this._ker.getLearningRate(), __dirDistTailPOS + this.getKER().getLearningMargin() ); //  * (2/(1+Math.log(negTailUsedCount))) );
+						// KEEP TO THE END OF EACH CYCLE ? NO ?// 
 						negTail.normalize();
 					}
 					nnLayerDir.back(tailVec);
@@ -379,12 +386,13 @@ public class KEmbed extends AMetaNamedObject {
 					if ( triple.getSplit().getName().equals(this._ker.getGraph().entities().getEntity(negHead.getName()).getSplit().getName()) ) {
 						// LEARN NEG HEAD WITH LOWER LEARINING RATE 
 						negHeadVec.moveAwayFrom(nnLayerInv.theOutputValues(), this._ker.getLearningRate(), __invDistHeadPOS + this.getKER().getLearningMargin() ); // * (1/(1+Math.log(negHeadUsedCount))) );
+						// KEEP TO THE END OF EACH CYCLE ? NO ?// 
 						negHead.normalize();
 					}
 					nnLayerInv.back(headVec);
 				}
-				if (__invDistHeadNEG > 0 || __dirDistTailNEG > 0) 
-					this.normalize();
+				if (__invDistHeadNEG > 0 || __dirDistTailNEG > 0)
+					this.normalize(); // ??? (RELATION) KEEP TO THE END OF EACH CYCLE ??? // 
 			} else {
 				if (__dirDistTailNEG > 0) nnLayerDir.calcErrorByTarget(tailVec);
 				if (__invDistHeadNEG > 0) nnLayerInv.calcErrorByTarget(headVec);
@@ -404,6 +412,7 @@ public class KEmbed extends AMetaNamedObject {
 				*/
 				if (__dirDistTailNEG > 0) { 
 					tailVec.moveCloserTo(nnLayerDir.theOutputValues(), this.getKER().getLearningRate());
+					// KEEP TO THE END OF EACH CYCLE ? NO ?// 
 					tail.normalize();
 				}
 				// if (__invDistHeadNEG > 0 || __dirDistTailNEG > 0) 
@@ -420,6 +429,7 @@ public class KEmbed extends AMetaNamedObject {
 						auxVec.setValue(i, headVec.getValue(i) + nnLayerDir.theGradientIn().getValue(i));
 					}					
 					headVec.moveCloserTo(auxVec, this.getKER().getLearningRate());
+					// KEEP TO THE END OF EACH CYCLE ? NO ?// 
 					head.normalize();
 				}
 				/*

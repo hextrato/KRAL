@@ -12,47 +12,47 @@ public class KEntity extends AMetaNamedObject {
 	private KSplit _split = null;
 	public KSplit getSplit() { return this._split; }
 	
-	public String getType() throws KException { return this.properties().get("_type_"); }
-	public String getNick() throws KException { return this.properties().get("_nick_"); }
+	public String getType() throws KException { return this.properties().get(__INTERNAL_PROPERTY_TYPE__); }
+	public String getNick() throws KException { return this.properties().get(__INTERNAL_PROPERTY_NICK__); }
 	
 	// public HextraEntity (HextraGraph graph, String typedName) throws HXException {
 	public KEntity (KGraph graph, String typedName) throws KException {
-		this.properties().declare("_schema_", "String");
-		this.properties().set("_schema_", graph.getSchema().getName());
+		this.properties().declare(__INTERNAL_PROPERTY_SCHEMA__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SCHEMA__, graph.getSchema().getName());
 		this._graph = graph;
-		this.properties().declare("_graph_", "String");
-		this.properties().set("_graph_", graph.getName());
+		this.properties().declare(__INTERNAL_PROPERTY_GRAPH__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_GRAPH__, graph.getName());
 
 		this._split = graph.getSchema().splits().getSplit();
 		if (this._split == null) throw new KException("Invalid split");
-		this.properties().declare("_split_", "String");
-		this.properties().set("_split_", this._split.getName());
+		this.properties().declare(__INTERNAL_PROPERTY_SPLIT__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SPLIT__, this._split.getName());
 
 		// Entity Type/Name
 		
-		this.setProperty("_name_", typedName );
+		this.setProperty(__INTERNAL_PROPERTY_NAME__, typedName );
 		
-		this.properties().declare("_type_", "String");
-		this.setProperty("_type_", "*");
-		this.properties().declare("_nick_", "String");
-		this.setProperty("_nick_", "");
+		this.properties().declare(__INTERNAL_PROPERTY_TYPE__, "String");
+		this.setProperty(__INTERNAL_PROPERTY_TYPE__, "*");
+		this.properties().declare(__INTERNAL_PROPERTY_NICK__, "String");
+		this.setProperty(__INTERNAL_PROPERTY_NICK__, "");
 		if (graph.isTyped()) {
 			// this._name = extractNameFrom(typedName);
 			// this._type = extractTypeFrom(typedName);
-			this.setProperty("_type_", extractTypeFrom(this.getName()));
+			this.setProperty(__INTERNAL_PROPERTY_TYPE__, extractTypeFrom(this.getName()));
 			if (this._graph.types().getType( this.getType() ).isContinuous()) {
 				if (!graph.getSchema().splits().theNames().containsKey(KGraph.CONTINUOUS_SPLIT_NAME)) {
 					graph.getSchema().splits().create(KGraph.CONTINUOUS_SPLIT_NAME);
 					graph.getSchema().splits().setCurrent(this._split.getName());
 				}
 				this._split = graph.getSchema().splits().getSplit(KGraph.CONTINUOUS_SPLIT_NAME);
-				this.properties().set("_split_", this._split.getName());
+				this.properties().set(__INTERNAL_PROPERTY_SPLIT__, this._split.getName());
 			}
-			this.setProperty("_nick_", extractNameFrom(this.getName()));
-			this.setProperty("_name_", this.getProperty("_type_")+":"+this.getProperty("_nick_"));
+			this.setProperty(__INTERNAL_PROPERTY_NICK__, extractNameFrom(this.getName()));
+			this.setProperty(__INTERNAL_PROPERTY_NAME__, this.getProperty(__INTERNAL_PROPERTY_TYPE__)+":"+this.getProperty(__INTERNAL_PROPERTY_NICK__));
 		} else {
-			this.setProperty("_nick_", this.getName() ); // .replace(":", "_") );
-			this.setProperty("_name_", this.getName() ); // .replace(":", "_") );
+			this.setProperty(__INTERNAL_PROPERTY_NICK__, this.getName() ); // .replace(":", "_") );
+			this.setProperty(__INTERNAL_PROPERTY_NAME__, this.getName() ); // .replace(":", "_") );
 			// this._type = "*";
 		}
 		if (!getGraph().types().exists(this.getType())) {

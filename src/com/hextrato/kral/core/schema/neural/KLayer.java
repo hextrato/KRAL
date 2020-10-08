@@ -12,7 +12,7 @@ import com.hextrato.kral.core.schema.neural.layer.type.NLBase;
 import com.hextrato.kral.core.util.exception.KException;
 
 public abstract class KLayer extends AMetaNamedObject {
-	
+
 	private KNeural _neural = null;
 	public KNeural getNeural() { return this._neural; }
 
@@ -24,14 +24,14 @@ public abstract class KLayer extends AMetaNamedObject {
 	
 	public KLayer (KNeural neural, String oper) throws KException {
 		if (neural == null) throw new KException("Invalid null neural");
-		this.properties().declare("_schema_", "String");
-		this.properties().set("_schema_", neural.getSchema().getName());
+		this.properties().declare(__INTERNAL_PROPERTY_SCHEMA__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SCHEMA__, neural.getSchema().getName());
 		this._neural = neural;
-		this.properties().declare("_neural_", "String");
-		this.properties().set("_neural_", neural.getName());
+		this.properties().declare(__INTERNAL_PROPERTY_NEURAL__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_NEURAL__, neural.getName());
 		this._oper = oper.toLowerCase();
-		this.properties().declare("_oper_", "String");
-		this.properties().set("_oper_", this._oper);
+		this.properties().declare(__INTERNAL_PROPERTY_OPER__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_OPER__, this._oper);
 	}
 
 	/*

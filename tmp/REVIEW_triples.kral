@@ -1,0 +1,44 @@
+var V declare String
+
+graph PARENT create
+
+triple (c:e1,T1,p:A1)
+triple (c:e1,T2,p:11)
+
+triple (c:e2,T1,p:A2)
+triple (c:e2,T2,p:12)
+
+triple (c:e3,T1,p:A3)
+triple (c:e3,T2,p:13)
+
+triple (c:e4,T1,p:B1)
+triple (c:e4,T2,p:21)
+
+triple (c:e5,T1,p:B2)
+triple (c:e5,T1,p:22)
+
+triple show
+
+>> -----------------
+
+triple save _.schema var V
+var V show
+triple save _.graph var V
+var V show
+triple save _.split var V
+var V show
+triple save _.uid var V
+var V show
+
+>> -----------------
+
+triple save _.head var V
+var V show
+triple save _.rela var V
+var V show
+triple save _.tail var V
+var V show
+triple save _.pola var V
+var V show
+
+>> -----------------
