@@ -12,6 +12,29 @@ import java.util.Properties;
 
 public abstract class AMetaUIDObject {
 
+	final static public String __INTERNAL_PROPERTY_UID__ = "_.uid";  
+	final static public String __INTERNAL_PROPERTY_NAME__ = "_.name";  
+	final static public String __INTERNAL_PROPERTY_ORIGINAL__ = "_.original";  
+	final static public String __INTERNAL_PROPERTY_SCHEMA__ = "_.schema";  
+	final static public String __INTERNAL_PROPERTY_SPLIT__ = "_.split";  
+	final static public String __INTERNAL_PROPERTY_TABULAR__ = "_.tabular";  
+	final static public String __INTERNAL_PROPERTY_DATATYPE__ = "_.datatype";  
+	final static public String __INTERNAL_PROPERTY_GRAPH__ = "_.graph";  
+	final static public String __INTERNAL_PROPERTY_SPACE__ = "_.space";  
+	final static public String __INTERNAL_PROPERTY_VALUES__ = "_.values";  
+	final static public String __INTERNAL_PROPERTY_KER__ = "_.ker";  
+	final static public String __INTERNAL_PROPERTY_TYPE__ = "_.type";  
+	final static public String __INTERNAL_PROPERTY_NEURAL__ = "_.neural";  
+	final static public String __INTERNAL_PROPERTY_OPER__ = "_.oper";  
+	final static public String __INTERNAL_PROPERTY_NICK__ = "_.nick";  
+	final static public String __INTERNAL_PROPERTY_CLUSTER__ = "_.cluster";  
+	final static public String __INTERNAL_PROPERTY_DIMENSIONALITY__ = "_.dimensionality";  
+
+	final static public String __INTERNAL_PROPERTY_HEAD__ = "_.head";  
+	final static public String __INTERNAL_PROPERTY_TAIL__ = "_.tail";  
+	final static public String __INTERNAL_PROPERTY_RELA__ = "_.rela";  
+	final static public String __INTERNAL_PROPERTY_POLA__ = "_.pola";  
+		
 	protected DCommentSet			 	_comments;
 	protected DVariableSet			 	_properties;
 	protected Properties 				_ranges;
@@ -21,9 +44,17 @@ public abstract class AMetaUIDObject {
 		this._comments = new DCommentSet();
 		this._properties = new DVariableSet();
 		this._ranges = new Properties();
-		this._properties.declare("_uid_", "Uid");
+		this._properties.declare(__INTERNAL_PROPERTY_UID__, "Uid");
 	}
-	
+
+	public void setUID(String uid) throws KException { 
+		this.setProperty(__INTERNAL_PROPERTY_UID__,uid); 
+	}
+
+	public String getUID() throws KException { return this.getProperty(__INTERNAL_PROPERTY_UID__); }
+	public String getName() throws KException { return ""; }
+
+
 	public void inSet (AMetaUIDObjectSet set) throws KException {
 		this._set = set;
 		for (String property : this.properties().keySet()) {
@@ -31,8 +62,6 @@ public abstract class AMetaUIDObject {
 		}
 	}
 	
-	public String getUID() throws KException { return this.getProperty("_uid_"); }
-
 	public DVariableSet properties() throws KException {
 		if (this._properties == null) throw new KException("Object has no property set");
 		return this._properties;

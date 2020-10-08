@@ -16,8 +16,8 @@ public class KNeural extends AMetaNamedObject {
 		if (schema == null) throw new KException("Invalid null schema");
 		// this._name = name;
 		this._schema = schema;
-		this.properties().declare("_schema_", "String");
-		this.properties().set("_schema_", schema.getName());
+		this.properties().declare(__INTERNAL_PROPERTY_SCHEMA__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SCHEMA__, schema.getName());
 	}
 	
 	private KLayerSet _layersSet = new KLayerSet(this);

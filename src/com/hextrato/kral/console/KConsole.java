@@ -19,7 +19,7 @@ public class KConsole extends KRAL {
 	// Constant values
 	// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =        
 
-	public static final String HEXTRATO_KRAL_CONSOLE_VERSION = "1.9.12";
+	public static final String HEXTRATO_KRAL_CONSOLE_VERSION = "3.0.1";
 	public static final boolean KRAL_CONSOLE_ON_VALIDATION = false;
 	public static final String ROOT_PARSER_PACKAGE = "com.hextrato.kral.console.exec";
 	
@@ -101,11 +101,6 @@ public class KConsole extends KRAL {
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -         
 	private static void welcome() throws KException {
 		if (config().get("console.echo").equals("ON")) {
-			//println(" _   _ ____ _  _ _____ ____  _  _____ ___    _");
-			//println("| |_| |  __\\ \\/ /_   _|    |/ \\|_   _/ _ \\ _| |_");
-			//println("|  _  | |-_ |  |  | | |   \\/ _ \\ | |  (_) |_   _|");
-			//println("|_| |_|____/_/\\_\\ |_| |_|\\/_/ \\_\\|_| \\___/  |_|");
-			//println(" _  _  ____  _  _"); 
 			println(" _   _ ____ _  _ _____ ____  _  _____ ___    ");
 			println("| |_| |  __\\ \\/ /_   _|    |/ \\|_   _/ _ \\ ");
 			println("|  _  | |-_ |  |  | | |   \\/ _ \\ | |  (_) |");
@@ -120,6 +115,9 @@ public class KConsole extends KRAL {
 			println((new java.util.Date()).toString());
 			println("");
 			println("Welcome!");
+			println("");
+			
+			// runLine("@tmp/REVIEW.kral");
 			//println("h+> @tmp/auprc.kral");
 			//println("h+> @tmp/matrix.kral");
 
@@ -234,13 +232,11 @@ public class KConsole extends KRAL {
 	}
 
 	// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =        
-	// iteractive console
+	// Console PROMPT
 	// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =        
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -         
 	public static void prompt () throws KException {
-		// String prompt = "h+";
-		// String prompt = "kral";
 		String prompt = "";
 		String schema = KConsole.schemata().getCurrentName();
 		if (!schema.equals("")) prompt = KConsole.schemata().getCurrentName(); 

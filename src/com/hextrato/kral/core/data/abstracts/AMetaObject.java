@@ -9,6 +9,11 @@ public abstract class AMetaObject {
 	protected Properties _properties;
 	protected Properties _ranges;
 	
+	abstract public void setUID(String uid) throws KException;
+	abstract public String getUID() throws KException;
+	abstract public void setName(String name) throws KException;
+	abstract public String getName() throws KException;
+	
 	public AMetaObject () {
 	}
 

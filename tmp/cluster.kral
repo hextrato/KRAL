@@ -1,0 +1,138 @@
+# @tmp/cluster.kral
+
+reset
+
+split DEV create
+
+graph g create
+graph g property typed TRUE
+graph g property autocreate true
+// graph g type t create
+// graph g type t property disjoint true
+graph g type int create
+graph g type int property disjoint true
+graph g type axis create
+graph g type axis property disjoint true
+
+triple (t:A,xum,ini:a)
+triple (t:B,xum,ini:a)
+triple (t:C,xum,ini:a)
+triple (t:D,xum,ini:a)
+triple (t:E,xum,ini:a)
+triple (t:F,xum,ini:b)
+triple (t:G,xum,ini:b)
+triple (t:H,xum,ini:b)
+triple (t:I,xum,ini:b)
+triple (t:J,xum,ini:b)
+triple (t:K,xum,ini:c)
+triple (t:L,xum,ini:c)
+triple (t:M,xum,ini:c)
+triple (t:N,xum,ini:c)
+triple (t:O,xum,ini:c)
+triple (t:P,xum,ini:d)
+triple (t:Q,xum,ini:d)
+triple (t:R,xum,ini:d)
+triple (t:S,xum,ini:d)
+triple (t:T,xum,ini:d)
+triple (t:U,xum,ini:e)
+triple (t:V,xum,ini:e)
+triple (t:W,xum,ini:e)
+triple (t:X,xum,ini:e)
+triple (t:Y,xum,ini:e)
+triple (t:Z,xum,ini:e)
+
+//triple (t:A,num,int:1)
+//triple (t:B,num,int:2)
+//triple (t:C,num,int:3)
+//triple (t:D,num,int:4)
+//triple (t:E,num,int:5)
+//triple (t:F,num,int:6)
+//triple (t:G,num,int:7)
+//triple (t:F,num,int:8)
+//triple (t:G,num,int:8)
+//triple (t:H,num,int:8)
+
+//triple (t:I,num,int:11)
+//triple (t:J,num,int:12)
+//triple (t:K,num,int:13)
+//triple (t:L,num,int:14)
+//triple (t:M,num,int:15)
+//triple (t:N,num,int:16)
+//triple (t:O,num,int:17)
+//triple (t:P,num,int:18)
+//triple (t:Q,num,int:19)
+//triple (t:R,num,int:20)
+//triple (t:S,num,int:11)
+//triple (t:T,num,int:12)
+//triple (t:U,num,int:13)
+//triple (t:V,num,int:14)
+//triple (t:W,num,int:15)
+//triple (t:X,num,int:16)
+//triple (t:Y,num,int:17)
+//triple (t:Z,num,int:18)
+
+// triple (t:A,rel,axis:x)
+// triple (t:B,rel,axis:x)
+// triple (t:C,rel,axis:x)
+// triple (t:D,rel,axis:x)
+// triple (t:E,rel,axis:y)
+// triple (t:F,rel,axis:y)
+// triple (t:G,rel,axis:y)
+// triple (t:H,rel,axis:y)
+// 
+// triple (t:A2,rel,axis:x)
+// triple (t:B2,rel,axis:x)
+// triple (t:C2,rel,axis:x)
+// triple (t:D2,rel,axis:x)
+// triple (t:E2,rel,axis:y)
+// triple (t:F2,rel,axis:y)
+// triple (t:G2,rel,axis:y)
+// triple (t:H2,rel,axis:y)
+// 
+// triple (t:A3,rel,axis:x)
+// triple (t:B3,rel,axis:x)
+// triple (t:C3,rel,axis:x)
+// triple (t:D3,rel,axis:x)
+// triple (t:E3,rel,axis:y)
+// triple (t:F3,rel,axis:y)
+// triple (t:G3,rel,axis:y)
+// triple (t:H3,rel,axis:y)
+// 
+// triple (z,rel2,t:A)
+// triple (z,rel2,t:B)
+// triple (z,rel2,t:E)
+// triple (z,rel2,t:F)
+// triple (w,rel2,t:C)
+// triple (w,rel2,t:D)
+// triple (w,rel2,t:G)
+// triple (w,rel2,t:H)
+
+
+ker HX create
+ker HX config dimensions 3
+ker HX config graph g
+ker HX config learning_rate 0.01
+ker HX config regularization_type SURFACE
+
+// repeat 20 do { ker learn DEV repeat 50 ;; ker draw ;; sleep 1000 ;; ker HX cluster 12 type t }
+
+ker HX config learning_rate 0.00001
+ker learn DEV repeat 1 ;; ker draw ;; sleep 100 ;; ker HX cluster 6 type t
+ker HX config learning_rate 0.01
+
+var LM declare Double
+var LM set 0.0
+
+repeat 100 do { gosub LEARN_AND_CLUSTER }
+// repeat 10 do { gosub LEARN_AND_CLUSTER }
+return
+
+//////////////////
+:LEARN_AND_CLUSTER
+//////////////////
+var LM add 0.05
+var LM show
+ker HX config learning_margin %LM%
+repeat 10 do { ker learn DEV repeat 10 ;; ker evaluate DEV ;; ker draw ;; sleep 100 ;; ker HX cluster 5 type t }
+return
+

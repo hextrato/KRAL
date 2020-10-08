@@ -203,8 +203,8 @@ public class DVector {
 			double factor = magnitude / d; // (1/d)
 			for (int p = 0; p < this.size(); p++) {
 				double newValue = this.getValue(p) * factor;
-				if (latentConstraint > 0 && newValue > 0 && newValue > latentConstraint) newValue = latentConstraint; 
-				if (latentConstraint > 0 && newValue < 0 && newValue < -latentConstraint) newValue = -latentConstraint; 
+				if (latentConstraint > 0 && newValue > 0 && newValue > latentConstraint) newValue = latentConstraint - (Math.random()/100); 
+				if (latentConstraint > 0 && newValue < 0 && newValue < -latentConstraint) newValue = -latentConstraint + (Math.random()/100); 
 				this.setValue(p,newValue);
 			}
 		}

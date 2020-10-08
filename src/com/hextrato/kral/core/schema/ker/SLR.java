@@ -13,7 +13,7 @@ public class SLR extends AMetaObjectSet<DMatrix> {
 	public SLR(KEmbed embedding) throws KException {
 		if (embedding == null) throw new KException("Invalid null embedder");
 		this._embedding = embedding;
-		this.setMetaType("DSR");
+		this.setMetaType("SLR"); // DSR before, why?
 	}
 	
 	private KEmbed _embedding = null;
