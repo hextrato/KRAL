@@ -6,15 +6,13 @@ public abstract class AMetaNamedObject extends AMetaUIDObject {
 	
 	public AMetaNamedObject () throws KException {
 		super();
-		this._properties.declare("_name_", "String");
+		this._properties.declare(__INTERNAL_PROPERTY_NAME__, "String");
 	}
 	
-	// protected AbstractMetaNamedObjectSet	_set = null;
-	//public void inSet (AbstractMetaNamedObjectSet set) {
-	//	super.inSet(set);
-	//	this._set = set;
-	//}
-	
-	public String getName() throws KException { return this.getProperty("_name_"); }
+	public void setName(String name) throws KException { 
+		this.setProperty(__INTERNAL_PROPERTY_NAME__,name); 
+	}
+
+	public String getName() throws KException { return this.getProperty(__INTERNAL_PROPERTY_NAME__); }
 
 }

@@ -5,13 +5,16 @@ import com.hextrato.kral.console.parser.KCFinder;
 import com.hextrato.kral.console.parser.KCMetadata;
 import com.hextrato.kral.console.parser.KCParser;
 import com.hextrato.kral.core.schema.KSchema;
+import com.hextrato.kral.core.schema.KSplit;
+import com.hextrato.kral.core.schema.graph.KGraph;
+import com.hextrato.kral.core.schema.tabular.KTabular;
 import com.hextrato.kral.core.util.exception.KException;
 
 public class Schema implements KCParser {
 
 	public void setContext (KCMetadata clmd) { clmd.setContext("schema"); }
 
-	public String[] getValidTokenSet () { return new String[] {"create", "delete", "desc", "foreach", "hextract", "list", "save", "select"}; }
+	public String[] getValidTokenSet () { return new String[] {"create", "delete", "desc", "foreach", "list", "count", "find", "hextract", "save", "select"}; }
 
 	public boolean partial(KCMetadata clmd) { return !(clmd.getVar("schema").equals("")); }
 
@@ -31,6 +34,49 @@ public class Schema implements KCParser {
 		return true;
 	}
 	
+	private static boolean matches(KSchema schema, KCMetadata clmd) throws KException {
+		String searchUID = clmd.getParameter(KSchema.__INTERNAL_PROPERTY_UID__);
+		String searchName = clmd.getParameter(KSchema.__INTERNAL_PROPERTY_NAME__);
+		boolean match = false;
+		if ( true
+				&& ("["+schema.getUID()+"]").contains(searchUID)
+				&& ("["+schema.getName()+"]").contains(searchName)
+				) {
+			match = true;
+		}
+		return match;
+	}
+
+	public static boolean doCount(KCMetadata clmd) throws KException {
+		KConsole.lastInteger(0); // ** NEW ** //
+		int count = 0;
+		for (String schemaUID : KConsole.schemata().theList().keySet()) {
+			KSchema schema = KConsole.schemata().getSchema(schemaUID);
+			if (Schema.matches(schema,clmd)) {
+				count++;
+			}
+		}
+		KConsole.feedback("Count = " + count); // ** NEW ** //
+		KConsole.lastInteger(count); // ** NEW ** //
+		return true;
+	}
+
+	public static boolean doFind(KCMetadata clmd) throws KException {
+		KConsole.lastFound(""); // ** NEW ** //
+		for (String schemaUID : KConsole.schemata().theList().keySet()) {
+			KSchema schema = KConsole.schemata().getSchema(schemaUID);
+			if (Schema.matches(schema,clmd)) {
+				KConsole.schemata().setCurrent(schemaUID);
+				KConsole.feedback("Found: " + schemaUID);
+				KConsole.lastFound(schemaUID); // ** NEW ** //
+				return true;
+			}
+		}
+		KConsole.feedback("Not found");
+		KConsole.lastFound(""); // ** NEW ** //
+		return true;
+	}
+
 	public static boolean doDelete(KCMetadata clmd) throws KException {
 		String schemaName = KCFinder.which(clmd, "schema");
 		KConsole.schemata().delete(schemaName);
@@ -43,40 +89,45 @@ public class Schema implements KCParser {
 		KSchema schema = KCFinder.findSchema(clmd);
 		KConsole.println("schema._uid_ = " + schema.getUID());
 		KConsole.println("schema._name_ = " + schema.getName());
-
 		String splitList = "{";
-		for (String splitName : schema.splits().theList().keySet() ) {
+		for (String splitUID : schema.splits().theList().keySet() ) {
+			KSplit split = schema.splits().getSplit(splitUID); 
+			String splitName = split.getName();
 			splitList = splitList + (splitList.equals("{")?"":",") + (splitName.equals(schema.splits().getCurrent())?"*":"") + splitName;
 		}
 		splitList = splitList + "}";
 		KConsole.println("schema.splits = " + splitList);
 
+		String tabularList = "{";
+		for (String tabularUID : schema.tabulars().theList().keySet() ) {
+			KTabular tabular = schema.tabulars().getTabular(tabularUID); 
+			String tabularName = tabular.getName();
+			tabularList = tabularList + (tabularList.equals("{")?"":",") + (tabularName.equals(schema.tabulars().getCurrent())?"*":"") + tabularName;
+		}
+		tabularList = tabularList + "}";
+		KConsole.println("schema.tabulars = " + tabularList);
+
 		String graphList = "{";
-		for (String graphName : schema.graphs().theList().keySet() ) {
+		for (String graphUID : schema.graphs().theList().keySet() ) {
+			KGraph graph = schema.graphs().getGraph(graphUID); 
+			String graphName = graph.getName();
 			graphList = graphList + (graphList.equals("{")?"":",") + (graphName.equals(schema.graphs().getCurrent())?"*":"") + graphName;
 		}
 		graphList = graphList + "}";
 		KConsole.println("schema.graphs = " + graphList);
 		
-		String tabularList = "{";
-		for (String tabularName : schema.tabulars().theList().keySet() ) {
-			tabularList = tabularList + (tabularList.equals("{")?"":",") + (tabularName.equals(schema.tabulars().getCurrent())?"*":"") + tabularName;
-		}
-		tabularList = tabularList + "}";
-		KConsole.println("schema.tabulars = " + tabularList);
 		KConsole.metadata("Schema", schema.getName());
 		return true;
 	}
 
 	public static boolean doForeach(KCMetadata clmd) throws KException {
 		boolean found = false;
-		String searchSchemaName = clmd.getVar("schema");
 		String blok = clmd.getBlok();
 		if (blok.equals("")) throw new KException("Undefined foreach blok");
-		for (String schemaName : KConsole.schemata().theList().keySet()) {
-			KSchema schema = KConsole.schemata().getSchema(schemaName);
-			if (("["+schema.getName()+"]").contains(searchSchemaName)) {
-				KConsole.schemata().setCurrent(schemaName);
+		for (String schemaUID : KConsole.schemata().theList().keySet()) {
+			KSchema schema = KConsole.schemata().getSchema(schemaUID);
+			if (Schema.matches(schema,clmd)) {
+				KConsole.schemata().setCurrent(schemaUID);
 				KConsole.runLine(blok);
 				found = true;
 			}
@@ -97,21 +148,20 @@ public class Schema implements KCParser {
 
 	public static boolean doList(KCMetadata clmd) throws KException {
 		boolean found = false;
-		String searchSchemaName = clmd.getVar("schema");
-		for (String schemaName : KConsole.schemata().theList().keySet()) {
-			KSchema schema = KConsole.schemata().getSchema(schemaName);
-			if (("["+schema.getName()+"]").contains(searchSchemaName)) {
+		for (String schemaUID : KConsole.schemata().theList().keySet()) {
+			KSchema schema = KConsole.schemata().getSchema(schemaUID);
+			if (Schema.matches(schema,clmd)) {
 				if (!found) {
 					String output = "";
-					output = output + String.format("%-"+KConsole.schemata().getPropertySize("_uid_")+"s", "_uid_");
+					output = output + String.format("%-"+KConsole.schemata().getPropertySize(KSchema.__INTERNAL_PROPERTY_UID__)+"s", KSchema.__INTERNAL_PROPERTY_UID__);
 					output = output + "\t";
-					output = output + String.format("%-"+KConsole.schemata().getPropertySize("_name_")+"s", "_name_");
+					output = output + String.format("%-"+KConsole.schemata().getPropertySize(KSchema.__INTERNAL_PROPERTY_NAME__)+"s", KSchema.__INTERNAL_PROPERTY_NAME__);
 					KConsole.output(output);
 				}
 				String output = "";
-				output = output + String.format("%-"+KConsole.schemata().getPropertySize("_uid_")+"s", schema.getUID());
+				output = output + String.format("%-"+KConsole.schemata().getPropertySize(KSchema.__INTERNAL_PROPERTY_UID__)+"s", schema.getUID());
 				output = output + "\t";
-				output = output + String.format("%-"+KConsole.schemata().getPropertySize("_name_")+"s", schema.getName());
+				output = output + String.format("%-"+KConsole.schemata().getPropertySize(KSchema.__INTERNAL_PROPERTY_NAME__)+"s", schema.getName());
 				KConsole.output(output);
 				found = true;
 			}

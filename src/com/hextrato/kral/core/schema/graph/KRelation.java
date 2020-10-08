@@ -14,16 +14,16 @@ public class KRelation extends AMetaNamedObject {
 
 	public KRelation (KGraph graph) throws KException {
 		if (graph == null) throw new KException("Invalid null graph");
-		this.properties().declare("_schema_", "String");
-		this.properties().set("_schema_", graph.getSchema().getName());
+		this.properties().declare(__INTERNAL_PROPERTY_SCHEMA__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SCHEMA__, graph.getSchema().getName());
 		this._graph = graph;
-		this.properties().declare("_graph_", "String");
-		this.properties().set("_graph_", graph.getName());
+		this.properties().declare(__INTERNAL_PROPERTY_GRAPH__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_GRAPH__, graph.getName());
 
 		this._split = graph.getSchema().splits().getSplit();
 		if (this._split == null) throw new KException("Invalid split");
-		this.properties().declare("_split_", "String");
-		this.properties().set("_split_", this._split.getName());
+		this.properties().declare(__INTERNAL_PROPERTY_SPLIT__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SPLIT__, this._split.getName());
 		
 		this.properties().declare("_original_", "String" );
 		this.properties().set("_original_", "" );

@@ -28,8 +28,8 @@ public class KTabular extends AMetaNamedObject {
 		if (schema == null) throw new KException("Invalid null schema");
 		// this._name = name;
 		this._schema = schema;
-		this.properties().declare("_schema_", "String");
-		this.properties().set("_schema_", schema.getName());
+		this.properties().declare(__INTERNAL_PROPERTY_SCHEMA__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SCHEMA__, schema.getName());
 	}
 	
 	private KAttributeSet _attributeSet = new KAttributeSet(this);
@@ -54,8 +54,8 @@ public class KTabular extends AMetaNamedObject {
         	int i = 0;
         	for (String aHeader : csvHeaders.keySet()) {
         		// System.out.println(aHeader);
-        		if (aHeader.equals("_split_")) hasSplit = true; 
-        		else if (aHeader.equals("_uid_")) hasUID = true; 
+        		if (aHeader.equals(__INTERNAL_PROPERTY_SPLIT__)) hasSplit = true; 
+        		else if (aHeader.equals(__INTERNAL_PROPERTY_UID__)) hasUID = true; 
         		else {
             		attribs[i] = aHeader;
             		if (!this.attributes().theList().containsKey(aHeader))
@@ -64,9 +64,9 @@ public class KTabular extends AMetaNamedObject {
         		}
         	}
         	for (CSVRecord csvRecord : csvParser) {
-        		if (hasSplit) this.getSchema().splits().setCurrent(csvRecord.get("_split_"));
+        		if (hasSplit) this.getSchema().splits().setCurrent(csvRecord.get(__INTERNAL_PROPERTY_SPLIT__));
         		if (hasUID)   
-        			this.records().create(csvRecord.get("_uid_"));
+        			this.records().create(csvRecord.get(__INTERNAL_PROPERTY_UID__));
         		else
         			this.records().create();
         		KRecord record = this.records().getRecord();
@@ -90,8 +90,8 @@ public class KTabular extends AMetaNamedObject {
         	BufferedWriter writer = Files.newBufferedWriter(Paths.get(fileFullPath));
         	String[] attribs = new String[attributes().theList().size()+2];
         	String[] datarow = new String[attributes().theList().size()+2];
-        	attribs[0] = "_split_";
-        	attribs[1] = "_uid_";
+        	attribs[0] = __INTERNAL_PROPERTY_SPLIT__;
+        	attribs[1] = __INTERNAL_PROPERTY_UID__;
         	int i = 2;
         	for (String attributeID : attributes().theList().keySet() ) {
         		attribs[i] = attributes().get(attributeID).getName();

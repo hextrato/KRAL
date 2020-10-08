@@ -21,15 +21,15 @@ public class KRecord extends AMetaUIDObject {
 
 	public KRecord (KTabular tabular) throws KException {
 		if (tabular == null) throw new KException("Invalid null tabular");
-		this.properties().declare("_schema_", "String");
-		this.properties().set("_schema_", tabular.getSchema().getName());
+		this.properties().declare(__INTERNAL_PROPERTY_SCHEMA__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SCHEMA__, tabular.getSchema().getName());
 		this._tabular = tabular;
-		this.properties().declare("_tabular_", "String");
-		this.properties().set("_tabular_", tabular.getName());
+		this.properties().declare(__INTERNAL_PROPERTY_TABULAR__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_TABULAR__, tabular.getName());
 		this._split = tabular.getSchema().splits().getSplit();
 		if (this._split == null) throw new KException("Invalid split");
-		this.properties().declare("_split_", "String");
-		this.properties().set("_split_", this._split.getName());
+		this.properties().declare(__INTERNAL_PROPERTY_SPLIT__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SPLIT__, this._split.getName());
 	}
 	
 	
@@ -44,7 +44,7 @@ public class KRecord extends AMetaUIDObject {
 	}
 	public void setAttributeValue (String attribute, String value) throws KException {
 		if (_tabular.attributes().exists(attribute)) {
-			ADataType<?> _datatype = DVariable.getDatatype(_tabular.attributes().get(attribute).getProperty("_datatype_"));
+			ADataType<?> _datatype = DVariable.getDatatype(_tabular.attributes().get(attribute).getProperty(__INTERNAL_PROPERTY_DATATYPE__));
 			String parsedValue = _datatype.valueOf(value).toString();
 			if (_attributeValues.containsKey(attribute))
 				_attributeValues.replace(attribute, parsedValue);

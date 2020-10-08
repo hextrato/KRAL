@@ -12,7 +12,7 @@ public class Graph implements KCParser {
 
 	public void setContext (KCMetadata clmd) { clmd.setContext("graph"); }
 
-	public String[] getValidTokenSet () { return new String[] {"create", "delete", "list", "select", "desc", "property", "foreach", "save", "hextract"}; }
+	public String[] getValidTokenSet () { return new String[] {"create", "delete", "list", "count", "find", "select", "desc", "property", "foreach", "save", "hextract"}; }
 
 	public boolean partial(KCMetadata clmd) { return !(clmd.getVar("graph").equals("")); }
 
@@ -44,27 +44,76 @@ public class Graph implements KCParser {
 	}
 	
 	public static boolean doDesc(KCMetadata clmd) throws KException {
+		KConsole.lastString(""); // ** NEW ** //
 		KSchema schema = KCFinder.findSchema(clmd);
 		KGraph graph = KCFinder.findGraph(schema, clmd);
-		KConsole.println("schema.name = " + graph.getSchema().getName());
-		KConsole.println("graph.name = " + graph.getName());
-		for (String property : graph.properties().keySet()) if (!property.endsWith("_")) {
-			KConsole.println("property: "+property+" = " + graph.properties().get(property));
+		KConsole.println("_.schema = " + graph.getSchema().getName()); // ** NEW ** //
+		KConsole.println("_.uid = " + graph.getUID()); // ** NEW ** //
+		KConsole.println("_.name = " + graph.getName()); // ** NEW ** //
+		for (String property : graph.properties().keySet()) if (!property.startsWith("_")) {
+			KConsole.println("property."+property+" = " + graph.properties().get(property));
 		}
 		KConsole.metadata("Graph", graph.getName());
+		KConsole.lastString(graph.getName()); // ** NEW ** //
+		return true;
+	}
+
+	private static boolean matches(KGraph graph, KCMetadata clmd) throws KException {
+		String searchSchema = clmd.getParameter(KGraph.__INTERNAL_PROPERTY_SCHEMA__);
+		String searchUID = clmd.getParameter(KGraph.__INTERNAL_PROPERTY_UID__);
+		String searchName = clmd.getParameter(KGraph.__INTERNAL_PROPERTY_NAME__);
+		boolean match = false;
+		if ( true
+				&& ("["+graph.getSchema()+"]").contains(searchSchema)
+				&& ("["+graph.getUID()+"]").contains(searchUID)
+				&& ("["+graph.getName()+"]").contains(searchName)
+				) {
+			match = true;
+		}
+		return match;
+	}
+
+	public static boolean doCount(KCMetadata clmd) throws KException {
+		KConsole.lastInteger(0); // ** NEW ** //
+		int count = 0;
+		KSchema schema = KCFinder.findSchema(clmd);
+		for (String graphName : schema.graphs().theList().keySet()) {
+			KGraph graph = schema.graphs().getGraph(graphName);
+			if (Graph.matches(graph,clmd)) {
+				count++;
+			}
+		}
+		KConsole.feedback("Count = " + count); // ** NEW ** //
+		KConsole.lastInteger(count); // ** NEW ** //
+		return true;
+	}
+
+	public static boolean doFind(KCMetadata clmd) throws KException {
+		KConsole.lastFound(""); // ** NEW ** //
+		KSchema schema = KCFinder.findSchema(clmd);
+		for (String graphUID : schema.graphs().theList().keySet()) {
+			KGraph graph = schema.graphs().getGraph(graphUID);
+			if (Graph.matches(graph,clmd)) {
+				schema.graphs().setCurrent(graphUID);
+				KConsole.feedback("Found: " + graphUID);
+				KConsole.lastFound(graphUID); // ** NEW ** //
+				return true;
+			}
+		}
+		KConsole.feedback("Not found");
+		KConsole.lastFound(""); // ** NEW ** //
 		return true;
 	}
 
 	public static boolean doForeach(KCMetadata clmd) throws KException {
 		boolean found = false;
 		KSchema schema = KCFinder.findSchema(clmd);
-		String searchGraphName = clmd.getVar("graph");
 		String blok = clmd.getBlok();
 		if (blok.equals("")) throw new KException("Undefined foreach blok");
-		for (String graphName : schema.graphs().theList().keySet()) {
-			KGraph graph = schema.graphs().getGraph(graphName);
-			if (("["+graph.getName()+"]").contains(searchGraphName)) {
-				schema.graphs().setCurrent(graphName);
+		for (String graphUID : schema.graphs().theList().keySet()) {
+			KGraph graph = schema.graphs().getGraph(graphUID);
+			if (Graph.matches(graph,clmd)) {
+				schema.graphs().setCurrent(graphUID);
 				KConsole.runLine(blok);
 				found = true;
 			}
@@ -87,36 +136,29 @@ public class Graph implements KCParser {
 	public static boolean doList(KCMetadata clmd) throws KException {
 		boolean found = false;
 		KSchema schema = KCFinder.findSchema(clmd);
-		String searchGraphName = clmd.getVar("graph");
-		for (String graphName : schema.graphs().theList().keySet()) {
-			KGraph graph = schema.graphs().getGraph(graphName);
-			if (("["+graph.getName()+"]").contains(searchGraphName)) {
+		for (String graphUID : schema.graphs().theList().keySet()) {
+			KGraph graph = schema.graphs().getGraph(graphUID);
+			if (Graph.matches(graph,clmd)) {
 				if (!found) {
 					String output = "";
-					output = output + String.format("%-"+schema.graphs().getPropertySize("_schema_")+"s", "_schema_");
+					output = output + String.format("%-"+schema.graphs().getPropertySize(KGraph.__INTERNAL_PROPERTY_SCHEMA__)+"s", KGraph.__INTERNAL_PROPERTY_SCHEMA__);
 					output = output + "\t";
-					output = output + String.format("%-"+schema.graphs().getPropertySize("_uid_")+"s", "_uid_");
+					output = output + String.format("%-"+schema.graphs().getPropertySize(KGraph.__INTERNAL_PROPERTY_UID__)+"s", KGraph.__INTERNAL_PROPERTY_UID__);
 					output = output + "\t";
-					output = output + String.format("%-"+schema.graphs().getPropertySize("_name_")+"s", "_name_");
-					for (String property : graph.properties().keySet()) if (!property.endsWith("_")) {
+					output = output + String.format("%-"+schema.graphs().getPropertySize(KGraph.__INTERNAL_PROPERTY_NAME__)+"s", KGraph.__INTERNAL_PROPERTY_NAME__);
+					for (String property : graph.properties().keySet()) if (!property.startsWith("_")) {
 						output = output + "\t";
 						output = output + String.format("%-"+schema.graphs().getPropertySize(property)+"s", property);
 					}
-					/*
-					String output = String.format("%-20s %-20s", "schema","graph");
-					for (String k : graph.properties().keySet().toArray(new String[0])) {
-						output = output + String.format(" %-20s", k);
-					}
-					*/
 					KConsole.output(output);
 				}
 				String output = "";
-				output = output + String.format("%-"+schema.tabulars().getPropertySize("_schema_")+"s", graph.properties().get("_schema_"));
+				output = output + String.format("%-"+schema.graphs().getPropertySize(KGraph.__INTERNAL_PROPERTY_SCHEMA__)+"s", graph.getSchema().getName());
 				output = output + "\t";
-				output = output + String.format("%-"+schema.tabulars().getPropertySize("_uid_")+"s", graph.properties().get("_uid_"));
+				output = output + String.format("%-"+schema.graphs().getPropertySize(KGraph.__INTERNAL_PROPERTY_UID__)+"s", graph.getUID());
 				output = output + "\t";
-				output = output + String.format("%-"+schema.tabulars().getPropertySize("_name_")+"s", graph.properties().get("_name_"));
-				for (String property : graph.properties().keySet()) if (!property.endsWith("_")) {
+				output = output + String.format("%-"+schema.graphs().getPropertySize(KGraph.__INTERNAL_PROPERTY_NAME__)+"s", graph.getName());
+				for (String property : graph.properties().keySet()) if (!property.startsWith("_")) {
 					output = output + "\t";
 					output = output + String.format("%-"+schema.tabulars().getPropertySize(property)+"s", graph.properties().get(property));
 				}
@@ -156,6 +198,7 @@ public class Graph implements KCParser {
 	}
 
 	public static boolean doSaveVar(KCMetadata clmd) throws KException {
+		KConsole.lastString(""); // ** NEW ** //
 		KSchema schema = KCFinder.findSchema(clmd);
 		KGraph graph = KCFinder.findGraph(schema, clmd);
 		String property = clmd.getVar("property");
@@ -164,15 +207,18 @@ public class Graph implements KCParser {
 		KConsole.vars().set(var,value);
 		KConsole.feedback("Variable '"+var+"' set");
 		KConsole.metadata("Variable", var, value);
+		KConsole.lastString(value); // ** NEW ** //
 		return true;
 	}
 
 	public static boolean doSelect(KCMetadata clmd) throws KException {
+		KConsole.lastString(""); // ** NEW ** //
 		KSchema schema = KCFinder.findSchema(clmd);
 		String graphName = KCFinder.which(clmd, "graph");
 		schema.graphs().setCurrent(graphName);
 		KConsole.feedback("Graph '"+graphName+"' selected");
 		KConsole.metadata("Graph", graphName);
+		KConsole.lastString(graphName); // ** NEW ** //
 		return true;
 	}
 

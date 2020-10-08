@@ -25,7 +25,7 @@ public abstract class AMetaUIDObjectSet {
 			throw new KException(""+_metaType+" uid '"+uid+"' already exists");
 		}
 		metaObject.inSet(this);
-		metaObject.setProperty("_uid_", uid);
+		metaObject.setUID(uid);
 		_uidsSet.put( uid, metaObject );
 		// _uidsSet.put( uid, name);
 		setCurrent(uid);
@@ -41,7 +41,7 @@ public abstract class AMetaUIDObjectSet {
 	public void delete (String uid) throws KException {
 		if (_uidsSet.containsKey(uid)) {
 			AMetaUIDObject _object = (AMetaUIDObject)_uidsSet.get(uid);
-			String _uid_ = _object.getProperty("_uid_");
+			String _uid_ = _object.getUID();
 			_uidsSet.remove(_uid_);
 			//_uidsSet.remove(uid);
 		} else {

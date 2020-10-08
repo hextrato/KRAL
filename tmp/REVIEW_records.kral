@@ -1,0 +1,64 @@
+var V declare String
+
+tabular PARENT create
+attribute T1 create String
+attribute T2 create Integer
+
+record create
+record attribute T1 set A1
+record attribute T2 set 11
+
+record create
+record attribute T1 set A2
+record attribute T2 set 12
+
+record create
+record attribute T1 set A3
+record attribute T2 set 13
+
+record create
+record attribute T1 set B1
+record attribute T2 set 21
+
+record create
+record attribute T1 set B2
+record attribute T2 set 22
+
+record list ? T1=A
+
+record list ? T2=[1
+
+record list ? T2=2]
+
+record find ? T1=A3
+
+record show
+
+>> -----------------
+
+record save _.schema var V
+var V show
+record save _.tabular var V
+var V show
+record save _.split var V
+var V show
+record save _.uid var V
+var V show
+
+>> -----------------
+
+record save T1 var V
+var V show
+record save T2 var V
+var V show
+
+>> -----------------
+
+record attribute T1 save V
+var V show
+record attribute T2 save V
+var V show
+record attribute T3 save V
+var V show
+
+>> -----------------

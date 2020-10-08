@@ -13,13 +13,15 @@ import com.hextrato.kral.core.schema.KSchema;
 import com.hextrato.kral.core.schema.hyper.KSpace;
 import com.hextrato.kral.core.schema.neural.KLayer;
 import com.hextrato.kral.core.schema.neural.KNeural;
+import com.hextrato.kral.core.schema.tabular.KAttribute;
+import com.hextrato.kral.core.schema.tabular.KTabular;
 import com.hextrato.kral.core.util.exception.KException;
 
 public class Layer implements KCParser {
 
 	public void setContext (KCMetadata clmd) { clmd.setContext("layer"); }
 
-	public String[] getValidTokenSet () { return new String[] {"create", "list", "select", "desc", "foreach", "save", "set", "weights", "biases", "feed", "back", "learn", "validate", "test", "accuracy", "comment"}; }
+	public String[] getValidTokenSet () { return new String[] {"create", "list", "select", "desc", "foreach", "count", "find", "save", "set", "weights", "biases", "feed", "back", "learn", "validate", "test", "accuracy", "comment"}; }
 
 	public boolean partial(KCMetadata clmd) { return !(clmd.getVar("layer").equals("")); }
 
@@ -38,6 +40,7 @@ public class Layer implements KCParser {
 	//
 	
 	public static boolean doCreate(KCMetadata clmd) throws KException {
+		KConsole.lastString(""); // ** NEW ** //
 		KSchema schema = KCFinder.findSchema(clmd);
 		KNeural neural = KCFinder.findNeural(schema, clmd);
 		String layerName = KCFinder.which(clmd, "layer");
@@ -45,10 +48,12 @@ public class Layer implements KCParser {
 		neural.layers().create(layerName,layerOper);
 		KConsole.feedback("Layer '"+layerName+"' created");
 		KConsole.metadata("Layer", layerName);
+		KConsole.lastString(layerName); // ** NEW ** //
 		return true;
 	}
 	
 	public static boolean doCreateAfter(KCMetadata clmd) throws KException {
+		KConsole.lastString(""); // ** NEW ** //
 		KSchema schema = KCFinder.findSchema(clmd);
 		KNeural neural = KCFinder.findNeural(schema, clmd);
 		String layerName = KCFinder.which(clmd, "layer");
@@ -58,26 +63,30 @@ public class Layer implements KCParser {
 		neural.layers().getLayer(layerName).setPrevLayer(layerAfter);
 		KConsole.feedback("Layer '"+layerName+"' created");
 		KConsole.metadata("Layer", layerName);
+		KConsole.lastString(layerName); // ** NEW ** //
 		return true;
 	}
 	
 	public static boolean doDesc(KCMetadata clmd) throws KException {
+		KConsole.lastString(""); // ** NEW ** //
 		KSchema schema = KCFinder.findSchema(clmd);
 		KNeural neural = KCFinder.findNeural(schema, clmd);
 		KLayer layer = KCFinder.findLayer(neural, clmd);
-		KConsole.println("neural.name = " + layer.getNeural().getName());
-		KConsole.println("layer.name = " + layer.getName());
-		KConsole.println("layer.oper = " + layer.getOper());
-		KConsole.println("layer.input.size = " + layer.getInputSize());
-		KConsole.println("layer.output.size = " + layer.getOutputSize());
-		try { KConsole.println("layer.learn.rate = " + layer.getLearningRate()); } catch (KException e) {} finally {};
-		try { KConsole.println("layer.misslearn.factor = " + layer.getMisslearningFactor()); } catch (KException e) {} finally {};
-		try { KConsole.println("layer.activation.function = " + layer.getActivationFunction()); } catch (KException e) {} finally {};
-		try { KConsole.println("layer.weight.matrix = \n" + layer.theWeights().toString()); } catch (Exception e) {} finally {};
-		try { KConsole.println("layer.bias.vector = \n" + layer.theBiases().toString()); } catch (Exception e) {} finally {};
-		try { KConsole.println("layer.gradient.out = \n" + layer.theGradientOut().toString()); } catch (Exception e) {} finally {};
-		try { KConsole.println("layer.gradient.net = \n" + layer.theGradientNet().toString()); } catch (Exception e) {} finally {};
-		try { KConsole.println("layer.gradient.in = \n" + layer.theGradientIn().toString()); } catch (Exception e) {} finally {};
+		KConsole.println("_.schema = " + layer.getNeural().getSchema().getName()); // ** NEW ** //
+		KConsole.println("_.neural = " + layer.getNeural().getName()); // ** NEW ** //
+		KConsole.println("_.uid = " + layer.getUID());
+		KConsole.println("_.name = " + layer.getName());
+		KConsole.println("_.oper = " + layer.getOper());
+		KConsole.println("property.input_size = " + layer.getInputSize());
+		KConsole.println("property.output_size = " + layer.getOutputSize());
+		try { KConsole.println("property.activation_function = " + layer.getActivationFunction()); } catch (KException e) {} finally {};
+		try { KConsole.println("property.learn_rate = " + layer.getLearningRate()); } catch (KException e) {} finally {};
+		try { KConsole.println("property.misslearn_factor = " + layer.getMisslearningFactor()); } catch (KException e) {} finally {};
+		try { KConsole.println("property.weight_matrix = \n" + layer.theWeights().toString()); } catch (Exception e) {} finally {};
+		try { KConsole.println("property.bias_vector = \n" + layer.theBiases().toString()); } catch (Exception e) {} finally {};
+		try { KConsole.println("property.gradient_out = \n" + layer.theGradientOut().toString()); } catch (Exception e) {} finally {};
+		try { KConsole.println("property.gradient_net = \n" + layer.theGradientNet().toString()); } catch (Exception e) {} finally {};
+		try { KConsole.println("property.gradient_in = \n" + layer.theGradientIn().toString()); } catch (Exception e) {} finally {};
 		String chain = ""; 
 		KLayer chainLayer = layer;
 		while (chainLayer != null && chain.length() <= 1000) {
@@ -86,6 +95,60 @@ public class Layer implements KCParser {
 		}
 		KConsole.println("layer.chain" + chain);
 		KConsole.metadata("Layer", layer.getName());
+		KConsole.lastString(layer.getName()); // ** NEW ** //
+		return true;
+	}
+
+	private static boolean matches(KLayer layer, KCMetadata clmd) throws KException {
+		String searchSchema = clmd.getParameter(KLayer.__INTERNAL_PROPERTY_SCHEMA__);
+		String searchNeural = clmd.getParameter(KLayer.__INTERNAL_PROPERTY_TABULAR__);
+		String searchUID = clmd.getParameter(KLayer.__INTERNAL_PROPERTY_UID__);
+		String searchName = clmd.getParameter(KLayer.__INTERNAL_PROPERTY_NAME__);
+		String searchOper = clmd.getParameter(KLayer.__INTERNAL_PROPERTY_OPER__);
+		boolean match = false;
+		if ( true
+				&& ("["+layer.getNeural().getSchema()+"]").contains(searchSchema)
+				&& ("["+layer.getNeural()+"]").contains(searchNeural)
+				&& ("["+layer.getUID()+"]").contains(searchUID)
+				&& ("["+layer.getName()+"]").contains(searchName)
+				&& ("["+layer.getOper()+"]").contains(searchOper)
+				) {
+			match = true;
+		}
+		return match;
+	}
+
+	public static boolean doCount(KCMetadata clmd) throws KException {
+		KConsole.lastInteger(0); // ** NEW ** //
+		int count = 0;
+		KSchema schema = KCFinder.findSchema(clmd);
+		KNeural neural = KCFinder.findNeural(schema,clmd);
+		for (String layerUID : neural.layers().theList().keySet()) {
+			KLayer layer = neural.layers().getLayer(layerUID);
+			if (Layer.matches(layer,clmd)) {
+				count++;
+			}
+		}
+		KConsole.feedback("Count = " + count); // ** NEW ** //
+		KConsole.lastInteger(count); // ** NEW ** //
+		return true;
+	}
+
+	public static boolean doFind(KCMetadata clmd) throws KException {
+		KConsole.lastFound(""); // ** NEW ** //
+		KSchema schema = KCFinder.findSchema(clmd);
+		KNeural neural = KCFinder.findNeural(schema,clmd);
+		for (String layerUID : neural.layers().theList().keySet()) {
+			KLayer layer = neural.layers().getLayer(layerUID);
+			if (Layer.matches(layer,clmd)) {
+				neural.layers().setCurrent(layerUID);
+				KConsole.feedback("Found: " + layerUID);
+				KConsole.lastFound(layerUID); // ** NEW ** //
+				return true;
+			}
+		}
+		KConsole.feedback("Not found");
+		KConsole.lastFound(""); // ** NEW ** //
 		return true;
 	}
 
@@ -93,20 +156,12 @@ public class Layer implements KCParser {
 		boolean found = false;
 		KSchema schema = KCFinder.findSchema(clmd);
 		KNeural neural = KCFinder.findNeural(schema, clmd);
-		String searchLayerName = clmd.getVar("layer");
-		String searchLayerOper = clmd.getParameter("oper");
-		String searchLayerAfter = clmd.getParameter("after");
 		String blok = clmd.getBlok();
 		if (blok.equals("")) throw new KException("Undefined foreach blok");
-		for (String layerName : neural.layers().theList().keySet()) {
-			KLayer layer = neural.layers().getLayer(layerName);
-			if (	("["+layer.getName()+"]").contains(searchLayerName)
-					&&
-					("["+layer.getOper()+"]").contains(searchLayerOper)
-					&&
-					( searchLayerOper.isEmpty() || (layer.getPrevLayer() != null && ("["+layer.getPrevLayer().getName()+"]").contains(searchLayerAfter)) )
-					) {
-				neural.layers().setCurrent(layerName);
+		for (String layerUID : neural.layers().theList().keySet()) {
+			KLayer layer = neural.layers().getLayer(layerUID);
+			if (Layer.matches(layer,clmd)) {
+				neural.layers().setCurrent(layerUID);
 				KConsole.runLine(blok);
 				found = true;
 			}
@@ -119,44 +174,33 @@ public class Layer implements KCParser {
 	public static boolean doList(KCMetadata clmd) throws KException {
 		boolean found = false;
 		KSchema schema = KCFinder.findSchema(clmd);
-		KNeural neural = KCFinder.findNeural(schema, clmd);
-		String searchLayerName = clmd.getVar("layer");
-		String searchLayerOper = clmd.getParameter("oper");
-		String searchLayerPrev = clmd.getParameter("prev");
-		String searchLayerNext = clmd.getParameter("next");
-		for (String layerName : neural.layers().theList().keySet()) {
-			KLayer layer = neural.layers().getLayer(layerName);
-			if (	("["+layer.getName()+"]").contains(searchLayerName)
-					&&
-					("["+layer.getOper()+"]").contains(searchLayerOper)
-					&&
-					( searchLayerOper.isEmpty() || (layer.getPrevLayer() != null && ("["+layer.getPrevLayer().getName()+"]").contains(searchLayerPrev)) )
-					&&
-					( searchLayerOper.isEmpty() || (layer.getNextLayer() != null && ("["+layer.getNextLayer().getName()+"]").contains(searchLayerNext)) )
-					) {
+		KNeural neural = KCFinder.findNeural(schema,clmd);
+		for (String layerUID : neural.layers().theList().keySet()) {
+			KLayer layer = neural.layers().getLayer(layerUID);
+			if (Layer.matches(layer,clmd)) {
 				if (!found) {
 					String output = "";
-					output = output + String.format("%-"+neural.layers().getPropertySize("_schema_")+"s", "_schema_");
+					output = output + String.format("%-"+neural.layers().getPropertySize(KTabular.__INTERNAL_PROPERTY_SCHEMA__)+"s", KLayer.__INTERNAL_PROPERTY_SCHEMA__);
 					output = output + "\t";
-					output = output + String.format("%-"+neural.layers().getPropertySize("_neural_")+"s", "_neural_");
+					output = output + String.format("%-"+neural.layers().getPropertySize(KTabular.__INTERNAL_PROPERTY_NEURAL__)+"s", KLayer.__INTERNAL_PROPERTY_NEURAL__);
 					output = output + "\t";
-					output = output + String.format("%-"+neural.layers().getPropertySize("_uid_")+"s", "_uid_");
+					output = output + String.format("%-"+neural.layers().getPropertySize(KTabular.__INTERNAL_PROPERTY_UID__)+"s", KLayer.__INTERNAL_PROPERTY_UID__);
 					output = output + "\t";
-					output = output + String.format("%-"+neural.layers().getPropertySize("_name_")+"s", "_name_");
+					output = output + String.format("%-"+neural.layers().getPropertySize(KTabular.__INTERNAL_PROPERTY_NAME__)+"s", KLayer.__INTERNAL_PROPERTY_NAME__);
 					output = output + "\t";
-					output = output + String.format("%-"+neural.layers().getPropertySize("_oper_")+"s", "_oper_");
+					output = output + String.format("%-"+neural.layers().getPropertySize(KTabular.__INTERNAL_PROPERTY_OPER__)+"s", KLayer.__INTERNAL_PROPERTY_OPER__);
 					KConsole.output(output);
 				}
 				String output = "";
-				output = output + String.format("%-"+neural.layers().getPropertySize("_schema_")+"s", layer.getProperty("_schema_"));
+				output = output + String.format("%-"+neural.layers().getPropertySize(KTabular.__INTERNAL_PROPERTY_SCHEMA__)+"s", layer.getNeural().getSchema().getName());
 				output = output + "\t";
-				output = output + String.format("%-"+neural.layers().getPropertySize("_neural_")+"s", layer.getProperty("_neural_"));
+				output = output + String.format("%-"+neural.layers().getPropertySize(KTabular.__INTERNAL_PROPERTY_TABULAR__)+"s", layer.getNeural().getName());
 				output = output + "\t";
-				output = output + String.format("%-"+neural.layers().getPropertySize("_uid_")+"s", layer.getProperty("_uid_"));
+				output = output + String.format("%-"+neural.layers().getPropertySize(KTabular.__INTERNAL_PROPERTY_UID__)+"s", layer.getUID());
 				output = output + "\t";
-				output = output + String.format("%-"+neural.layers().getPropertySize("_name_")+"s", layer.getProperty("_name_"));
+				output = output + String.format("%-"+neural.layers().getPropertySize(KTabular.__INTERNAL_PROPERTY_NAME__)+"s", layer.getName());
 				output = output + "\t";
-				output = output + String.format("%-"+neural.layers().getPropertySize("_oper_")+"s", layer.getProperty("_oper_"));
+				output = output + String.format("%-"+neural.layers().getPropertySize(KTabular.__INTERNAL_PROPERTY_OPER__)+"s", layer.getOper());
 				KConsole.output(output);
 				found = true;
 			}
@@ -167,6 +211,7 @@ public class Layer implements KCParser {
 	}
 	
 	public static boolean doSaveVar(KCMetadata clmd) throws KException {
+		KConsole.lastString(""); // ** NEW ** //
 		KSchema schema = KCFinder.findSchema(clmd);
 		KNeural neural = KCFinder.findNeural(schema, clmd);
 		KLayer layer = KCFinder.findLayer(neural, clmd);
@@ -176,16 +221,19 @@ public class Layer implements KCParser {
 		KConsole.vars().set(var,value);
 		KConsole.feedback("Variable '"+var+"' set");
 		KConsole.metadata("Variable", var, value);
+		KConsole.lastString(value); // ** NEW ** //
 		return true;
 	}
 
 	public static boolean doSelect(KCMetadata clmd) throws KException {
+		KConsole.lastString(""); // ** NEW ** //
 		KSchema schema = KCFinder.findSchema(clmd);
 		KNeural neural = KCFinder.findNeural(schema, clmd);
 		String layerName = KCFinder.which(clmd, "layer");
 		neural.layers().setCurrent(layerName);
 		KConsole.feedback("Layer '"+layerName+"' selected");
 		KConsole.metadata("Layer", layerName);
+		KConsole.lastString(layerName); // ** NEW ** //
 		return true;
 	}
 

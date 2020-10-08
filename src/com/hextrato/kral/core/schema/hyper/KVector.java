@@ -16,14 +16,14 @@ public class KVector extends AMetaNamedObject {
 
 	public KVector (KSpace space,String values) throws KException {
 		if (space == null) throw new KException("Invalid null space");
-		this.properties().declare("_schema_", "String");
-		this.properties().set("_schema_", space.getSchema().getName());
+		this.properties().declare(__INTERNAL_PROPERTY_SCHEMA__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SCHEMA__, space.getSchema().getName());
 		this._space = space;
-		this.properties().declare("_space_", "String");
-		this.properties().set("_space_", space.getName());
+		this.properties().declare(__INTERNAL_PROPERTY_SPACE__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SPACE__, space.getName());
 		//this._datatype = datatype;
 		this._vector = new DVector(this._space.getDims());
-		this.properties().declare("_values_", "Vector");
+		this.properties().declare(__INTERNAL_PROPERTY_VALUES__, "Vector");
 		this.setValues(values);
 	}
 	
@@ -34,7 +34,7 @@ public class KVector extends AMetaNamedObject {
 		return (this._vector == null)?0:this._vector.length();
 	}
 	public void setValues(String values) throws KException { 
-		this.properties().set("_values_", values);
+		this.properties().set(__INTERNAL_PROPERTY_VALUES__, values);
 		this._vector.setValues(values);
 		if (this._vector.length() != this._space.getDims()) {
 			throw new KException("Invalid vector dim ["+this._vector.length()+"] in space dim ["+this._space.getDims()+"]");

@@ -9,7 +9,7 @@ public class TripleShow implements KCParser {
 	public void setContext (KCMetadata clmd) { clmd.setContext(""); }
 
 	public boolean exec(KCMetadata clmd) throws KException {
-		return Triple.doSelect(clmd);
+		return Triple.doShow(clmd);
 	}
 }
 

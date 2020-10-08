@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.hextrato.kral.console.KConsole;
 import com.hextrato.kral.core.KRAL;
 import com.hextrato.kral.core.data.abstracts.AMetaNamedObject;
 import com.hextrato.kral.core.data.struct.DVariableSet;
@@ -16,6 +17,7 @@ import com.hextrato.kral.core.schema.graph.KEntity;
 import com.hextrato.kral.core.schema.graph.KGraph;
 import com.hextrato.kral.core.schema.graph.KRelation;
 import com.hextrato.kral.core.schema.graph.KTriple;
+import com.hextrato.kral.core.schema.graph.KTripleSet;
 import com.hextrato.kral.core.schema.graph.KType;
 import com.hextrato.kral.core.schema.graph.KTypeSet;
 import com.hextrato.kral.core.util.exception.KException;
@@ -31,19 +33,18 @@ public class KER extends AMetaNamedObject {
 		this._graph = graph;
 		if (graph == null) 
 			throw new KException("Invalid null graph");
-			// this.properties().set("graph", "");
 		else
-			this.properties().set("graph", graph.getName());
+			this.properties().set(__INTERNAL_PROPERTY_GRAPH__, graph.getName());
 	}
 	
 	public KER (KSchema schema) throws KException {
 		if (schema == null) throw new KException("Invalid null schema");
 		// this._name = name;
 		this._schema = schema;
-		this.properties().declare("_schema_", "String");
-		this.properties().set("_schema_", schema.getName());
-		this.properties().declare("graph", "String");
-		this.properties().set("graph", "");
+		this.properties().declare(__INTERNAL_PROPERTY_SCHEMA__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SCHEMA__, schema.getName());
+		this.properties().declare(__INTERNAL_PROPERTY_GRAPH__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_GRAPH__, "");
 		this.properties().declare("dimensions", "Integer");
 		this.properties().set("dimensions", Integer.toString(this.getDimensions()));
 		this.properties().declare("learning_rate", "Double");
@@ -78,6 +79,13 @@ public class KER extends AMetaNamedObject {
 		this.properties().set("functional_negative_rate", Double.toString(this.getFunctionalNegativeRate()));
 		this.properties().declare("functional_negative_max", "Integer");
 		this.properties().set("functional_negative_max", Integer.toString(this.getFunctionalNegativeMax()));
+		this.properties().declare("cluster.clusteracy", "Double");
+		//this.properties().declare("cluster.clusteracy_norm", "Double");
+		this.properties().declare("cluster.max_radius", "Double");
+		this.properties().declare("cluster.avg_radius", "Double");
+		this.properties().declare("cluster.min_distance", "Double");
+		this.properties().declare("cluster.max_distance", "Double");
+		this.properties().declare("cluster.avg_distance", "Double");
 	}
 
 	private KEmbedSet _embedSet = new KEmbedSet(this);
@@ -190,7 +198,9 @@ public class KER extends AMetaNamedObject {
 		// disjoint_margin
 		// this.setDisjointMargin( nfactor / 4 );
 		// this.setDisjointMargin( nfactor / 1.0 );
-		this.setLearningMargin( Math.sqrt(this._dimensions * 2) / 10 );
+		
+		// this.setLearningMargin( Math.sqrt(this._dimensions * 2) / 10 );
+		this.setLearningMargin( Math.log10(this._dimensions) / 4 );
 		this.setDisjointMargin( Math.log10(this._dimensions) );
 	}
 
@@ -410,7 +420,7 @@ public class KER extends AMetaNamedObject {
 							for (String entityEntry_B : _graph.entities().theList().keySet()) {
 								KEntity entity_B = _graph.entities().getEntity(entityEntry_B);
 								// check Entity B != entity A AND B type only (split later) ?
-								if (!entity_B.getName().equals(entity_A.getName()) && entity_B.getType().equals(type.getName())) {
+								if ( entity_B.getType().equals(type.getName()) && entity_B.getName().compareTo(entity_A.getName()) > 0 ) {
 									// debug("  B = " + entity_A.getName());
 									// do A and B have embed ? 
 									if (this.embeds().getEmbed(entity_A.getName()) != null && this.embeds().getEmbed(entity_B.getName()) != null ) {
@@ -425,11 +435,13 @@ public class KER extends AMetaNamedObject {
 										aVec.moveAwayFrom(bVec, this.getDisjointFactor(), this.getDisjointMargin());
 										
 										// debug("AVec bn= " + aVec.toString() + " => "+aVec.magnitude());
+										// KEEP TO THE END OF EACH DISJOINT TYPE CYCLE ? NO ?// 
 										aEmb.normalize();
 										// check Entity B split ?
 										if ( entity_B.getSplit().getName().equals(split.getName()) ) {
 											bVec.moveAwayFrom(aVec, this.getDisjointFactor(), this.getDisjointMargin());
 											// debug("BVec bn= " + bVec.toString() + " => "+bVec.magnitude());
+											// KEEP TO THE END OF EACH DISJOINT TYPE CYCLE ? NO ?//  
 											bEmb.normalize();
 										}
 										// debug("AVec n = " + aVec.toString() + " => "+aVec.magnitude());
@@ -437,6 +449,13 @@ public class KER extends AMetaNamedObject {
 									}
 								}
 							}
+						}
+					}
+					for (String entityEntry_A : _graph.entities().theList().keySet()) {
+						KEntity entity_A = _graph.entities().getEntity(entityEntry_A);
+						if (entity_A.getType().equals(type.getName()) && entity_A.getSplit().getName().equals(split.getName())) {
+							KEmbed aEmb = this.embeds().getEmbed(entity_A.getName());
+							aEmb.normalize();
 						}
 					}
 				}
@@ -457,6 +476,21 @@ public class KER extends AMetaNamedObject {
 					this.learn(triple);
 				}
 			}
+			
+			// ...
+			// regularization
+			/*
+			for (String entityEntry : _graph.entities().theList().keySet()) {
+				// get Entity
+				KEntity entity = _graph.entities().getEntity(entityEntry);
+				// check Entity split
+				if (entity.getSplit().getName().equals(split.getName())) {
+					KEmbed entityEmbed = this.embeds().getEmbed(entity.getName());
+					entityEmbed.normalize();
+				}
+			}
+			*/
+			
 		}
 		KRAL.message("Split "+split.getName()+" repeated "+repeatTimes+" learning cycle(s) for "+tripleCount+" triples");
 	}
@@ -780,8 +814,12 @@ public class KER extends AMetaNamedObject {
 			KTriple triple = _scoringGraph.triples().getTriple(tripleUID);
 			if ( ( triple.getRela().getName().equals(relation.getName()) || relation.getName().equals("*") || relation.getName().equals("%") )
 					&& triple.getSplit().getName().equals(_scoringSplit) && triple.getPola() == true) {
+				if (triple.getHead().getSplit().getName().equals("_FIX_") || triple.getTail().getSplit().getName().equals("_FIX_")) {
+					// Nothing
+				} else {
 					this._relScoreCountTriple ++;
 					this.evaluate(triple);
+				}
 			}
 		}
 
@@ -839,10 +877,69 @@ public class KER extends AMetaNamedObject {
 		
 		this.setScore(_scoringRoot+"set"+".triple_count", Double.toString(_setScoreCountTriple));
 		this.setScore(_scoringRoot+"set"+".mrr", Double.toString(_setScoreMRR));
+		KConsole.message(_scoringRoot+"set"+".mrr" + " = " + Double.toString(_setScoreMRR));
 		this.setScore(_scoringRoot+"set"+".mrank", Double.toString(_setScoreMRank));
+		KConsole.message(_scoringRoot+"set"+".mrank" + " = " + Double.toString(_setScoreMRank));
 		for (int hh=0; hh<HITS_AT.length; hh++) {
 			this.setScore(_scoringRoot+"set"+".hits@"+Integer.toString(HITS_AT[hh]), Double.toString(_setScoreHits[hh]));
+			KConsole.message(_scoringRoot+"set"+".hits@"+Integer.toString(HITS_AT[hh]) + " = " + Double.toString(_setScoreHits[hh]));
 		}
 	}
+
+	// public void cluster(int kClusters, String targetType, int minCount) throws KException {
+	public void cluster(String targetSplit, int kClusters, String targetType) throws KException {
+		//System.out.println("k="+k);
+		//System.out.println("min="+min);
+		//System.out.println("type="+type);
+		if (this.getGraph() == null) {
+			KConsole.error("Undefined graph for ker ["+this.getName()+"]");
+		}
+		if (targetSplit == null) targetSplit = "";
+		if (targetSplit.equals("")) targetSplit = "*";
+		//
+		// create list of type entities with embedding values
+		// AND
+		// create list of (feature,values) to count
+		//
+
+		double clusteracy = 0.0;
+		
+		for (int i = 0; i < 1; i++) {
+			KCluster cluster = new KCluster(this.getGraph(), this.embeds(), this.getDimensions(), targetSplit, targetType);
+			//cluster.dumpStats();
+			//cluster.dumpEmbed();
+			cluster.knn(kClusters); 
+			double score = cluster.evaluate(); // (minCount);
+			if (score > clusteracy) clusteracy = score;
+			//cluster.dumpClust();
+
+			this.properties().set("cluster.clusteracy", Double.toString(clusteracy));
+			// this.properties().set("cluster.clusteracy_norm", Double.toString(cluster.getNormClusteracy()));
+			this.properties().set("cluster.max_radius", cluster.properties().get("max_radius"));
+			this.properties().set("cluster.avg_radius", cluster.properties().get("avg_radius"));
+			this.properties().set("cluster.min_distance", cluster.properties().get("min_distance"));
+			this.properties().set("cluster.max_distance", cluster.properties().get("max_distance"));
+			this.properties().set("cluster.avg_distance", cluster.properties().get("avg_distance"));
+			this.setScore(targetSplit+".cluster.clusteracy."+kClusters, Double.toString(clusteracy));
+			// this.setScore(targetSplit+".cluster.clusteracy_norm."+kClusters, Double.toString(cluster.getNormClusteracy()));
+			this.setScore(targetSplit+".cluster.max_radius."+kClusters, cluster.properties().get("max_radius"));
+			this.setScore(targetSplit+".cluster.avg_radius."+kClusters, cluster.properties().get("avg_radius"));
+			this.setScore(targetSplit+".cluster.min_distance."+kClusters, cluster.properties().get("min_distance"));
+			this.setScore(targetSplit+".cluster.max_distance."+kClusters, cluster.properties().get("max_distance"));
+			this.setScore(targetSplit+".cluster.avg_distance."+kClusters, cluster.properties().get("avg_distance"));
+			KConsole.message( "cluster.MAX_RADIUS = " + cluster.properties().get("max_radius"));
+			KConsole.message( "cluster.AVG_RADIUS = " + cluster.properties().get("avg_radius"));
+			KConsole.message( "cluster.MIN_DISTANCE = " + cluster.properties().get("min_distance"));
+			KConsole.message( "cluster.MAX_DISTANCE = " + cluster.properties().get("max_distance"));
+			KConsole.message( "cluster.AVG_DISTANCE = " + cluster.properties().get("avg_distance"));
+			//cluster.dumpEmbed();
+			cluster.dumpClust();
+			//cluster.dumpStats();
+			KConsole.message( "cluster.CLUSTERACY = " + clusteracy);
+			KConsole.lastDouble(clusteracy);
+		}
+
+	}
+	
 	
 }

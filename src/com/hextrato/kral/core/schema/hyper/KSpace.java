@@ -19,8 +19,8 @@ public class KSpace extends AMetaNamedObject {
 		if (schema == null) throw new KException("Invalid null schema");
 		if (dims < 1) throw new KException("Invalid dimensionality ["+dims+"]");
 		this._schema = schema;
-		this.properties().declare("_schema_", "String");
-		this.properties().set("_schema_", schema.getName());
+		this.properties().declare(__INTERNAL_PROPERTY_SCHEMA__, "String");
+		this.properties().set(__INTERNAL_PROPERTY_SCHEMA__, schema.getName());
 		this.properties().declare("_dims_", "Integer");
 		this.properties().set("_dims_", Integer.toString(dims));
 	}

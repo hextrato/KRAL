@@ -1,5 +1,5 @@
 package com.hextrato.kral.core;
-
+	
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -97,6 +97,7 @@ public abstract class KRAL {
 		last().declare("_last.integer","Integer");
 		last().declare("_last.vector","Vector");
 		last().declare("_last.string","String");
+		last().declare("_last.found","String");
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -         
@@ -118,6 +119,10 @@ public abstract class KRAL {
 
 	public static void lastString(String value) throws KException {
 		last().set("_last.string",value);
+	}
+
+	public static void lastFound(String uid) throws KException {
+		last().set("_last.found",uid);
 	}
 
 	public static void lastVector(DVector value) throws KException {

@@ -8,7 +8,9 @@ import com.hextrato.kral.core.util.exception.KException;
 public class Exit implements KCParser {
 
 	public boolean exec(KCMetadata clmd) throws KException {
+		KConsole.feedback("");
 		KConsole.feedback("Goodbye!");
+		KConsole.feedback("");
 		System.exit(0);
 		return true;
 	}
